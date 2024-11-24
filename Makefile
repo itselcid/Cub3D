@@ -1,9 +1,9 @@
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 
-SRC = cub3d.c
+SRC = cub3d.c player_action.c get_next_line.c get_next_line_utils.c init_data.c
 OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ)
