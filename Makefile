@@ -1,13 +1,9 @@
 NAME = cub3D
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 
-<<<<<<< HEAD
-SRC = cub3d.c player_action.c get_next_line.c get_next_line_utils.c init_data.c
-=======
 SRC =cub3d.c
->>>>>>> 096a364 (Add initial game setup, map rendering, and player movement logic)
 OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ)
