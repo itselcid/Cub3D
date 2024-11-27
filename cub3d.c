@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 int map[MAP_ROWS][MAP_COLS] = {
@@ -18,7 +17,7 @@ int map[MAP_ROWS][MAP_COLS] = {
 
 t_game game;
 
-void my_mlx_pixel_put(t_game *game, int x, int y, int color)
+void ft_mlx_pixel_put(t_game *game, int x, int y, int color)
 {
     char *dst;
 
@@ -28,7 +27,7 @@ void my_mlx_pixel_put(t_game *game, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-void draw_line(t_game *game, int start_x, int start_y, int end_x, int end_y, int color)
+void ft_draw_line(t_game *game, int start_x, int start_y, int end_x, int end_y, int color)
 {
     double distance_x = end_x - start_x;
     double distance_y = end_y - start_y;
@@ -48,14 +47,14 @@ void draw_line(t_game *game, int start_x, int start_y, int end_x, int end_y, int
     int step = 0;
     while (step <= total_steps)
     {
-        my_mlx_pixel_put(game, current_x, current_y, color);
+        ft_mlx_pixel_put(game, current_x, current_y, color);
         current_x += x_increment;
         current_y += y_increment;
         step++;
     }
 }
 
-int initializeWindow(t_game *game)
+int ft_init_window(t_game *game)
 {
     game->mlx = mlx_init();
     if (!game->mlx)
@@ -74,46 +73,44 @@ int initializeWindow(t_game *game)
     return 1;
 }
 
-void setup()
+void ft_initialize()
 {
     game.player.x = WINDOW_WIDTH / 2;
     game.player.y = WINDOW_HEIGHT / 2;
     game.player.width = 1;
     game.player.height = 1;
-    game.player.turnDirection = 0;
-    game.player.walkDirection = 0;
-    game.player.rotationAngle = PI / 2;
-    game.player.walkSpeed = 30;
-    game.player.turnSpeed = 45 * (PI / 180);
+    game.player.turn_direction = 0;
+    game.player.walk_direction = 0;
+    game.player.rotation_angle = PI / 2;
+    game.player.walk_speed = 1;           
+    game.player.turn_speed = 0.02;        
 }
 
-int mapHasWallAt(float x, float y)
+void ft_move_player()                  
 {
-    if (x < 0 || x > WINDOW_WIDTH || y < 0 || y > WINDOW_HEIGHT)
+    float   move_step;
+    float   new_x;
+    float   new_y;
+    int     map_x;
+    int     map_y;
+
+    game.player.rotation_angle += game.player.turn_direction * game.player.turn_speed;
+    move_step = game.player.walk_direction * game.player.walk_speed;
+
+    new_x = game.player.x + cos(game.player.rotation_angle) * move_step;
+    new_y = game.player.y + sin(game.player.rotation_angle) * move_step;
+
+    map_x = (int)(new_x / SQUARE_SIZE);
+    map_y = (int)(new_y / SQUARE_SIZE);
+
+    if (!map[map_y][map_x])
     {
-        return 1;
-    }
-    int mapGridIndexX = floor(x / SQUARE_SIZE);
-    int mapGridIndexY = floor(y / SQUARE_SIZE);
-    return map[mapGridIndexY][mapGridIndexX] != 0;
-}
-
-void move_player(float delta_time)
-{
-    game.player.rotationAngle += game.player.turnDirection * game.player.turnSpeed * delta_time;
-    float moveStep = game.player.walkDirection * game.player.walkSpeed * delta_time;
-
-    float newPlayerX = game.player.x + cos(game.player.rotationAngle) * moveStep;
-    float newPlayerY = game.player.y + sin(game.player.rotationAngle) * moveStep;
-
-    if (!mapHasWallAt(newPlayerX, newPlayerY))
-    {
-        game.player.x = newPlayerX;
-        game.player.y = newPlayerY;
+        game.player.x = new_x;
+        game.player.y = new_y;
     }
 }
 
-void draw_player()
+void ft_draw_player()
 {
     int x = game.player.x;
     int y = game.player.y;
@@ -123,43 +120,43 @@ void draw_player()
         int j = -2;
         while (j < 2)
         {
-            my_mlx_pixel_put(&game, x + i, y + j, 0xFFFFFF);
+            ft_mlx_pixel_put(&game, x + i, y + j, 0xFFFFFF);
             j++;
         }
         i++;
     }
 
-    draw_line(
+    ft_draw_line(
         &game,
         x,
         y,
-        x + cos(game.player.rotationAngle) * 40,
-        y + sin(game.player.rotationAngle) * 40,
+        x + cos(game.player.rotation_angle) * 40,
+        y + sin(game.player.rotation_angle) * 40,
         0xFF0000);
 }
 
-void draw_map()
+void ft_draw_map()
 {
-    int squareColor;
+    int square_color;
     int i = 0;
     while (i < MAP_ROWS)
     {
         int j = 0;
         while (j < MAP_COLS)
         {
-            int squareX = j * SQUARE_SIZE;
-            int squareY = i * SQUARE_SIZE;
+            int square_x = j * SQUARE_SIZE;
+            int square_y = i * SQUARE_SIZE;
             if (map[i][j] != 0)
-                squareColor = 0xFFFFFF;
+                square_color = 0xFFFFFF;
             else
-                squareColor = 0x000000;
+                square_color = 0x000000;
             int y = 0;
             while (y < SQUARE_SIZE)
             {
                 int x = 0;
                 while (x < SQUARE_SIZE)
                 {
-                    my_mlx_pixel_put(&game, squareX + x, squareY + y, squareColor);
+                    ft_mlx_pixel_put(&game, square_x + x, square_y + y, square_color);
                     x++;
                 }
                 y++;
@@ -170,49 +167,47 @@ void draw_map()
     }
 }
 
-int key_press(int keycode)
+int ft_key_press(int keycode)
 {
     if (keycode == 65307)
         exit(0);
     if (keycode == 65362)
-        game.player.walkDirection = +1;
+        game.player.walk_direction = +1;
     if (keycode == 65364)
-        game.player.walkDirection = -1;
+        game.player.walk_direction = -1;
     if (keycode == 65363)
-        game.player.turnDirection = +1;
+        game.player.turn_direction = +1;
     if (keycode == 65361)
-        game.player.turnDirection = -1;
+        game.player.turn_direction = -1;
     return 0;
 }
 
-int key_release(int keycode)
+int ft_key_release(int keycode)
 {
     if (keycode == 65362 || keycode == 65364)
-        game.player.walkDirection = 0;
+        game.player.walk_direction = 0;
     if (keycode == 65363 || keycode == 65361)
-        game.player.turnDirection = 0;
+        game.player.turn_direction = 0;
     return 0;
 }
 
-int game_loop(t_game *game)
+int ft_game_loop(t_game *game)
 {
-    float delta_time = 1.0 / FPS;
-
-    move_player(delta_time);
-    draw_map();
-    draw_player();
+    ft_move_player();                  
+    ft_draw_map();
+    ft_draw_player();
     mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
     return 0;
 }
 
 int main()
 {
-    if (!initializeWindow(&game))
+    if (!ft_init_window(&game))
         return 1;
-    setup();
-    mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-    mlx_hook(game.win, 3, 1L << 1, key_release, &game);
-    mlx_loop_hook(game.mlx, (int (*)(void *))game_loop, &game);
+    ft_initialize();
+    mlx_hook(game.win, 2, 1L << 0, ft_key_press, &game);
+    mlx_hook(game.win, 3, 1L << 1, ft_key_release, &game);
+    mlx_loop_hook(game.mlx, (int (*)(void *))ft_game_loop, &game);
     mlx_loop(game.mlx);
 
     return 0;
