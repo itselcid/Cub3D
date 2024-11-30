@@ -6,33 +6,12 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/11/24 22:32:36 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:01:19 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*ft_strdup(char *src)
-{
-	int				i;
-	char			*d;
-	unsigned char	*s;
-	size_t			j;
-
-	j = ft_strlen(src);
-	s = (unsigned char *)src;
-	i = 0;
-	d = malloc(j + 1);
-	if (!d)
-		return (0);
-	while (s[i])
-	{
-		d[i] = s[i];
-		i++;
-	}
-	d[i] = '\0';
-	return (d);
-}
 int clacule_height(char *file)
 {
     int fd;
@@ -99,7 +78,7 @@ int	key_handler(int key_code, t_data *data)
 {
 	if (key_code == 65307) // for ESC
 		close_window(data);
-    //if() handling rotation with 0,5 or  
+	// if(key_code == 
 	if (key_code == 13)
         data->down = 1;
 	if (key_code == 1)

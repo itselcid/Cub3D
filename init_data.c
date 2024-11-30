@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/11/24 22:42:04 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/11/29 15:28:48 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,51 @@ void	init_data(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 	{
-		printf("Error\n");
-		exit(0);
+		printf("Error: MLX initialization failed\n");
+		exit(1);
 	}
-    data->img = malloc(sizeof(t_image));
-    if (!data->img)
+	data->img = malloc(sizeof(t_image));
+	if (!data->img)
 	{
-		printf("Error\n");
-		exit(0);
+		printf("Error: Failed to allocate image structure\n");
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		exit(1);
 	}
-    data->img->height = 0;
-    data->img->width = 0;
-    data->img->img0 = NULL;
-    data->img->img1 = NULL;
-    data->h = 0;
+	ft_memset(data->img, 0, sizeof(t_image));
+	data->player = malloc(sizeof(t_player));
+	if (!data->player)
+	{
+		printf("Error: Failed to allocate player structure\n");
+		free(data->img);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		exit(1);
+	}
+	ft_memset(data->player, 0, sizeof(t_player));
+	data->player->player_x = 0;
+	data->player->player_y = 0;
+	//data->player->speed_palyer = 1;
+	data->map = NULL;
+	data->h = 0;
 	data->up = 0;
 	data->down = 0;
 	data->left = 0;
 	data->right = 0;
+}
+
+void	init_image(t_data *data)
+{
+	if (!data->map)
+		return ;
+	data->img->img_map = mlx_new_image(data->mlx, data->img->width,
+			data->img->height);
+	if (!data->img->img_map)
+	{
+		printf("Error creating image\n");
+		exit(0);
+	}
+	data->img->addr = mlx_get_data_addr(data->img->img_map,
+			&data->img->bits_per_pixel, &data->img->line_length,
+			&data->img->endian);
 }
