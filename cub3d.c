@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:41 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/01 20:27:37 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/01 20:45:49 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,77 +40,77 @@ void	map(t_data *data, char *file)
 	put_color_with_pixels(data);
 }
 
-void	move_player(t_data *data)
+// void	move_player(t_data *data)
+// {
+// 	if (data->up)
+// 	{
+// 		data->player->player_x += data->player->player_direction_x * MOVE_SPEED;
+// 		data->player->player_y += data->player->player_direction_y * MOVE_SPEED;
+// 	}
+// 	else if (data->down)
+// 	{
+// 		data->player->player_x -= data->player->player_direction_x * MOVE_SPEED;
+// 		data->player->player_y -= data->player->player_direction_y * MOVE_SPEED;
+// 	}
+// 	else if (data->left)
+// 	{
+// 		data->player->player_x -= data->player->player_direction_y * MOVE_SPEED;
+// 		data->player->player_y += data->player->player_direction_x * MOVE_SPEED;
+// 	}
+// 	else if (data->right)
+// 	{
+// 		data->player->player_x += data->player->player_direction_y * MOVE_SPEED;
+// 		data->player->player_y -= data->player->player_direction_x * MOVE_SPEED;
+// 	}
+// }
+
+void move_up(t_data *data)
 {
-	if (data->up)
-	{
-		data->player->player_x += data->player->player_direction_x * MOVE_SPEED;
-		data->player->player_y += data->player->player_direction_y * MOVE_SPEED;
-	}
-	else if (data->down)
-	{
-		data->player->player_x -= data->player->player_direction_x * MOVE_SPEED;
-		data->player->player_y -= data->player->player_direction_y * MOVE_SPEED;
-	}
-	else if (data->left)
-	{
-		data->player->player_x -= data->player->player_direction_y * MOVE_SPEED;
-		data->player->player_y += data->player->player_direction_x * MOVE_SPEED;
-	}
-	else if (data->right)
-	{
-		data->player->player_x += data->player->player_direction_y * MOVE_SPEED;
-		data->player->player_y -= data->player->player_direction_x * MOVE_SPEED;
-	}
+    double new_x = data->player->player_x + data->player->player_direction_x * MOVE_SPEED;
+    double new_y = data->player->player_y + data->player->player_direction_y * MOVE_SPEED;
+
+    if (data->map[(int)new_x][(int)data->player->player_y] == '0')
+        data->player->player_x = new_x;
+    if (data->map[(int)data->player->player_x][(int)new_y] == '0')
+        data->player->player_y = new_y;
 }
 
-void	move_forward(t_data *data)
+void move_down(t_data *data)
 {
-	if (data->map[(int)(data->player->player_x + data->player->player_direction_x
-			* ANGLE_TO_ROTATE)][(int)(data->player->player_y)] == 0)
-		data->player->player_x += data->player->player_direction_x
-			* ANGLE_TO_ROTATE;
-	else if (data->map[(int)(data->player->player_x)][(int)(data->player->player_y
-			+ data->player->player_direction_y * ANGLE_TO_ROTATE)] == 0)
-		data->player->player_y += data->player->player_direction_y
-			* ANGLE_TO_ROTATE;
+    double new_x = data->player->player_x - data->player->player_direction_x * MOVE_SPEED;
+    double new_y = data->player->player_y - data->player->player_direction_y * MOVE_SPEED;
+
+    if (data->map[(int)new_x][(int)data->player->player_y] == '0')
+        data->player->player_x = new_x;
+    if (data->map[(int)data->player->player_x][(int)new_y] == '0')
+        data->player->player_y = new_y;
 }
 
-void	move_backward(t_data *data)
+void move_left(t_data *data)
 {
-	if (data->map[(int)(data->player->player_x - data->player->player_direction_x
-			* ANGLE_TO_ROTATE)][(int)(data->player->player_y)] == 0)
-		data->player->player_x -= data->player->player_direction_x
-			* ANGLE_TO_ROTATE;
-	else if (data->map[(int)(data->player->player_x)][(int)(data->player->player_y
-			- data->player->player_direction_y * ANGLE_TO_ROTATE)] == 0)
-		data->player->player_y -= data->player->player_direction_y
-			* ANGLE_TO_ROTATE;
+    double new_x = data->player->player_x - data->player->plane_x * MOVE_SPEED;
+    double new_y = data->player->player_y - data->player->plane_y * MOVE_SPEED;
+
+    if (data->map[(int)new_x][(int)data->player->player_y] == '0')
+        data->player->player_x = new_x;
+    if (data->map[(int)data->player->player_x][(int)new_y] == '0')
+        data->player->player_y = new_y;
 }
 
-void	strafe_left(t_data *data)
+void move_right(t_data *data)
 {
-	if (data->map[(int)(data->player->player_x - data->player->plane_x
-			* ANGLE_TO_ROTATE)][(int)(data->player->player_y)] == 0)
-		data->player->player_x -= data->player->plane_x * ANGLE_TO_ROTATE;
-	else if (data->map[(int)(data->player->player_x)][(int)(data->player->player_y
-			- data->player->plane_y * ANGLE_TO_ROTATE)] == 0)
-		data->player->player_y -= data->player->plane_y * ANGLE_TO_ROTATE;
-}
+    double new_x = data->player->player_x + data->player->plane_x * MOVE_SPEED;
+    double new_y = data->player->player_y + data->player->plane_y * MOVE_SPEED;
 
-void	strafe_right(t_data *data)
-{
-	if (data->map[(int)(data->player->player_x + data->player->plane_x
-			* ANGLE_TO_ROTATE)][(int)(data->player->player_y)] == 0)
-		data->player->player_x += data->player->plane_x * ANGLE_TO_ROTATE;
-	else if (data->map[(int)(data->player->player_x)][(int)(data->player->player_y
-			+ data->player->plane_y * ANGLE_TO_ROTATE)] == 0)
-		data->player->player_y += data->player->plane_y * ANGLE_TO_ROTATE;
+    if (data->map[(int)new_x][(int)data->player->player_y] == '0')
+        data->player->player_x = new_x;
+    if (data->map[(int)data->player->player_x][(int)new_y] == '0')
+        data->player->player_y = new_y;
 }
 
 int	game_loop(t_data *data)
 {
-	move_player(data);
+	//move_player(data);
 	put_color_with_pixels(data);
 	draw_player(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_map, 0, 0);
@@ -122,13 +122,13 @@ int	key_handler(int key_code, t_data *data)
 	if (key_code == ESC)
 		close_window(data);
 	if (key_code == DOWN) // s
-		move_backward(data);
+		move_down(data);
 	if (key_code == UP) // w
-		move_forward(data);
+		move_up(data);
 	if (key_code == LEFT) // a
-		strafe_left(data);
+		move_left(data);
 	if (key_code == RIGHT) // d
-		strafe_right(data);
+		move_right(data);
 	return (0);
 }
 
