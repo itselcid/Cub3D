@@ -2,23 +2,31 @@
 # define CUB3D_H
 
 # include <fcntl.h>
+# include <math.h>
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
 # define SQUAR_SIZE 50
-#define ROTATION_SPEED 0.1
+# define MOVE_SPEED 0.1
+# define ESC 65307
+# define UP 119
+# define DOWN 115
+# define LEFT 97
+# define RIGHT 100
+# define ANGLE_TO_ROTATE 0.1
 
 typedef struct s_palyer
 {
 	float		player_x;
 	float		player_y;
-	float		palyer_dir_x;
-	float		palyer_dir_y;
+	float		player_direction_x;
+	float		player_direction_y;
+	float		plane_x;
+	float		plane_y;
 }				t_player;
 
 typedef struct s_image
@@ -44,6 +52,8 @@ typedef struct s_data
 	int			down;
 	int			left;
 	int			right;
+	int			rotate_left;
+	int			rotate_right;
 	t_player	*player;
 	t_image		*img;
 }				t_data;
