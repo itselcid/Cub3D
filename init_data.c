@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/01 19:02:29 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:45:37 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	init_data(t_data *data)
 	ft_memset(data->player, 0, sizeof(t_player));
 	data->player->player_x = 0;
 	data->player->player_y = 0;
-	data->player->player_direction_x = 1.0;
+	data->player->player_direction_x = 1.0;//direction vector 
 	data->player->player_direction_y = 0.0;
 
-	data->player->plane_x = 0.0; // Perpendicular to direction
+	data->player->plane_x = 0.0; // the camera is Perpendicular to direction
 	data->player->plane_y = 0.66;
 	data->map = NULL;
 	data->h = 0;

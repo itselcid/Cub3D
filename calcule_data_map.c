@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_action.c                                    :+:      :+:    :+:   */
+/*   calcule_data_map.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/01 19:11:42 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:13:05 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,29 @@ int	calcule_width(char *line)
 		i++;
 	return (i);
 }
+void	position_player_and_int_map(t_data *data)
+{
+	int	y;
+	int	x;
 
+	y = 0;
+	while (y < data->h)
+	{
+		x = 0;
+		while (data->map[y][x] != '\0')
+		{
+			if (data->map[y][x] == 'N')
+			{
+				data->player->player_x = x;
+				data->player->player_y = y;
+				data->map[y][x] = '0'; // Replace 'N' with '0' in mini_map
+				break ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
 void	malloc_map_2D(char *filename, t_data *data)
 {
 	int		fd;
@@ -65,6 +87,7 @@ void	malloc_map_2D(char *filename, t_data *data)
 	}
 	data->map[i] = NULL;
 	close(fd);
+	position_player_and_int_map(data);
 }
 
 int	close_window(t_data *data)
@@ -74,21 +97,17 @@ int	close_window(t_data *data)
 	return (0);
 }
 
-// int	key_handler(int key_code, t_data *data)
-// {
-// 	if (key_code == ESC)
-// 		close_window(data);
-// 	if (key_code == DOWN)
-// 		data->down = 1;
-// 	if (key_code == UP)
-// 		data->up = 1;
-// 	if (key_code == LEFT)
-// 		data->left = 1;
-// 	if (key_code == RIGHT)
-// 		data->right = 1;
-// 	// if (key_code == ROTATE_LEFT)
-// 	// 	data->rotate_left = 1;
-// 	// if (key_code == ROTATE_RIGHT)
-// 	// 	data->rotate_right = 1;
-// 	return (0);
-// }
+void	map(t_data *data, char *file)
+{
+	malloc_map_2D(file, data);
+	data->img->width = ft_strlen_not_newline(data->map[0]) * SQUAR_SIZE;
+	data->img->height = data->h * SQUAR_SIZE;
+	data->win = mlx_new_window(data->mlx, data->img->width, data->img->height,
+			"cub3D");
+	if (!data->win)
+	{
+		printf("Error: Failed to create window\n");
+		exit(0);
+	}
+	init_image(data);
+}

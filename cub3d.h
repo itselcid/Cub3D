@@ -1,6 +1,6 @@
 #ifndef CUB3D_H
 # define CUB3D_H
-
+# define _USE_MATH_DEFINES
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
@@ -17,7 +17,9 @@
 # define DOWN 115
 # define LEFT 97
 # define RIGHT 100
-# define ANGLE_TO_ROTATE 0.1
+# define ANGLE_TO_ROTATE 1.1
+# define ROTATE_RIGHT 65363
+# define ROTATE_LEFT 65361
 
 typedef struct s_palyer
 {
@@ -32,8 +34,6 @@ typedef struct s_palyer
 typedef struct s_image
 {
 	void		*img_map;
-	void		*img1;
-	void		*img2;
 	char		*addr;
 	int			bits_per_pixel;
 	int			line_length;
@@ -74,5 +74,13 @@ void			init_image(t_data *data);
 int				put_color_with_pixels(t_data *data);
 void			draw_player(t_data *data);
 void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void			rotate_direction_and_camera_right(t_data *data);
+void			rotate_direction_and_camera_left(t_data *data);
+void			move_down(t_data *data);
+void			move_up(t_data *data);
+void			move_left(t_data *data);
+void			move_right(t_data *data);
+
+void			map(t_data *data, char *file);
 
 #endif
