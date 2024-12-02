@@ -17,7 +17,7 @@
 # define DOWN 115
 # define LEFT 97
 # define RIGHT 100
-# define ANGLE_TO_ROTATE 1.1
+# define ANGLE_TO_ROTATE 1.01
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
 

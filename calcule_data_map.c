@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/02 18:13:05 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:31:28 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	position_player_and_int_map(t_data *data)
 		y++;
 	}
 }
+
 void	malloc_map_2D(char *filename, t_data *data)
 {
 	int		fd;

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/02 16:48:51 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:18:39 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
-
-// void draw_line_view_of_my_direction(t_data *data)
-// {
-// 	int direction_color = 0x00FF00;
-// 	int size_line = 32;
-// }
 
 void	draw_player(t_data *data)
 {
@@ -50,7 +44,6 @@ void	draw_player(t_data *data)
 		}
 		y++;
 	}
-	//draw_line_view_of_my_direction(data);
 }
 
 int	put_color_with_pixels(t_data *data)
