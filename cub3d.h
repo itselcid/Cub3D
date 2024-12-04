@@ -20,6 +20,7 @@
 #define FOV_ANGLE (60 * (PI / 180))
 #define PROJ_DISTANCE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
 
+
 typedef struct s_ray{
     float ray_angle;
     float wall_hit_x;

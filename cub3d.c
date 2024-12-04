@@ -237,6 +237,7 @@ void horizontal_intersection(int ray_index)
 	ray->horizontal_hit_distance = FLT_MAX;
 }
 
+
 void vertical_intersection(int ray_index)
 {
 	float first_x;
