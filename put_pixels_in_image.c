@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/11 19:18:21 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/11 21:27:43 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
-void draw_line(t_data *data, double ray_angle)
+void draw_linee(t_data *data, double ray_angle)
 {
     double	ray_x;
     double	ray_y;
@@ -61,7 +61,7 @@ void	draw_view(t_data *data)
     while (i < num_rays)
     {
         ray_angle = start_angle + i * (fov / num_rays);
-        draw_line(data, ray_angle);
+        draw_linee(data, ray_angle);
         i++;
     }
 }
