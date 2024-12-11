@@ -17,18 +17,19 @@
 # define DOWN 115
 # define LEFT 97
 # define RIGHT 100
-# define ANGLE_TO_ROTATE 0.4
+# define ANGLE_TO_ROTATE (M_PI / 6)
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
 
 
-// typedef struct s_raycas
-// {
-// 	float with_FOV;
-// 	float fisrt_intersection_by_x;
-// 	float y_step;
-// 	float x_step;
-// }
+typedef struct s_raycas
+{
+	float with_FOV;
+	float angle_view;
+	float fisrt_intersection_by_x;
+	float y_step;
+	float x_step;
+} t_raycas;
 
 typedef struct s_palyer
 {
@@ -63,6 +64,8 @@ typedef struct s_data
 	int			right;
 	int			rotate_left;
 	int			rotate_right;
+	int size_line;
+	t_raycas	*raycas;
 	t_player	*player;
 	t_image		*img;
 }				t_data;
