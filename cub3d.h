@@ -17,7 +17,7 @@
 # define DOWN 115
 # define LEFT 97
 # define RIGHT 100
-# define ANGLE_TO_ROTATE (M_PI / 6)
+# define ANGLE_TO_ROTATE (M_PI / 6) // 30 degree 
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
 
@@ -94,5 +94,6 @@ void			move_left(t_data *data);
 void			move_right(t_data *data);
 
 void			map(t_data *data, char *file);
+void	draw_view_from_player(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/11 21:27:43 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:40:27 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,52 +19,64 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
-void draw_linee(t_data *data, double ray_angle)
+void	draw_line(t_data *data, int x1, int y1, int color)
 {
-    double	ray_x;
-    double	ray_y;
-    double	delta_x;
-    double	delta_y;
-    int		map_x;
-    int		map_y;
-    int		hit;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+	int	x0;
+	int	y0;
 
-    ray_x = data->player->player_x;
-    ray_y = data->player->player_y;
-    delta_x = cos(ray_angle);
-    delta_y = sin(ray_angle);
-    hit = 0;
-    while (!hit)
-    {
-        ray_x += delta_x * 0.1;
-        ray_y += delta_y * 0.1;
-        map_x = (int)ray_x;
-        map_y = (int)ray_y;
-        if (data->map[map_y][map_x] > 0)
-            hit = 1;
-        my_mlx_pixel_put(data->img, ray_x * SQUAR_SIZE, ray_y * SQUAR_SIZE, 0xFFFFFF);
-    }
+	x0 = data->player->player_x * SQUAR_SIZE;
+	y0 = data->player->player_y * SQUAR_SIZE;
+	dx = abs(x1 - x0);
+	dy = abs(y1 - y0);
+	sx = 0;
+	if (x0 < x1)
+		sx = 1;
+	else
+		sx = -1;
+	sy = 0;
+	if (y0 < y1)
+		sy = 1;
+	else
+		sy = -1;
+	err = dx - dy;
+	while (1)
+	{
+		my_mlx_pixel_put(data->img, x0, y0, color);
+		if (x0 == x1 && y0 == y1)
+			break ;
+		e2 = 2 * err;
+		if (e2 > -dy)
+		{
+			err -= dy;
+			x0 += sx;
+		}
+		if (e2 < dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
 }
 
-void	draw_view(t_data *data)
+void	draw_view_from_player(t_data *data)
 {
-    double	start_angle;
-    double	ray_angle;
-    double	fov;
-    int		num_rays;
-    int		i;
 
-    fov = 60 * (M_PI / 180); // 60 degrees FOV in radians
-    num_rays = data->img->width; // Number of rays to cast
-    start_angle = atan2(data->player->player_direction_y, data->player->player_direction_x) - fov / 2;
-    i = 0;
-    while (i < num_rays)
-    {
-        ray_angle = start_angle + i * (fov / num_rays);
-        draw_linee(data, ray_angle);
-        i++;
-    }
+    int x0 = data->player->player_x * SQUAR_SIZE;
+    int y0 = data->player->player_y * SQUAR_SIZE;
+    
+    int length = 50;// length of the line
+    int x_dir = x0 + length * data->player->player_direction_x;
+    int y_dir = y0 + length * data->player->player_direction_y;
+    draw_line(data, x_dir, y_dir, 0xFF0000);
+
 }
+
 void	draw_player(t_data *data)
 {
 	int	player_x;
@@ -89,7 +101,6 @@ void	draw_player(t_data *data)
 		}
 		y++;
 	}
-	draw_view(data);
 }
 
 int	put_color_with_pixels(t_data *data)

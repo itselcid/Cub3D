@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/11 19:07:09 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:08:42 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,24 @@ void calcule_first_intersection(t_data *data)
 	data->raycas->fisrt_intersection_by_x =(data->player->player_y - y_to_fisrt_intersection) / tan(view_divise_2) + data->player->player_x;
 }
 
-void raycasting(t_data *data)
-{
-	calcule_first_intersection(data);
-	printf("fisrt_intersection_by_x : %f\n", data->raycas->fisrt_intersection_by_x);
-}
+// void cast_ray(t_data *data)
+// {
+	
+// }
+
+// void raycasting(t_data *data)
+// {
+// 	calcule_first_intersection(data);
+// 	//cast_ray(data);
+// 	printf("fisrt_intersection_by_x : %f\n", data->raycas->fisrt_intersection_by_x);
+// }
 
 int	game_loop(t_data *data)
 {
 	put_color_with_pixels(data);
 	draw_player(data);
-	raycasting(data);
+	draw_view_from_player(data);
+	//raycasting(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_map, 0, 0);
 	return (0);
 }
