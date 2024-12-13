@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/12 16:40:27 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/13 09:34:50 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,38 @@ void	draw_line(t_data *data, int x1, int y1, int color)
 
 void	draw_view_from_player(t_data *data)
 {
+	int	x0;
+	int	y0;
+	int	x_dir;
+	int	y_dir;
 
-    int x0 = data->player->player_x * SQUAR_SIZE;
-    int y0 = data->player->player_y * SQUAR_SIZE;
-    
-    int length = 50;// length of the line
-    int x_dir = x0 + length * data->player->player_direction_x;
-    int y_dir = y0 + length * data->player->player_direction_y;
-    draw_line(data, x_dir, y_dir, 0xFF0000);
-
+	x0 = data->player->player_x * SQUAR_SIZE;
+	y0 = data->player->player_y * SQUAR_SIZE;
+	int length = 40; // length of the line
+	x_dir = x0 + length * data->player->player_direction_x;
+	y_dir = y0 + length * data->player->player_direction_y;
+	draw_line(data, x_dir, y_dir, 0xFF0000);
 }
 
+// void	draw_fov(t_data *data)
+// {
+// 	double	ray_angle;
+
+// 	//double ray_x, ray_y;
+// 	//int map_width = 10;   // Example map width
+// 	///int map_height = 10;  // Example map height
+// 	int color = 0xFF0000; // Red color
+// 	double FOV_ANGLE = M_PI / 3; // 60 degree
+// 	for (int i = 0; i < NUM_RAYS; i++)
+// 	{
+// 		ray_angle = (data->player->player_direction_x - FOV_ANGLE/ 2)
+// 			+ (FOV_ANGLE / NUM_RAYS) * i;
+// 		ray_x = data->player->player_x + data->h * data->player->player_direction_x;
+// 		ray_y = data->player->player_y + data->h * data->player->player_direction_y;
+// 		draw_line(data,ray_x,
+// 			ray_y, color);
+// 	}
+// }
 void	draw_player(t_data *data)
 {
 	int	player_x;

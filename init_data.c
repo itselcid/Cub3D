@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/11 18:58:47 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:16:00 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	init_data(t_data *data)
 	data->player->player_direction_y = 0.0;
 
 	data->player->plane_x = 0.0; // the camera is Perpendicular to direction
-	data->player->plane_y = 0.66;
+	data->player->plane_y = M_PI / 3;
 	data->map = NULL;
 	data->h = 0;
 	data->up = 0;
 	data->down = 0;
 	data->left = 0;
 	data->right = 0;
-	data->raycas->angle_view = 0.66;
+	data->raycas->angle_view = M_PI / 3; // 60 degree 
 	data->raycas->fisrt_intersection_by_x = 0;
 	data->raycas->y_step = 0;
 	data->raycas->x_step = 0;

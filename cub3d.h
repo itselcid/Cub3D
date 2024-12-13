@@ -17,19 +17,24 @@
 # define DOWN 115
 # define LEFT 97
 # define RIGHT 100
-# define ANGLE_TO_ROTATE (M_PI / 6) // 30 degree 
+# define ANGLE_TO_ROTATE (M_PI / 6) // 30 degree
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
-
+# define NUM_RAYS 100
+#define FOV_ANGLE (M_PI / 3) // 60 degree
 
 typedef struct s_raycas
 {
-	float with_FOV;
-	float angle_view;
-	float fisrt_intersection_by_x;
-	float y_step;
-	float x_step;
-} t_raycas;
+	float		with_FOV;
+	float		angle_view;
+	float		fisrt_intersection_by_x;
+	float		y_step;
+	float		x_step;
+	float       distance_to_wall;
+	float       ray_end_x;
+	float       ray_end_y;
+	float y_to_fisrt_intersection;
+}				t_raycas;
 
 typedef struct s_palyer
 {
@@ -58,13 +63,14 @@ typedef struct s_data
 	void		*win;
 	char		**map;
 	int			h;
+	int			w;
 	int			up;
 	int			down;
 	int			left;
 	int			right;
 	int			rotate_left;
 	int			rotate_right;
-	int size_line;
+	int			size_line;
 	t_raycas	*raycas;
 	t_player	*player;
 	t_image		*img;
@@ -94,6 +100,9 @@ void			move_left(t_data *data);
 void			move_right(t_data *data);
 
 void			map(t_data *data, char *file);
-void	draw_view_from_player(t_data *data);
+void			draw_view_from_player(t_data *data);
+// void			draw_fov(t_data *data);
+void	draw_line(t_data *data, int x1, int y1, int color);
+void	draw_line(t_data *data, int x1, int y1, int color);
 
 #endif

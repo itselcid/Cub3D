@@ -6,38 +6,80 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/12 16:08:42 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:44:39 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void calcule_first_intersection(t_data *data)
+void	calcule_first_intersection_with_x(t_data *data)
 {
-	float y_to_fisrt_intersection = 0;
-	y_to_fisrt_intersection = floor(data->player->player_y / SQUAR_SIZE) * SQUAR_SIZE;
-	double view_divise_2 = data->raycas->angle_view / 2; 
-	data->raycas->fisrt_intersection_by_x =(data->player->player_y - y_to_fisrt_intersection) / tan(view_divise_2) + data->player->player_x;
+	double	view_divise_2;
+
+	data->raycas->y_to_fisrt_intersection = floor(data->player->player_y / SQUAR_SIZE)
+		* SQUAR_SIZE;
+	view_divise_2 = data->raycas->angle_view / 2;
+	data->raycas->fisrt_intersection_by_x = (data->player->player_y
+			- data->raycas->y_to_fisrt_intersection) / tan(view_divise_2)
+		+ data->player->player_x;
 }
 
-// void cast_ray(t_data *data)
-// {
-	
-// }
+int	is_wall(double x, double y, t_data *data)
+{
+	int	map_x;
+	int	map_y;
 
-// void raycasting(t_data *data)
-// {
-// 	calcule_first_intersection(data);
-// 	//cast_ray(data);
-// 	printf("fisrt_intersection_by_x : %f\n", data->raycas->fisrt_intersection_by_x);
-// }
+	map_x = (int)x / SQUAR_SIZE;
+	map_y = (int)y / SQUAR_SIZE;
+	// Check if the position is within the map bounds and if it's a wall
+	if (map_x >= 0 && map_y >= 0 && map_y < data->h && map_x < data->img->width
+		/ SQUAR_SIZE)
+	{
+		return (data->map[map_y][map_x] == 1); // Assuming 1 represents a wall
+	}
+	return (0);
+}
+
+void calcule_distance_to_wall(t_data *data)
+{
+    int x;
+    int y;
+    double distance;
+
+    x = data->raycas->fisrt_intersection_by_x;
+	y = 
+    data->raycas->y_step = SQUAR_SIZE;
+    data->raycas->x_step = SQUAR_SIZE / tan(data->raycas->angle_view);
+    distance = sqrt(pow(data->raycas->x_step, 2) + pow(data->raycas->y_step, 2));
+    
+    while (1)
+    {
+        if (is_wall(x, y, data))
+            break;
+        x += data->raycas->x_step;
+        y += data->raycas->y_step;
+        distance += sqrt(pow(data->raycas->x_step, 2) + pow(data->raycas->y_step, 2));
+    }
+	data->raycas->distance_to_wall = distance;
+	data->raycas->ray_end_x = x;
+    data->raycas->ray_end_y = y;
+}
+
+void	cast_rays(t_data *data)
+{
+	calcule_first_intersection_with_x(data);
+	calcule_distance_to_wall(data);
+	draw_view_from_player(data);
+}
 
 int	game_loop(t_data *data)
 {
 	put_color_with_pixels(data);
 	draw_player(data);
-	draw_view_from_player(data);
-	//raycasting(data);
+	//draw_view_from_player(data);
+	// draw_fov(data);
+	 cast_rays(data);
+	// raycasting(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_map, 0, 0);
 	return (0);
 }
