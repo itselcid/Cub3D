@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/12 18:16:00 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/14 19:12:20 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	init_data(t_data *data)
 	data->down = 0;
 	data->left = 0;
 	data->right = 0;
-	data->raycas->angle_view = M_PI / 3; // 60 degree 
-	data->raycas->fisrt_intersection_by_x = 0;
+	//data->raycas->angle_view = M_PI / 3; // 60 degree 
+	//data->raycas->first_intersection_by_x = 0;
 	data->raycas->y_step = 0;
 	data->raycas->x_step = 0;
 }

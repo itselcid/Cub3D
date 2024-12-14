@@ -20,20 +20,28 @@
 # define ANGLE_TO_ROTATE (M_PI / 6) // 30 degree
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
-# define NUM_RAYS 100
-#define FOV_ANGLE (M_PI / 3) // 60 degree
+# define NUM_RAYS 100 * SQUAR_SIZE
+# define FOV_ANGLE (M_PI / 3) // 60 degree
 
 typedef struct s_raycas
 {
 	float		with_FOV;
-	float		angle_view;
-	float		fisrt_intersection_by_x;
+	float		ray_angle;
 	float		y_step;
 	float		x_step;
-	float       distance_to_wall;
-	float       ray_end_x;
-	float       ray_end_y;
-	float y_to_fisrt_intersection;
+	float		ray_end_x;
+	float		ray_end_y;
+	float 		y_first_point_with_x_intersection;
+	float		x_first_point_with_y_intersection;
+	float 		distance_horizontal;
+	float		distance_vertical;
+
+	float		end_x_horizontal;
+	float		end_y_horizontal;
+	float		end_x_vertical;
+	float		end_y_vertical;
+	float		wall_hit_x;
+	float		wall_hit_y;
 }				t_raycas;
 
 typedef struct s_palyer
@@ -102,7 +110,7 @@ void			move_right(t_data *data);
 void			map(t_data *data, char *file);
 void			draw_view_from_player(t_data *data);
 // void			draw_fov(t_data *data);
-void	draw_line(t_data *data, int x1, int y1, int color);
-void	draw_line(t_data *data, int x1, int y1, int color);
+//void			draw_line(t_data *data, int x1, int y1, int color);
+//void			draw_line(t_data *data, int x1, int y1, int color);
 
 #endif
