@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/16 12:57:52 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/16 20:48:18 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,20 +117,28 @@ float	calculate_player_angle(float player_dir_x, float player_dir_y)
 		return (M_PI); // Left
 }
 
-// void	draw_view_from_player(t_data *data)
-// {
-// 	int	x0;
-// 	int	y0;
-// 	int	x_dir;
-// 	int	y_dir;
+void	draw_view_from_player(t_data *data)
+{
+	int	x0;
+	int	y0;
+	int	x_dir;
+	int	y_dir;
 
-// 	x0 = data->player->player_x * SQUAR_SIZE;
-// 	y0 = data->player->player_y * SQUAR_SIZE;
-// 	int length = 40; // length of the line
-// 	x_dir = x0 + length * data->player->player_direction_x;
-// 	y_dir = y0 + length * data->player->player_direction_y;
-// 	draw_line1(data, x_dir, y_dir, 0xFF0000);
-// }
+	x0 = data->player->player_x * SQUAR_SIZE;
+	y0 = data->player->player_y * SQUAR_SIZE;
+	int length = 40; // length of the line
+	x_dir = x0 - length * data->player->player_direction_x;
+	y_dir = y0 - length * data->player->player_direction_y;
+	draw_line1(data, x_dir, y_dir, 0xFF0000);
+
+	// Draw the camera plane
+	x_dir = x0 + length * data->player->plane_x;
+	y_dir = y0 + length * data->player->plane_y;
+	draw_line1(data, x_dir, y_dir, 0x0000FF);
+	x_dir = x0 - length * data->player->plane_x;
+	y_dir = y0 - length * data->player->plane_y;
+	draw_line1(data, x_dir, y_dir, 0x0000FF);
+}
 
 // void	draw_fov(t_data *data)
 // {

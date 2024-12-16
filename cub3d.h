@@ -117,6 +117,7 @@ void			draw_view_from_player(t_data *data);
 void            draw_line(int x1, int y1, int x2, int y2, t_data *data);
 void            normalize_angle(float *angle);
 float           calculate_player_angle(float player_dir_x, float player_dir_y);
+void			draw_view_from_player(t_data *data);
 // void			draw_fov(t_data *data);
 //void			draw_line(t_data *data, int x1, int y1, int color);
 //void			draw_line(t_data *data, int x1, int y1, int color);
