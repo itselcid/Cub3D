@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/14 17:57:02 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/16 12:57:52 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,59 @@ void	draw_line1(t_data *data, int x1, int y1, int color)
 			y0 += sy;
 		}
 	}
+}
+
+void	draw_line(int x1, int y1, int x2, int y2, t_data *data)
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+
+	dx = abs(x2 - x1);
+	dy = abs(y2 - y1);
+	sx = x1 < x2 ? 1 : -1;
+	sy = y1 < y2 ? 1 : -1;
+	err = (dx > dy ? dx : -dy) / 2;
+	while (1)
+	{
+		if (x1 == x2 && y1 == y2)
+			break ;
+		if (x1 >= 0 && x1 < data->w && y1 >= 0 && y1 < data->h)
+			my_mlx_pixel_put(data->img, x1, y1, 0xFF0000); // Red
+		e2 = err;
+		if (e2 > -dx)
+		{
+			err -= dy;
+			x1 += sx;
+		}
+		if (e2 < dy)
+		{
+			err += dx;
+			y1 += sy;
+		}
+	}
+}
+void	normalize_angle(float *angle)
+{
+	while (*angle >= 2 * M_PI)
+		*angle -= 2 * M_PI;
+	while (*angle < 0)
+		*angle += 2 * M_PI;
+}
+
+float	calculate_player_angle(float player_dir_x, float player_dir_y)
+{
+	if (player_dir_x == 0 && player_dir_y == -1)
+		return (M_PI / 2); // Up
+	else if (player_dir_x == 1 && player_dir_y == 0)
+		return (0); // Right
+	else if (player_dir_x == 0 && player_dir_y == 1)
+		return (3 * M_PI / 2); // Down
+	else
+		return (M_PI); // Left
 }
 
 // void	draw_view_from_player(t_data *data)

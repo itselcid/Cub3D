@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/14 19:38:24 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:58:38 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,122 +14,111 @@
 
 int	calcule_first_intersection_with_x(t_data *data)
 {
-	double	angle;
 	double	first_intersection_by_x;
 
 	data->raycas->y_first_point_with_x_intersection = floor(data->player->player_y
 			/ SQUAR_SIZE) * SQUAR_SIZE;
-	angle = FOV_ANGLE / 2;
+	printf("player_y = %f\n", data->player->player_y);
+	printf("y1 = %f\n", data->raycas->y_first_point_with_x_intersection);
+	if (!data->raycas->is_ray_facing_down)
+		data->raycas->y_first_point_with_x_intersection -= 1;
 	first_intersection_by_x = (data->player->player_y
 			- data->raycas->y_first_point_with_x_intersection)
-		/ tan(angle) + data->player->player_x;
+		/ tan(data->raycas->ray_angle) + data->player->player_x;
 	return (first_intersection_by_x);
 }
 
 int	calcule_first_intersection_with_y(t_data *data)
 {
-	double	angle;
 	double	first_intersection_by_y;
 
 	data->raycas->x_first_point_with_y_intersection = floor(data->player->player_x
 			/ SQUAR_SIZE) * SQUAR_SIZE;
-	angle = FOV_ANGLE / 2;
+	if (!data->raycas->is_ray_facing_right)
+		data->raycas->x_first_point_with_y_intersection -= 1;
 	first_intersection_by_y = (data->player->player_x
 			- data->raycas->x_first_point_with_y_intersection)
-		* tan(angle) + data->player->player_y;
+		* tan(data->raycas->ray_angle) + data->player->player_y;
 	return (first_intersection_by_y);
 }
 
-int	is_wall(int x, int y, t_data *data)
+int	is_wall(float x, float y, t_data *data)
 {
-	if (x < 0 || x > data->w || y < 0 || y > data->h)
-		return (1);
-	if (data->map[(int)(y / SQUAR_SIZE)][(int)(x / SQUAR_SIZE)] == '1')
-		return (1);
-	return (0);
+	int	map_x;
+	int	map_y;
+
+	map_x = floor(x / SQUAR_SIZE);
+	map_y = floor(y / SQUAR_SIZE);
+	if (map_y < 0 || map_y >= data->h || map_x < 0 || map_x >= data->w)
+		return (1); // Consider out-of-bounds as wall
+	return (data->map[map_y][map_x] == '1');
 }
 
 void	distance_horizontal(t_data *data)
 {
-	double	x;
-	double	y;
-	double	distance;
-
-	x = 0;
-	y = 0;
-	distance = 0;
+	double x, y;
 	x = calcule_first_intersection_with_x(data);
 	y = data->raycas->y_first_point_with_x_intersection;
 	data->raycas->y_step = SQUAR_SIZE;
-	data->raycas->x_step = SQUAR_SIZE / tan(FOV_ANGLE/2);
-	distance = sqrt(pow(data->raycas->x_step, 2) + pow(data->raycas->y_step,
-				2));
-	while (is_wall(x, y, data) == 0)
+	if (!data->raycas->is_ray_facing_down)
+		data->raycas->y_step = -data->raycas->y_step;
+	data->raycas->x_step = SQUAR_SIZE / tan(data->raycas->ray_angle);
+	if (data->raycas->is_ray_facing_left)
+		data->raycas->x_step = -data->raycas->x_step;
+	while (!is_wall(x, y, data))
 	{
 		x += data->raycas->x_step;
 		y += data->raycas->y_step;
-		distance += sqrt(pow(data->raycas->x_step, 2)
-				+ pow(data->raycas->y_step, 2));
 	}
 	data->raycas->end_x_horizontal = x;
 	data->raycas->end_y_horizontal = y;
-	data->raycas->distance_horizontal = distance;
+	data->raycas->distance_horizontal = sqrt(pow(x - data->player->player_x, 2)
+			+ pow(y - data->player->player_y, 2));
 }
 
 void	distance_vertical(t_data *data)
 {
-	double	x;
-	double	y;
-	double	distance;
-
+	double x, y;
 	x = calcule_first_intersection_with_y(data);
 	y = data->raycas->x_first_point_with_y_intersection;
 	data->raycas->x_step = SQUAR_SIZE;
-	data->raycas->y_step = SQUAR_SIZE * tan(FOV_ANGLE/2);
-	distance = sqrt(pow(data->raycas->x_step, 2) + pow(data->raycas->y_step,
-				2));
-	while (is_wall(x, y, data) == 0)
+	if (!data->raycas->is_ray_facing_right)
+		data->raycas->x_step = -data->raycas->x_step;
+	data->raycas->y_step = SQUAR_SIZE * tan(data->raycas->ray_angle);
+	if (data->raycas->is_ray_facing_up)
+		data->raycas->y_step = -data->raycas->y_step;
+	while (!is_wall(x, y, data))
 	{
 		x += data->raycas->x_step;
 		y += data->raycas->y_step;
-		distance += sqrt(pow(data->raycas->x_step, 2)
-				+ pow(data->raycas->y_step, 2));
 	}
 	data->raycas->end_x_vertical = x;
 	data->raycas->end_y_vertical = y;
-	data->raycas->distance_vertical = distance;
+	data->raycas->distance_vertical = sqrt(pow(x - data->player->player_x, 2)
+			+ pow(y - data->player->player_y, 2));
 }
 
-
-void draw_line(int x1, int y1, int x2, int y2, t_data *data)
+void	player_facing(t_data *data)
 {
-    int dx = abs(x2 - x1);
-    int dy = abs(y2 - y1);
-    int sx = x1 < x2 ? 1 : -1;
-    int sy = y1 < y2 ? 1 : -1;
-    int err = (dx > dy ? dx : -dy) / 2;
-    int e2;
-
-    while (1)
-    {
-        if (x1 == x2 && y1 == y2)
-            break;
-        if (x1 >= 0 && x1 < data->w && y1 >= 0 && y1 < data->h)
-            my_mlx_pixel_put(data->img, x1, y1, 0x0000FF); // Blue color
-        e2 = err;
-        if (e2 > -dx) { err -= dy; x1 += sx; }
-        if (e2 < dy) { err += dx; y1 += sy; }
-    }
+	data->raycas->is_ray_facing_down = (data->raycas->ray_angle > 0
+			&& data->raycas->ray_angle < M_PI);
+	data->raycas->is_ray_facing_up = !data->raycas->is_ray_facing_down;
+	data->raycas->is_ray_facing_right = (data->raycas->ray_angle < 0.5 * M_PI
+			|| data->raycas->ray_angle > 1.5 * M_PI);
+	data->raycas->is_ray_facing_left = !data->raycas->is_ray_facing_right;
 }
 
 void	cast_ray(t_data *data)
 {
+	player_facing(data);
 	distance_horizontal(data);
 	distance_vertical(data);
 	if (data->raycas->distance_horizontal < data->raycas->distance_vertical)
 	{
 		data->raycas->wall_hit_x = data->raycas->end_x_horizontal;
 		data->raycas->wall_hit_y = data->raycas->end_y_horizontal;
+		// printf("x = %f, y = %f\n", data->raycas->wall_hit_x,
+			//data->raycas->wall_hit_y);
 	}
 	else
 	{
@@ -138,45 +127,42 @@ void	cast_ray(t_data *data)
 	}
 }
 
-float calculate_player_angle(float player_dir_x, float player_dir_y)
+void	cast_rays(t_data *data)
 {
-    if (player_dir_x == 0 && player_dir_y == -1)
-        return M_PI / 2; // Up
-    else if (player_dir_x == 1 && player_dir_y == 0)
-        return 0; // Right
-    else if (player_dir_x == 0 && player_dir_y == 1)
-        return 3 * M_PI / 2; // Down
-    else
-        return M_PI; // Left
-}
+	float	ray_angle;
+	float	angle_step;
+	float	player_base_angle;
+	float	start_angle;
+	int		x0;
+	int		y0;
+	int		end_x;
+	int		end_y;
 
-void cast_rays(t_data *data)
-{
-    int ray;
-	float angle_step = FOV_ANGLE / NUM_RAYS;
-	double ray_angle;
-	float player_angle = M_PI / 2; // Up
-	//printf("player_angle: %f\n", player_angle);
-	// in my case player angle is 0 
-    double start_angle = player_angle - (FOV_ANGLE / 2);
-
-    ray = 0;
-    while (ray < NUM_RAYS)
-    {
-        ray_angle = start_angle + (angle_step * ray);
-        data->raycas->ray_angle = ray_angle;
-        cast_ray(data);
-        draw_line(data->player->player_x, data->player->player_y,
-                  data->raycas->wall_hit_x, data->raycas->wall_hit_y, data);
-        ray++;
-    }
+	angle_step = FOV_ANGLE / NUM_RAYS;
+	player_base_angle = calculate_player_angle(data->player->player_direction_x,
+			data->player->player_direction_y);
+	start_angle = player_base_angle - (FOV_ANGLE / 2);
+	for (int ray = 0; ray < NUM_RAYS; ray++)
+	{
+		ray_angle = start_angle + (angle_step * ray);
+		normalize_angle(&ray_angle);
+		data->raycas->ray_angle = ray_angle;
+		cast_ray(data);
+		x0 = data->player->player_x * SQUAR_SIZE;
+		y0 = data->player->player_y * SQUAR_SIZE;
+		end_x = data->raycas->wall_hit_x;
+		end_y = data->raycas->wall_hit_y;
+		printf("x0 = %d, y0 = %d, end_x = %d, end_y = %d\n", x0, y0, end_x,
+			end_y);
+		draw_line(x0, y0, end_x, end_y, data);
+	}
 }
 
 int	game_loop(t_data *data)
 {
 	put_color_with_pixels(data);
 	draw_player(data);
-	//draw_view_from_player(data);
+	// draw_view_from_player(data);
 	cast_rays(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_map, 0, 0);
 	return (0);

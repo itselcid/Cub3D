@@ -17,10 +17,10 @@
 # define DOWN 115
 # define LEFT 97
 # define RIGHT 100
-# define ANGLE_TO_ROTATE (M_PI / 6) // 30 degree
+# define ANGLE_TO_ROTATE (M_PI / 6)
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
-# define NUM_RAYS 100 * SQUAR_SIZE
+# define NUM_RAYS 120
 # define FOV_ANGLE (M_PI / 3) // 60 degree
 
 typedef struct s_raycas
@@ -42,6 +42,11 @@ typedef struct s_raycas
 	float		end_y_vertical;
 	float		wall_hit_x;
 	float		wall_hit_y;
+	float       is_ray_facing_down;
+	float       is_ray_facing_up;
+	float       is_ray_facing_right;
+	float       is_ray_facing_left;
+
 }				t_raycas;
 
 typedef struct s_palyer
@@ -109,6 +114,9 @@ void			move_right(t_data *data);
 
 void			map(t_data *data, char *file);
 void			draw_view_from_player(t_data *data);
+void            draw_line(int x1, int y1, int x2, int y2, t_data *data);
+void            normalize_angle(float *angle);
+float           calculate_player_angle(float player_dir_x, float player_dir_y);
 // void			draw_fov(t_data *data);
 //void			draw_line(t_data *data, int x1, int y1, int color);
 //void			draw_line(t_data *data, int x1, int y1, int color);
