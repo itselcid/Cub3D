@@ -6,19 +6,23 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/16 20:48:18 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:05:49 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
+void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
-	char	*dst;
+    char *dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+    if (x < 0 || x >= img->width || y < 0 || y >= img->height)
+        return;
+
+    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+    *(unsigned int *)dst = color;
 }
+
 void	draw_line1(t_data *data, int x1, int y1, int color)
 {
 	int	dx;
@@ -97,6 +101,7 @@ void	draw_line(int x1, int y1, int x2, int y2, t_data *data)
 		}
 	}
 }
+
 void	normalize_angle(float *angle)
 {
 	while (*angle >= 2 * M_PI)
@@ -117,28 +122,28 @@ float	calculate_player_angle(float player_dir_x, float player_dir_y)
 		return (M_PI); // Left
 }
 
-void	draw_view_from_player(t_data *data)
-{
-	int	x0;
-	int	y0;
-	int	x_dir;
-	int	y_dir;
+// void	draw_view_from_player(t_data *data)
+// {
+// 	int	x0;
+// 	int	y0;
+// 	int	x_dir;
+// 	int	y_dir;
 
-	x0 = data->player->player_x * SQUAR_SIZE;
-	y0 = data->player->player_y * SQUAR_SIZE;
-	int length = 40; // length of the line
-	x_dir = x0 - length * data->player->player_direction_x;
-	y_dir = y0 - length * data->player->player_direction_y;
-	draw_line1(data, x_dir, y_dir, 0xFF0000);
+// 	x0 = data->player->player_x * SQUAR_SIZE;
+// 	y0 = data->player->player_y * SQUAR_SIZE;
+// 	int length = 40; // length of the line
+// 	x_dir = x0 + length * data->player->player_direction_x;
+// 	y_dir = y0 + length * data->player->player_direction_y;
+// 	draw_line1(data, x_dir, y_dir, 0xFF0000);
 
-	// Draw the camera plane
-	x_dir = x0 + length * data->player->plane_x;
-	y_dir = y0 + length * data->player->plane_y;
-	draw_line1(data, x_dir, y_dir, 0x0000FF);
-	x_dir = x0 - length * data->player->plane_x;
-	y_dir = y0 - length * data->player->plane_y;
-	draw_line1(data, x_dir, y_dir, 0x0000FF);
-}
+// 	// Draw the camera plane
+// 	x_dir = x0 + length * data->player->plane_x;
+// 	y_dir = y0 + length * data->player->plane_y;
+// 	draw_line1(data, x_dir, y_dir, 0x0000FF);
+// 	x_dir = x0 - length * data->player->plane_x;
+// 	y_dir = y0 - length * data->player->plane_y;
+// 	draw_line1(data, x_dir, y_dir, 0x0000FF);
+// }
 
 // void	draw_fov(t_data *data)
 // {
@@ -159,6 +164,7 @@ void	draw_view_from_player(t_data *data)
 // 			ray_y, color);
 // 	}
 // }
+
 void	draw_player(t_data *data)
 {
 	int	player_x;

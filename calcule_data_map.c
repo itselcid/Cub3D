@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/13 10:03:48 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:23:33 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ int	calcule_width(char *line)
 		i++;
 	return (i);
 }
+
+void check_direction(t_data *data, float x, float y)
+{
+	char c = data->map[(int)y][(int)x];
+	if  (c == 'N')
+        data->player->angle = M_PI / 2; // Facing up
+    else if (c == 'S')
+        data->player->angle = 3*M_PI / 2; // Facing down
+    else if (c == 'E')
+        data->player->angle = 0; // Facing right
+    else if (c == 'W')
+        data->player->angle = M_PI;
+}
+
 void	position_player_and_int_map(t_data *data)
 {
 	int	y;
@@ -50,10 +64,12 @@ void	position_player_and_int_map(t_data *data)
 		x = 0;
 		while (data->map[y][x] != '\0')
 		{
-			if (data->map[y][x] == 'N')
+			if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
+				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
 			{
 				data->player->player_x = x;
 				data->player->player_y = y;
+				check_direction(data, x, y);
 				data->map[y][x] = '0'; // Replace 'N' with '0' in mini_map
 				break ;
 			}

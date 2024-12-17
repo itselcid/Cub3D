@@ -11,7 +11,7 @@
 #  define BUFFER_SIZE 10
 # endif
 # define SQUAR_SIZE 50
-# define MOVE_SPEED 0.1
+# define MOVE_SPEED 0.005
 # define ESC 65307
 # define UP 119
 # define DOWN 115
@@ -22,6 +22,7 @@
 # define ROTATE_LEFT 65361
 # define NUM_RAYS 120
 # define FOV_ANGLE (M_PI / 3) // 60 degree
+#define ROTATE_SPEED 0.01
 
 typedef struct s_raycas
 {
@@ -53,10 +54,10 @@ typedef struct s_palyer
 {
 	float		player_x;
 	float		player_y;
-	float		player_direction_x;
-	float		player_direction_y;
-	float		plane_x;
-	float		plane_y;
+	int			walk;
+	int			strafe;
+	int			rotate;
+	float       angle;
 }				t_player;
 
 typedef struct s_image
@@ -77,12 +78,6 @@ typedef struct s_data
 	char		**map;
 	int			h;
 	int			w;
-	int			up;
-	int			down;
-	int			left;
-	int			right;
-	int			rotate_left;
-	int			rotate_right;
 	int			size_line;
 	t_raycas	*raycas;
 	t_player	*player;
@@ -105,12 +100,6 @@ void			init_image(t_data *data);
 int				put_color_with_pixels(t_data *data);
 void			draw_player(t_data *data);
 void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
-void			rotate_direction_and_camera_right(t_data *data);
-void			rotate_direction_and_camera_left(t_data *data);
-void			move_down(t_data *data);
-void			move_up(t_data *data);
-void			move_left(t_data *data);
-void			move_right(t_data *data);
 
 void			map(t_data *data, char *file);
 void			draw_view_from_player(t_data *data);
@@ -118,6 +107,10 @@ void            draw_line(int x1, int y1, int x2, int y2, t_data *data);
 void            normalize_angle(float *angle);
 float           calculate_player_angle(float player_dir_x, float player_dir_y);
 void			draw_view_from_player(t_data *data);
+int             key_handler(int key_code, t_data *data);
+void            move_player(t_data *data);
+int             relase_key(int key_code, t_data *data);
+void            cast_rays(t_data *data);
 // void			draw_fov(t_data *data);
 //void			draw_line(t_data *data, int x1, int y1, int color);
 //void			draw_line(t_data *data, int x1, int y1, int color);

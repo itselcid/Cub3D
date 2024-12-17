@@ -6,11 +6,12 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/14 19:12:20 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:10:00 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 
 void	init_data(t_data *data)
 {
@@ -43,21 +44,15 @@ void	init_data(t_data *data)
 	ft_memset(data->raycas, 0, sizeof(t_raycas));
 	data->player->player_x = 0;
 	data->player->player_y = 0;
-	data->player->player_direction_x = 1.0;//direction vector 
-	data->player->player_direction_y = 0.0;
-
-	data->player->plane_x = 0.0; // the camera is Perpendicular to direction
-	data->player->plane_y = M_PI / 3;
 	data->map = NULL;
-	data->h = 0;
-	data->up = 0;
-	data->down = 0;
-	data->left = 0;
-	data->right = 0;
-	//data->raycas->angle_view = M_PI / 3; // 60 degree 
-	//data->raycas->first_intersection_by_x = 0;
+	data->player->walk = 0;
+	data->player->strafe = 0;
+	data->player->rotate = 0;
 	data->raycas->y_step = 0;
 	data->raycas->x_step = 0;
+	//// init angle with W E S D 
+
+	data->player->angle = 0.0;
 }
 
 void	init_image(t_data *data)

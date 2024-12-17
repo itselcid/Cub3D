@@ -5,73 +5,72 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 18:07:54 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/06 16:08:43 by oel-moue         ###   ########.fr       */
+/*   Created: 2024/12/17 15:45:03 by oel-moue          #+#    #+#             */
+/*   Updated: 2024/12/17 17:24:02 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	move_up(t_data *data)
+void	move_player(t_data *data)
 {
 	double	new_x;
 	double	new_y;
+	double	move_step;
 
-	new_x = data->player->player_x + data->player->player_direction_x
-		* MOVE_SPEED;
-	new_y = data->player->player_y + data->player->player_direction_y
-		* MOVE_SPEED;
-	if (new_x >= 0 && new_x < data->img->width / SQUAR_SIZE && new_y >= 0
-		&& new_y < data->h && data->map[(int)new_y][(int)new_x] == '0')
+	if (data->player->rotate != 0)
 	{
-		data->player->player_x = new_x;
-		data->player->player_y = new_y;
+		data->player->angle += data->player->rotate * ROTATE_SPEED;
+		normalize_angle(&data->player->angle);
 	}
-} 
-
-void	move_down(t_data *data)
-{
-	double	new_x;
-	double	new_y;
-
-	new_x = data->player->player_x - data->player->player_direction_x
-		* MOVE_SPEED;
-	new_y = data->player->player_y - data->player->player_direction_y
-		* MOVE_SPEED;
-	if (new_x >= 0 && new_x < data->img->width / SQUAR_SIZE && new_y >= 0
-		&& new_y < data->h && data->map[(int)new_y][(int)new_x] == '0')
+	if (data->player->walk != 0)
 	{
-		data->player->player_x = new_x;
-		data->player->player_y = new_y;
+		move_step = data->player->walk * MOVE_SPEED;
+		new_x = data->player->player_x + cos(data->player->angle) * move_step;
+		new_y = data->player->player_y + sin(data->player->angle) * move_step;
 	}
-}
-
-void	move_left(t_data *data)
-{
-	double	new_x;
-	double	new_y;
-
-	new_x = data->player->player_x - data->player->plane_x * MOVE_SPEED;
-	new_y = data->player->player_y - data->player->plane_y * MOVE_SPEED;
-	if (new_x >= 0 && new_x < data->img->width / SQUAR_SIZE && new_y >= 0
-		&& new_y < data->h && data->map[(int)new_y][(int)new_x] == '0')
+	if (data->player->strafe != 0)
+	{
+		move_step = data->player->strafe * MOVE_SPEED;
+		new_x = data->player->player_x + cos(data->player->angle + M_PI / 2)
+			* move_step;
+		new_y = data->player->player_y + sin(data->player->angle + M_PI / 2)
+			* move_step;
+	}
+	// Check if the new position is valid
+	if (new_x >= 0 && new_x < data->img->width && new_y >= 0 && new_y < data->h
+		&& data->map[(int)new_y][(int)new_x] == '0')
 	{
 		data->player->player_x = new_x;
 		data->player->player_y = new_y;
 	}
 }
-
-void	move_right(t_data *data)
+int	key_handler(int key_code, t_data *data)
 {
-	double	new_x;
-	double	new_y;
+	if (key_code == ESC)
+		close_window(data);
+	if (key_code == UP) // W
+		data->player->walk = 1;
+	if (key_code == DOWN) // S
+		data->player->walk = -1;
+	if (key_code == RIGHT) // D
+		data->player->strafe = 1;
+	if (key_code == LEFT) // A
+		data->player->strafe = -1;
+	if (key_code == ROTATE_RIGHT) // -->
+		data->player->rotate = 1;
+	if (key_code == ROTATE_LEFT) // <--
+		data->player->rotate = -1;
+	return (0);
+}
 
-	new_x = data->player->player_x + data->player->plane_x * MOVE_SPEED;
-	new_y = data->player->player_y + data->player->plane_y * MOVE_SPEED;
-	if (new_x >= 0 && new_x < data->img->width / SQUAR_SIZE && new_y >= 0
-		&& new_y < data->h && data->map[(int)new_y][(int)new_x] == '0')
-	{
-		data->player->player_x = new_x;
-		data->player->player_y = new_y;
-	}
+int	relase_key(int key_code, t_data *data)
+{
+	if (key_code == UP || key_code == DOWN)
+		data->player->walk = 0;
+	if (key_code == RIGHT || key_code == LEFT)
+		data->player->strafe = 0;
+	if (key_code == ROTATE_RIGHT || key_code == ROTATE_LEFT)
+		data->player->rotate = 0;
+	return (0);
 }
