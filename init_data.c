@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/17 17:10:00 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/18 19:50:37 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	init_data(t_data *data)
 	}
 	ft_memset(data->img, 0, sizeof(t_image));
 	data->player = malloc(sizeof(t_player));
-	data->raycas = malloc(sizeof(t_raycas));
 	if (!data->player)
 	{
 		printf("Error: Failed to allocate player structure\n");

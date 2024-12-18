@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/17 17:05:49 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:30:07 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	draw_line(int x1, int y1, int x2, int y2, t_data *data)
 		if (x1 == x2 && y1 == y2)
 			break ;
 		if (x1 >= 0 && x1 < data->w && y1 >= 0 && y1 < data->h)
-			my_mlx_pixel_put(data->img, x1, y1, 0xFF0000); // Red
+			my_mlx_pixel_put(data->img, x1, y1, 0x00FF00); // Green color
 		e2 = err;
 		if (e2 > -dx)
 		{

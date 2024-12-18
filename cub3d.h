@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
+/*   Updated: 2024/12/18 19:52:19 by oel-moue         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 # define _USE_MATH_DEFINES
@@ -22,7 +34,7 @@
 # define ROTATE_LEFT 65361
 # define NUM_RAYS 120
 # define FOV_ANGLE (M_PI / 3) // 60 degree
-#define ROTATE_SPEED 0.01
+# define ROTATE_SPEED 0.01
 
 typedef struct s_raycas
 {
@@ -32,9 +44,9 @@ typedef struct s_raycas
 	float		x_step;
 	float		ray_end_x;
 	float		ray_end_y;
-	float 		y_first_point_with_x_intersection;
+	float		y_first_point_with_x_intersection;
 	float		x_first_point_with_y_intersection;
-	float 		distance_horizontal;
+	float		distance_horizontal;
 	float		distance_vertical;
 
 	float		end_x_horizontal;
@@ -43,10 +55,10 @@ typedef struct s_raycas
 	float		end_y_vertical;
 	float		wall_hit_x;
 	float		wall_hit_y;
-	float       is_ray_facing_down;
-	float       is_ray_facing_up;
-	float       is_ray_facing_right;
-	float       is_ray_facing_left;
+	float		is_ray_facing_down;
+	float		is_ray_facing_up;
+	float		is_ray_facing_right;
+	float		is_ray_facing_left;
 
 }				t_raycas;
 
@@ -57,7 +69,7 @@ typedef struct s_palyer
 	int			walk;
 	int			strafe;
 	int			rotate;
-	float       angle;
+	float		angle;
 }				t_player;
 
 typedef struct s_image
@@ -79,7 +91,7 @@ typedef struct s_data
 	int			h;
 	int			w;
 	int			size_line;
-	t_raycas	*raycas;
+	t_raycas	raycas[NUM_RAYS];
 	t_player	*player;
 	t_image		*img;
 }				t_data;
@@ -103,16 +115,16 @@ void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
 
 void			map(t_data *data, char *file);
 void			draw_view_from_player(t_data *data);
-void            draw_line(int x1, int y1, int x2, int y2, t_data *data);
-void            normalize_angle(float *angle);
-float           calculate_player_angle(float player_dir_x, float player_dir_y);
+void			draw_line(int x1, int y1, int x2, int y2, t_data *data);
+void			normalize_angle(float *angle);
+float			calculate_player_angle(float player_dir_x, float player_dir_y);
 void			draw_view_from_player(t_data *data);
-int             key_handler(int key_code, t_data *data);
-void            move_player(t_data *data);
-int             relase_key(int key_code, t_data *data);
-void            cast_rays(t_data *data);
+int				key_handler(int key_code, t_data *data);
+void			move_player(t_data *data);
+int				relase_key(int key_code, t_data *data);
+void			cast_rays(t_data *data);
 // void			draw_fov(t_data *data);
-//void			draw_line(t_data *data, int x1, int y1, int color);
-//void			draw_line(t_data *data, int x1, int y1, int color);
+// void			draw_line(t_data *data, int x1, int y1, int color);
+// void			draw_line(t_data *data, int x1, int y1, int color);
 
 #endif
