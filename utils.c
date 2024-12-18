@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:52:38 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/11/25 21:07:27 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/18 23:32:57 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_strlen_not_newline(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\n')
+	while (str[i] && str[i] != '\n')
 		i++;
 	return (i);
 }

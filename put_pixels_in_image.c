@@ -6,21 +6,20 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/18 15:30:07 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/18 23:35:27 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void my_mlx_pixel_put(t_image *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
-    char *dst;
+	char	*dst;
 
-    if (x < 0 || x >= img->width || y < 0 || y >= img->height)
-        return;
-
-    dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-    *(unsigned int *)dst = color;
+	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
+		return ;
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
 
 void	draw_line1(t_data *data, int x1, int y1, int color)
@@ -122,49 +121,6 @@ float	calculate_player_angle(float player_dir_x, float player_dir_y)
 		return (M_PI); // Left
 }
 
-// void	draw_view_from_player(t_data *data)
-// {
-// 	int	x0;
-// 	int	y0;
-// 	int	x_dir;
-// 	int	y_dir;
-
-// 	x0 = data->player->player_x * SQUAR_SIZE;
-// 	y0 = data->player->player_y * SQUAR_SIZE;
-// 	int length = 40; // length of the line
-// 	x_dir = x0 + length * data->player->player_direction_x;
-// 	y_dir = y0 + length * data->player->player_direction_y;
-// 	draw_line1(data, x_dir, y_dir, 0xFF0000);
-
-// 	// Draw the camera plane
-// 	x_dir = x0 + length * data->player->plane_x;
-// 	y_dir = y0 + length * data->player->plane_y;
-// 	draw_line1(data, x_dir, y_dir, 0x0000FF);
-// 	x_dir = x0 - length * data->player->plane_x;
-// 	y_dir = y0 - length * data->player->plane_y;
-// 	draw_line1(data, x_dir, y_dir, 0x0000FF);
-// }
-
-// void	draw_fov(t_data *data)
-// {
-// 	double	ray_angle;
-
-// 	//double ray_x, ray_y;
-// 	//int map_width = 10;   // Example map width
-// 	///int map_height = 10;  // Example map height
-// 	int color = 0xFF0000; // Red color
-// 	double FOV_ANGLE = M_PI / 3; // 60 degree
-// 	for (int i = 0; i < NUM_RAYS; i++)
-// 	{
-// 		ray_angle = (data->player->player_direction_x - FOV_ANGLE/ 2)
-// 			+ (FOV_ANGLE / NUM_RAYS) * i;
-// 		ray_x = data->player->player_x + data->h * data->player->player_direction_x;
-// 		ray_y = data->player->player_y + data->h * data->player->player_direction_y;
-// 		draw_line(data,ray_x,
-// 			ray_y, color);
-// 	}
-// }
-
 void	draw_player(t_data *data)
 {
 	int	player_x;
@@ -205,12 +161,14 @@ int	put_color_with_pixels(t_data *data)
 	while (line < data->h)
 	{
 		colone = 0;
-		while (colone < ft_strlen_not_newline(data->map[line]))
+		while (colone < data->w)
 		{
 			tile_x = colone * SQUAR_SIZE;
 			tile_y = line * SQUAR_SIZE;
 			if (data->map[line][colone] == '1')
+			{
 				color = 0x444444;
+			}
 			else
 				color = 0xFFFFFF;
 			y = tile_y;

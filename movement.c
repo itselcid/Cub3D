@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:45:03 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/17 17:24:02 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/18 23:11:04 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	move_player(t_data *data)
 			* move_step;
 	}
 	// Check if the new position is valid
-	if (new_x >= 0 && new_x < data->img->width && new_y >= 0 && new_y < data->h
+	if (new_x >= 0 && new_x < data->img->width && new_y >= 0 && new_y < data->img->height
 		&& data->map[(int)new_y][(int)new_x] == '0')
 	{
 		data->player->player_x = new_x;

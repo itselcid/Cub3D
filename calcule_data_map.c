@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/18 16:00:48 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/18 23:29:17 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	position_player_and_int_map(t_data *data)
 			{
 				data->player->player_x = x ;
 				data->player->player_y = y ;
-				check_direction(data, x, y);
+				//check_direction(data, x, y);
 				data->map[y][x] = '0'; // Replace 'N' with '0' in mini_map
 				break ;
 			}
