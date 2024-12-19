@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/19 16:36:26 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:39:45 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,13 @@ void ft_draw_line(t_data *data, int start_x, int start_y, int end_x, int end_y)
 
 	double x = start_x;
 	double y = start_y;
-
-	for (int i = 0; i <= steps; i++)
+	int i = 0;
+	while (i <= steps)
 	{
 		my_mlx_pixel_put(data->img,(int)x, (int)y, 0x00FF00);
 		x += x_increment;
 		y += y_increment;
+		i++;
 	}
 }
 

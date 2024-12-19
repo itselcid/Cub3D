@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/19 15:26:59 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:06:03 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void check_direction(t_data *data, float x, float y)
 {
 	char c = data->map[(int)y][(int)x];
 	if  (c == 'N')
-        data->player->angle = M_PI / 2; // Facing up
+        data->player->angle = 3*M_PI / 2; // Facing up
     else if (c == 'S')
-        data->player->angle = 3*M_PI / 2; // Facing down
+        data->player->angle = M_PI / 2; // Facing down
     else if (c == 'E')
         data->player->angle = 0; // Facing right
     else if (c == 'W')
@@ -69,7 +69,7 @@ void	position_player_and_int_map(t_data *data)
 			{
 				data->player->player_x = x ;
 				data->player->player_y = y ;
-				//check_direction(data, x, y);
+				check_direction(data, x, y);
 				data->map[y][x] = '0'; // Replace 'N' with '0' in mini_map
 				break ;
 			}
