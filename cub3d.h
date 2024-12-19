@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/18 19:56:41 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:52:17 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define ANGLE_TO_ROTATE (M_PI / 6)
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
-# define NUM_RAYS 120
-# define FOV_ANGLE (M_PI / 3) // 60 degree
+# define NUM_RAYS 100
+# define FOV_ANGLE 60 * (M_PI / 180)
 # define ROTATE_SPEED 0.01
 
 typedef struct s_raycas
@@ -123,6 +123,8 @@ int				key_handler(int key_code, t_data *data);
 void			move_player(t_data *data);
 int				relase_key(int key_code, t_data *data);
 void			cast_rays(t_data *data);
+void			draw_line1(t_data *data, int x1, int y1, int color);
+//void draw_line(int x1, int y1, int x2, int y2, t_data *data);
 // void			draw_fov(t_data *data);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 // void			draw_line(t_data *data, int x1, int y1, int color);
