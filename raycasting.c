@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/19 16:00:35 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:34:46 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ double	distance_horizontal(t_data *data)
 			y += data->raycas->y_step;
 		}
 	}
-	printf("x = %f\n", x);
+	//printf("x = %f\n", x);
 	data->raycas->end_x_horizontal = x;
 	data->raycas->end_y_horizontal = y;
 	data->raycas->distance_horizontal = sqrt(pow(x - data->player->player_x
@@ -179,12 +179,12 @@ void	draw_ray(t_data *data, double distance, double ray_angle)
 {
 	double	x_end;
 	double	y_end;
-
-	x_end = data->player->player_x + cos(ray_angle) * distance;
-	y_end = data->player->player_y + sin(ray_angle) * distance;
+	double x0 = data->player->player_x * SQUAR_SIZE;
+	double y0 = data->player->player_y * SQUAR_SIZE;
+	x_end = x0 + cos(ray_angle) * distance;
+	y_end = y0 + sin(ray_angle) * distance;
 	// Adjust to fit screen or map rendering logic
-	draw_line(data->player->player_x, data->player->player_y, x_end, y_end,
-		data);
+	ft_draw_line(data, x0, y0, x_end, y_end);
 }
 void	cast_rays(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/19 15:52:17 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:34:07 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void			move_player(t_data *data);
 int				relase_key(int key_code, t_data *data);
 void			cast_rays(t_data *data);
 void			draw_line1(t_data *data, int x1, int y1, int color);
+void ft_draw_line(t_data *data, int start_x, int start_y, int end_x, int end_y);
 //void draw_line(int x1, int y1, int x2, int y2, t_data *data);
 // void			draw_fov(t_data *data);
 // void			draw_line(t_data *data, int x1, int y1, int color);

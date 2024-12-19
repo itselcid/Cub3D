@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/19 14:39:24 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:36:26 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,82 +22,63 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_line1(t_data *data, int x1, int y1, int color)
+// void	draw_line1(int x1, int y1, int x2, int y2, t_data *data)
+// {
+// 	int	dx;
+// 	int	dy;
+// 	int	sx;
+// 	int	sy;
+// 	int	err;
+// 	int	e2;
+// 	dx = abs(x1 - x0);
+// 	dy = abs(y1 - y0);
+// 	sx = 0;
+// 	if (x0 < x1)
+// 		sx = 1;
+// 	else
+// 		sx = -1;
+// 	sy = 0;
+// 	if (y0 < y1)
+// 		sy = 1;
+// 	else
+// 		sy = -1;
+// 	err = dx - dy;
+// 	while (1)
+// 	{
+// 		my_mlx_pixel_put(data->img, x0, y0, color);
+// 		if (x0 == x1 && y0 == y1)
+// 			break ;
+// 		e2 = 2 * err;
+// 		if (e2 > -dy)
+// 		{
+// 			err -= dy;
+// 			x0 += sx;
+// 		}
+// 		if (e2 < dx)
+// 		{
+// 			err += dx;
+// 			y0 += sy;
+// 		}
+// 	}
+// }
+
+void ft_draw_line(t_data *data, int start_x, int start_y, int end_x, int end_y)
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
-	int	x0;
-	int	y0;
+	double delta_x = end_x - start_x;
+	double delta_y = end_y - start_y;
+	double steps = fmax(fabs(delta_x), fabs(delta_y));
 
-	x0 = data->player->player_x * SQUAR_SIZE;
-	y0 = data->player->player_y * SQUAR_SIZE;
-	dx = abs(x1 - x0);
-	dy = abs(y1 - y0);
-	sx = 0;
-	if (x0 < x1)
-		sx = 1;
-	else
-		sx = -1;
-	sy = 0;
-	if (y0 < y1)
-		sy = 1;
-	else
-		sy = -1;
-	err = dx - dy;
-	while (1)
+	double x_increment = delta_x / steps;
+	double y_increment = delta_y / steps;
+
+	double x = start_x;
+	double y = start_y;
+
+	for (int i = 0; i <= steps; i++)
 	{
-		my_mlx_pixel_put(data->img, x0, y0, color);
-		if (x0 == x1 && y0 == y1)
-			break ;
-		e2 = 2 * err;
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x0 += sx;
-		}
-		if (e2 < dx)
-		{
-			err += dx;
-			y0 += sy;
-		}
-	}
-}
-
-void	draw_line(int x1, int y1, int x2, int y2, t_data *data)
-{
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
-
-	dx = abs(x2 - x1);
-	dy = abs(y2 - y1);
-	sx = x1 < x2 ? 1 : -1;
-	sy = y1 < y2 ? 1 : -1;
-	err = (dx > dy ? dx : -dy) / 2;
-	while (1)
-	{
-		if (x1 == x2 && y1 == y2)
-			break ;
-		if (x1 >= 0 && x1 < data->w && y1 >= 0 && y1 < data->h)
-			my_mlx_pixel_put(data->img, x1, y1, 0x00FF00); // Green color
-		e2 = err;
-		if (e2 > -dx)
-		{
-			err -= dy;
-			x1 += sx;
-		}
-		if (e2 < dy)
-		{
-			err += dx;
-			y1 += sy;
-		}
+		my_mlx_pixel_put(data->img,(int)x, (int)y, 0x00FF00);
+		x += x_increment;
+		y += y_increment;
 	}
 }
 
