@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 
-SRC =cub3d.c
+SRC =cub3d.c main.c get_next_line.c get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ)
