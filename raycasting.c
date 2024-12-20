@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/20 12:22:17 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:22:39 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ double	calcule_first_intersection_with_y(t_data *data)
 	if (data->raycas->is_ray_facing_left)
 	{
 		data->raycas->x_first_point_with_y_intersection = floor(player_x
-				/ SQUAR_SIZE) * SQUAR_SIZE + 0.0001;
+				/ SQUAR_SIZE) * SQUAR_SIZE - 0.0001;
 		data->raycas->x_step = -SQUAR_SIZE;
 	}
 	else
@@ -104,7 +104,9 @@ double	distance_horizontal(t_data *data)
 	while (x >= 0 && x < data->img->width && y >= 0 && y < data->img->height)
 	{
 		if (is_wall(x, y, data))
+		{
 			break ;
+		}
 		x += data->raycas->x_step;
 		y += data->raycas->y_step;
 	}
@@ -128,7 +130,9 @@ double	distance_vertical(t_data *data)
 	while (x >= 0 && x < data->img->width && y >= 0 && y < data->img->height)
 	{
 		if (is_wall(x, y, data))
+		{
 			break ;
+		}
 		x += data->raycas->x_step;
 		y += data->raycas->y_step;
 	}
@@ -149,22 +153,39 @@ void	player_facing(t_data *data)
 	data->raycas->is_ray_facing_left = !data->raycas->is_ray_facing_right;
 }
 
-void	draw_ray(t_data *data, double distance, double ray_angle)
+void	draw_ray(t_data *data)
 {
 	double	x_end;
 	double	y_end;
 	double	x0;
 	double	y0;
 
-	(void)distance;
-	(void)ray_angle;
 	x0 = data->player->player_x * SQUAR_SIZE;
 	y0 = data->player->player_y * SQUAR_SIZE;
 	x_end = data->raycas->wall_hit_x;
 	y_end = data->raycas->wall_hit_y;
 	ft_draw_line(data, x0, y0, x_end, y_end);
 }
-
+void	cast_ray(t_data *data)
+{
+	double h_distance, v_distance;
+	normalize_angle(&data->raycas->ray_angle);
+	player_facing(data);
+	h_distance = distance_horizontal(data);
+	v_distance = distance_vertical(data);
+	if (h_distance < v_distance)
+	{
+		data->raycas->wall_hit_x = data->raycas->end_x_horizontal;
+		data->raycas->wall_hit_y = data->raycas->end_y_horizontal;
+		draw_ray(data);
+	}
+	else
+	{
+		data->raycas->wall_hit_x = data->raycas->end_x_vertical;
+		data->raycas->wall_hit_y = data->raycas->end_y_vertical;
+		draw_ray(data);
+	}
+}
 void	cast_rays(t_data *data)
 {
 	double	ray_angle;
@@ -173,7 +194,7 @@ void	cast_rays(t_data *data)
 	float	angle_step;
 	float	start_angle;
 
-	double h_distance, v_distance;
+	
 	nbr_ray = data->img->width;
 	angle_step = FOV_ANGLE / nbr_ray;
 	start_angle = data->player->angle - (FOV_ANGLE / 2);
@@ -182,22 +203,7 @@ void	cast_rays(t_data *data)
 	{
 		ray_angle = start_angle + (angle_step * ray_id);
 		data->raycas->ray_angle = ray_angle;
-		normalize_angle(&data->raycas->ray_angle);
-		player_facing(data);
-		h_distance = distance_horizontal(data);
-		v_distance = distance_vertical(data);
-		if (h_distance < v_distance)
-		{
-			data->raycas->wall_hit_x = data->raycas->end_x_horizontal;
-			data->raycas->wall_hit_y = data->raycas->end_y_horizontal;
-			draw_ray(data, h_distance, ray_angle);
-		}
-		else
-		{
-			data->raycas->wall_hit_x = data->raycas->end_x_vertical;
-			data->raycas->wall_hit_y = data->raycas->end_y_vertical;
-			draw_ray(data, v_distance, ray_angle);
-		}
+		cast_ray(data);
 		ray_id++;
 	}
 }
