@@ -1,13 +1,15 @@
 
-NO ./textures/greystone.xpm
+
 
 SO ./textures/purplestone.xpm
+ NO ./textures/greystone.xpm 
 WE ./textures/redbrick.xpm
 EA ./textures/wood.xpm
+S ./textures/creeper.xpm
 
 F 77,92,53
 C 163,208,230
-
+no 
 		1111111111111111111111111
 		1000000000110000000000001
 		1011000001110000002000001

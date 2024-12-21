@@ -342,15 +342,3 @@ int ft_game_loop(t_game *game)
 	return 0;
 }
 
-int main()
-{
-	if (!ft_init_window(&game))
-		return 1;
-	ft_initialize();
-	mlx_hook(game.win, 2, 1L << 0, ft_key_press, &game);
-	mlx_hook(game.win, 3, 1L << 1, ft_key_release, &game);
-	mlx_loop_hook(game.mlx, (int (*)(void *))ft_game_loop, &game);
-	mlx_loop(game.mlx);
-
-	return 0;
-}

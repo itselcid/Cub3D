@@ -5,6 +5,9 @@
 #include <math.h>
 #include <stdlib.h>
 #include <float.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <limits.h>
 #include "mlx.h"
 
 #define WINDOW_WIDTH (MAP_COLS * SQUARE_SIZE)
@@ -60,17 +63,32 @@ typedef struct s_player
     float   turn_speed;
 }   t_player;
 
+typedef struct s_map {
+    char    **grid;
+    int     width;
+    int     height;
+    char    *no_texture;
+    char    *so_texture;
+    char    *we_texture;
+    char    *ea_texture;
+    int     floor_color[3];
+    int     sky_color[3];
+    int     player_x;
+    int     player_y;
+    char    player_dir;
+} t_map;
+
 typedef struct s_game
 {
     void *mlx;
     void *win;
+	t_map map;
     t_img img;
     t_player player;
     t_ray rays[NUM_RAYS];    
 } t_game;
 
 extern t_game game;
-extern int map[MAP_ROWS][MAP_COLS];
 
 
 void ft_mlx_pixel_put(t_game *game, int x, int y, int color);
@@ -89,6 +107,37 @@ void normalize_angle(float *angle);
 int its_wall(float x, float y);
 void horizontal_intersection(int ray_index);
 void vertical_intersection(int ray_index);
+
+//parsing
+int check_file_extension(char *filename);
+int validate_map_line(char *line);
+int check_map_closed(char **map, int rows);
+int parse_map(char *line);
+int validate_map(t_map *map);
+int parse_texture(char *line, t_map *map);
+int parse_color(char *line, t_map *map);
+// get_next_line
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 2
+# endif
+
+char		*get_next_line(int fd);
+char		*ft_line(char *str);
+char		*ft_rest(char *str);
+char		*ft_strjoin(char *s1, char *s2);
+int			ft_strlen(const char *s);
+char		*ft_strncpy(char *dest, const char *src, size_t n);
+char		*ft_strchr(const char *s, int c);
+char		*handle_eof(int chars_readed, char *rest);
+char		*handle_line(char *rest);
+
+// libft functions 
+char	*ft_strchr(const char *s, int c);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strdup(const char *s1);
+char	**ft_split(char const *s, char c);
+
+
 
 #endif
 

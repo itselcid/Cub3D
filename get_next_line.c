@@ -6,11 +6,11 @@
 /*   By: oessaadi <oessaadi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 15:12:38 by oessaadi          #+#    #+#             */
-/*   Updated: 2023/12/08 11:14:49 by oessaadi         ###   ########.fr       */
+/*   Updated: 2024/05/04 10:53:15 by oessaadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub3d.h"
 
 char	*ft_line(char *str)
 {
@@ -20,18 +20,8 @@ char	*ft_line(char *str)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (str[i] == '\n')
-	{
-		line = malloc(i + 2);
-		strncpy(line, str, i);
-		line[i] = '\n';
-		i++;
-	}
-	else
-	{
-		line = malloc(i + 1);
-		strncpy(line, str, i);
-	}
+	line = malloc(i + 1);
+	ft_strncpy(line, str, i);
 	line[i] = '\0';
 	return (line);
 }
@@ -44,10 +34,10 @@ char	*ft_rest(char *str)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (!str[i])
+	if (str[i] == '\0')
 		return (NULL);
-	rest = malloc(strlen(str) - i + 1);
-	ft_strncpy(rest, &str[i + 1], ft_strlen(str));
+	rest = malloc(ft_strlen(str) - i + 1);
+	ft_strncpy(rest, &str[i + 1], ft_strlen(str) - i + 1);
 	return (rest);
 }
 
@@ -73,7 +63,7 @@ char	*read_from_file(int fd, char *rest, char *buff, ssize_t *chars_readed)
 		tmp = ft_strjoin(rest, buff);
 		free(rest);
 		rest = tmp;
-		if (strchr(rest, '\n') != NULL || *chars_readed < BUFFER_SIZE)
+		if (ft_strchr(rest, '\n') != NULL || *chars_readed < BUFFER_SIZE)
 			break ;
 		*chars_readed = read(fd, buff, BUFFER_SIZE);
 	}

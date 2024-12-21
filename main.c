@@ -1,16 +1,15 @@
 #include "cub3d.h"
+
 int main(int ac, char **av)
 {
 	if (ac != 2)
 	{
-		write(1, "Error\n Invalid number of arguments", 36);
+		write(1, "Error\nInvalid number of arguments\n", 35);
 		return (1);
-	}
-	if (!check_file_extension(av[1]))
-	{
-		write(1, "Error\n Invalid file extension", 30);
-		return (1);
-	}
+	};
+
+if(parse_map(av[1]))
+	return 1;
 	if (!ft_init_window(&game))
 		return 1;
 	ft_initialize();
