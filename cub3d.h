@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/19 23:50:00 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:19:38 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,38 +37,40 @@
 # define FOV_ANGLE 60 * (M_PI / 180)
 # define ROTATE_SPEED 0.01
 
+typedef struct s_rays
+{
+	double		ray_angle;
+	double		x_first_point_with_y_intersection;
+	double		y_first_point_with_x_intersection;
+	double		x_step;
+	double		y_step;
+	double		end_x_horizontal;
+	double		end_y_horizontal;
+	double		end_x_vertical;
+	double		end_y_vertical;
+	double		wall_hit_x;
+	double		wall_hit_y;
+	double		ray_distance;
+	double      horizontal_distance;
+	double      vertical_distance;
+	int			is_ray_facing_down;
+	int			is_ray_facing_up;
+	int			is_ray_facing_right;
+	int			is_ray_facing_left;
+}				t_rays;
+
 typedef struct s_raycas
 {
-	float		with_FOV;
-	float		ray_angle;
-	float		y_step;
-	float		x_step;
-	float		ray_end_x;
-	float		ray_end_y;
-	float		y_first_point_with_x_intersection;
-	float		x_first_point_with_y_intersection;
-	float		distance_horizontal;
-	float		distance_vertical;
-
-	float		end_x_horizontal;
-	float		end_y_horizontal;
-	float		end_x_vertical;
-	float		end_y_vertical;
-	float		wall_hit_x;
-	float		wall_hit_y;
-	float		is_ray_facing_down;
-	float		is_ray_facing_up;
-	float		is_ray_facing_right;
-	float		is_ray_facing_left;
-
+	int         nbr_ray;
+	t_rays		*ray;
 }				t_raycas;
 
 typedef struct s_palyer
 {
 	float		player_x;
 	float		player_y;
-	int			walk;
-	int			strafe;
+	int			Movement_walk;
+	int			Movement_sideways;
 	int			rotate;
 	float		angle;
 }				t_player;
@@ -125,7 +127,8 @@ void			move_player(t_data *data);
 int				relase_key(int key_code, t_data *data);
 void			cast_rays(t_data *data);
 void			draw_line1(t_data *data, int x1, int y1, int color);
-void ft_draw_line(t_data *data, int start_x, int start_y, int end_x, int end_y);
+void 		ft_draw_line(t_data *data, int start_x, int start_y, int end_x, int end_y);
+void projection_wall(t_data *data);
 //void draw_line(int x1, int y1, int x2, int y2, t_data *data);
 // void			draw_fov(t_data *data);
 // void			draw_line(t_data *data, int x1, int y1, int color);

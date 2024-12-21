@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/19 22:34:16 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:17:42 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,46 +21,6 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
-
-// void	draw_line1(int x1, int y1, int x2, int y2, t_data *data)
-// {
-// 	int	dx;
-// 	int	dy;
-// 	int	sx;
-// 	int	sy;
-// 	int	err;
-// 	int	e2;
-// 	dx = abs(x1 - x0);
-// 	dy = abs(y1 - y0);
-// 	sx = 0;
-// 	if (x0 < x1)
-// 		sx = 1;
-// 	else
-// 		sx = -1;
-// 	sy = 0;
-// 	if (y0 < y1)
-// 		sy = 1;
-// 	else
-// 		sy = -1;
-// 	err = dx - dy;
-// 	while (1)
-// 	{
-// 		my_mlx_pixel_put(data->img, x0, y0, color);
-// 		if (x0 == x1 && y0 == y1)
-// 			break ;
-// 		e2 = 2 * err;
-// 		if (e2 > -dy)
-// 		{
-// 			err -= dy;
-// 			x0 += sx;
-// 		}
-// 		if (e2 < dx)
-// 		{
-// 			err += dx;
-// 			y0 += sy;
-// 		}
-// 	}
-// }
 
 void ft_draw_line(t_data *data, int start_x, int start_y, int end_x, int end_y)
 {
@@ -89,18 +49,6 @@ void	normalize_angle(float *angle)
 		*angle -= 2 * M_PI;
 	while (*angle < 0)
 		*angle += 2 * M_PI;
-}
-
-float	calculate_player_angle(float player_dir_x, float player_dir_y)
-{
-	if (player_dir_x == 0 && player_dir_y == -1)
-		return (M_PI / 2); // Up
-	else if (player_dir_x == 1 && player_dir_y == 0)
-		return (0); // Right
-	else if (player_dir_x == 0 && player_dir_y == 1)
-		return (3 * M_PI / 2); // Down
-	else
-		return (M_PI); // Left
 }
 
 void	draw_player(t_data *data)

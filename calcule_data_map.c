@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/20 14:29:44 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:49:57 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,16 @@ void	position_player_and_int_map(t_data *data)
 	}
 }
 
+void init_raycas(t_data *data)
+{
+	data->raycas = malloc(sizeof(t_raycas));
+	if (data->raycas == NULL)
+		exit(1);
+	data->raycas->nbr_ray = data->img->width;
+	data->raycas->ray = malloc(data->raycas->nbr_ray * sizeof(t_rays));
+	if (data->raycas->ray == NULL)
+		exit(1);
+}
 void	malloc_map_2D(char *filename, t_data *data)
 {
 	int		fd;
@@ -128,4 +138,6 @@ void	map(t_data *data, char *file)
 		exit(0);
 	}
 	init_image(data);
+	init_raycas(data);
+
 }

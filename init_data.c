@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/18 19:58:08 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/21 16:20:32 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	init_data(t_data *data)
 	}
 	ft_memset(data->img, 0, sizeof(t_image));
 	data->player = malloc(sizeof(t_player));
-	data->raycas = malloc(sizeof(t_raycas));
 	if (!data->player)
 	{
 		printf("Error: Failed to allocate player structure\n");
@@ -41,17 +40,8 @@ void	init_data(t_data *data)
 		exit(1);
 	}
 	ft_memset(data->player, 0, sizeof(t_player));
-	ft_memset(data->raycas, 0, sizeof(t_raycas));
-	data->player->player_x = 0;
 	data->player->player_y = 0;
 	data->map = NULL;
-	data->player->walk = 0;
-	data->player->strafe = 0;
-	data->player->rotate = 0;
-	data->raycas->y_step = 0;
-	data->raycas->x_step = 0;
-	//// init angle with W E S D 
-
 	data->player->angle = 0.0;
 }
 
