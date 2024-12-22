@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/22 12:32:44 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/22 14:44:14 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 #  define BUFFER_SIZE 10
 # endif
 
-# define TEXTURE_WIDTH 64
-# define TEXTURE_HEIGHT 64
 # define SQUAR_SIZE 50
 # define MOVE_SPEED 0.005
 # define ESC 65307
@@ -39,6 +37,29 @@
 # define NUM_RAYS 100
 # define FOV_ANGLE 60 * (M_PI / 180)
 # define ROTATE_SPEED 0.01
+# define NUM_WALL_TEXTURES 4
+# define TEXTURE_WIDTH 60
+# define TEXTURE_HEIGHT 60
+
+typedef enum e_texture
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST,
+}				t_e_texture;
+
+typedef struct s_texture
+{
+	void		*img;
+	char		*addr;
+	int			width;
+	int			height;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	t_e_texture	texture;
+}				t_texture;
 
 typedef struct s_rays
 {
@@ -100,6 +121,7 @@ typedef struct s_data
 	t_raycas	*raycas;
 	t_player	*player;
 	t_image		*img;
+	t_texture	texture[NUM_WALL_TEXTURES];
 }				t_data;
 
 char			*get_next_line(int fd);
