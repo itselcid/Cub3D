@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/21 16:02:41 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:29:24 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void	cast_ray(t_data *data , int ray_id)
 
 void	cast_rays(t_data *data)
 {
-	double	ray_angle;
+	float	ray_angle;
 	int		ray_id;
 	float	angle_step;
 	float	start_angle;
@@ -204,7 +204,8 @@ void	cast_rays(t_data *data)
 	ray_id = 0;
 	while (ray_id < nbr_ray)
 	{
-		ray_angle = start_angle + (angle_step * ray_id);
+		ray_angle = start_angle + ray_id * angle_step;
+		normalize_angle(&ray_angle);
 		data->raycas->ray[ray_id].ray_angle = ray_angle;
 		cast_ray(data, ray_id);
 		ray_id++;

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/21 16:19:38 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/22 12:32:44 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 # define CUB3D_H
 # define _USE_MATH_DEFINES
 # include <fcntl.h>
+# include <float.h>
 # include <math.h>
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <float.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
+
+# define TEXTURE_WIDTH 64
+# define TEXTURE_HEIGHT 64
 # define SQUAR_SIZE 50
 # define MOVE_SPEED 0.005
 # define ESC 65307
@@ -39,7 +42,7 @@
 
 typedef struct s_rays
 {
-	double		ray_angle;
+	float		ray_angle;
 	double		x_first_point_with_y_intersection;
 	double		y_first_point_with_x_intersection;
 	double		x_step;
@@ -51,8 +54,8 @@ typedef struct s_rays
 	double		wall_hit_x;
 	double		wall_hit_y;
 	double		ray_distance;
-	double      horizontal_distance;
-	double      vertical_distance;
+	double		horizontal_distance;
+	double		vertical_distance;
 	int			is_ray_facing_down;
 	int			is_ray_facing_up;
 	int			is_ray_facing_right;
@@ -61,7 +64,7 @@ typedef struct s_rays
 
 typedef struct s_raycas
 {
-	int         nbr_ray;
+	int			nbr_ray;
 	t_rays		*ray;
 }				t_raycas;
 
@@ -127,9 +130,10 @@ void			move_player(t_data *data);
 int				relase_key(int key_code, t_data *data);
 void			cast_rays(t_data *data);
 void			draw_line1(t_data *data, int x1, int y1, int color);
-void 		ft_draw_line(t_data *data, int start_x, int start_y, int end_x, int end_y);
-void projection_wall(t_data *data);
-//void draw_line(int x1, int y1, int x2, int y2, t_data *data);
+void			ft_draw_line(t_data *data, int start_x, int start_y, int end_x,
+					int end_y);
+void			projection_wall(t_data *data);
+// void draw_line(int x1, int y1, int x2, int y2, t_data *data);
 // void			draw_fov(t_data *data);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 // void			draw_line(t_data *data, int x1, int y1, int color);
