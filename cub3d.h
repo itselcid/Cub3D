@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/22 14:44:14 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/23 10:36:37 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ typedef struct s_texture
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	t_e_texture	texture;
+	int         texture_side;
+	t_e_texture	tetxure;
 }				t_texture;
 
 typedef struct s_rays
@@ -155,6 +156,7 @@ void			draw_line1(t_data *data, int x1, int y1, int color);
 void			ft_draw_line(t_data *data, int start_x, int start_y, int end_x,
 					int end_y);
 void			projection_wall(t_data *data);
+void draw_textured_wall(t_data *data, int ray_id, int wall_start, int wall_end);
 // void draw_line(int x1, int y1, int x2, int y2, t_data *data);
 // void			draw_fov(t_data *data);
 // void			draw_line(t_data *data, int x1, int y1, int color);

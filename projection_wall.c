@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/22 17:04:12 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/23 10:29:44 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,47 +22,6 @@ void draw_vertical_line(t_data *data, int x, int start, int end, int color)
     while (y <= end)
     {
         my_mlx_pixel_put(data->img, x, y, color);
-        y++;
-    }
-}
-
-t_e_texture determine_wall_side(t_data *data, int ray_id)
-{ 
-    // If we hit a horizontal wall (y intersection)
-    if (data->raycas->ray[ray_id].horizontal_distance < data->raycas->ray[ray_id].vertical_distance)
-    {
-        if (data->raycas->ray[ray_id].is_ray_facing_up)
-            return NORTH;  // Hit north-facing wall
-        return SOUTH;     // Hit south-facing wall
-    }
-    // If we hit a vertical wall (x intersection)
-    else
-    {
-        if (data->raycas->ray[ray_id].is_ray_facing_right)
-            return EAST;   // Hit east-facing wall
-        return WEST;      // Hit west-facing wall
-    }
-}
-
-
-void draw_colored_wall(t_data *data, int ray_id, int wall_start, int wall_end) {
-    t_e_texture side = determine_wall_side(data, ray_id);
-    int color;
-
-    // Simple color assignment - same color for all walls of the same orientation
-    if (side == NORTH)
-        color = 0x00FF00;      // Green for all North walls
-    else if (side == SOUTH)
-        color = 0xFF0000;      // Red for all South walls
-    else if (side == EAST)
-        color = 0x0000FF;      // Blue for all East walls
-    else // WEST
-        color = 0xFFFF00;      // Yellow for all West walls
-
-    // Draw the vertical line with the assigned color
-    int y = wall_start;
-    while (y <= wall_end) {
-        my_mlx_pixel_put(data->img, ray_id, y, color);
         y++;
     }
 }
@@ -87,7 +46,8 @@ void projection_wall(t_data *data)
         
         draw_vertical_line(data, ray_id, 0, wall_top - 1, 0x87CEEB);
         // draw the wall for the N / S / E / W
-        draw_colored_wall(data, ray_id, wall_top, wall_bottom);
+        //draw_colored_wall(data, ray_id, wall_top, wall_bottom);
+        draw_textured_wall(data, ray_id, wall_top, wall_bottom);
         draw_vertical_line(data, ray_id, wall_bottom + 1, data->img->height - 1, 0x8B4513);
         ray_id++;
     }
