@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/23 10:36:37 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/24 12:40:46 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 # define TEXTURE_WIDTH 60
 # define TEXTURE_HEIGHT 60
 
+#define  WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600 
 typedef enum e_texture
 {
 	NORTH,
