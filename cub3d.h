@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/24 16:20:41 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:52:53 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@
 # define FOV_ANGLE 60 * (M_PI / 180)
 # define ROTATE_SPEED 0.02
 # define NUM_WALL_TEXTURES 4
-# define TEXTURE_SIZE 64
+
+# define TEXTURE_WIDTH 64 
+#define  TEXTURE_HEIGHT 64
 
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 700

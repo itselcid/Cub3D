@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/24 12:47:36 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:27:51 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ t_texture	init_for_image(t_data *data, char *path, t_e_texture side)
 {
     t_texture	texture;
 
-    texture.img = mlx_xpm_file_to_image(data->mlx, path, &texture.width, &texture.height);
+    texture.img = mlx_xpm_file_to_image(data->mlx, path, &texture.width,
+										&texture.height);
     if (!texture.img)
     {
         printf("Error: Failed texture %s\n", path);
@@ -63,18 +64,17 @@ t_texture	init_for_image(t_data *data, char *path, t_e_texture side)
 
 void init_texture(t_data *data)
 {
-	data->texture[NORTH] = init_for_image(data, "texture/N1.xpm", NORTH);
-	data->texture[SOUTH] = init_for_image(data, "texture/N1.xpm", SOUTH);
-	data->texture[WEST] = init_for_image(data, "texture/N1.xpm", WEST);
-	data->texture[EAST] = init_for_image(data, "texture/N1.xpm", EAST);
+	data->texture[NORTH] = init_for_image(data, "texture/W1.xpm", NORTH);
+	data->texture[SOUTH] = init_for_image(data, "texture/W1.xpm", SOUTH);
+	data->texture[WEST] = init_for_image(data, "texture/W1.xpm", WEST);
+	data->texture[EAST] = init_for_image(data, "texture/W1.xpm", EAST);
 }
 
 void	init_image(t_data *data)
 {
 	if (!data->map)
 		return ;
-	data->img->img_map = mlx_new_image(data->mlx,WINDOW_WIDTH ,
-			WINDOW_HEIGHT);
+	data->img->img_map = mlx_new_image(data->mlx,WINDOW_WIDTH ,WINDOW_HEIGHT);
 	if (!data->img->img_map)
 	{
 		printf("Error creating image\n");
