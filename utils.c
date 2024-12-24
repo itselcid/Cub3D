@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 12:52:38 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/18 23:32:57 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/24 16:15:46 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_strdup(char *src)
 	d[i] = '\0';
 	return (d);
 }
+
 int	ft_strlen_not_newline(char *str)
 {
 	int	i;
@@ -42,6 +43,7 @@ int	ft_strlen_not_newline(char *str)
 		i++;
 	return (i);
 }
+
 void	ft_memset(void *s, int c, size_t n)
 {
 	unsigned char *ptr;

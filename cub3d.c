@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/22 12:10:03 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/24 16:17:27 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	game_loop(t_data *data)
 {
 	move_player(data);
-	// put_color_with_pixels(data);
-	// draw_player(data);
+	//put_color_with_pixels(data);
+	//draw_player(data);
 	cast_rays(data);
 	projection_wall(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_map, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/24 12:41:34 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/24 16:07:55 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ void	map(t_data *data, char *file)
 {
 	malloc_map_2D(file, data);
 	data->w = ft_strlen_not_newline(data->map[0]);
-	data->img->width = ft_strlen_not_newline(data->map[0]) * SQUAR_SIZE;
-	data->img->height = data->h * SQUAR_SIZE;
+	//data->img->width = ft_strlen_not_newline(data->map[0]) * SQUAR_SIZE;
+	//data->img->height = data->h * SQUAR_SIZE;
 	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH,WINDOW_HEIGHT,
 			"cub3D");
 	if (!data->win)

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/24 12:40:46 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/24 16:20:41 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # endif
 
 # define SQUAR_SIZE 50
-# define MOVE_SPEED 0.005
+# define MOVE_SPEED 0.015
 # define ESC 65307
 # define UP 119
 # define DOWN 115
@@ -34,15 +34,15 @@
 # define ANGLE_TO_ROTATE (M_PI / 6)
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
-# define NUM_RAYS 100
+# define NUM_RAYS 120
 # define FOV_ANGLE 60 * (M_PI / 180)
-# define ROTATE_SPEED 0.01
+# define ROTATE_SPEED 0.02
 # define NUM_WALL_TEXTURES 4
-# define TEXTURE_WIDTH 60
-# define TEXTURE_HEIGHT 60
+# define TEXTURE_SIZE 64
 
-#define  WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600 
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 700
+
 typedef enum e_texture
 {
 	NORTH,
@@ -60,7 +60,7 @@ typedef struct s_texture
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int         texture_side;
+	int			texture_side;
 	t_e_texture	tetxure;
 }				t_texture;
 
@@ -158,7 +158,9 @@ void			draw_line1(t_data *data, int x1, int y1, int color);
 void			ft_draw_line(t_data *data, int start_x, int start_y, int end_x,
 					int end_y);
 void			projection_wall(t_data *data);
-void draw_textured_wall(t_data *data, int ray_id, int wall_start, int wall_end);
+void			draw_textured_wall(t_data *data, int ray_id, int wall_start,
+					int wall_end);
+t_e_texture		determine_wall_side(t_data *data, int ray_id);
 // void draw_line(int x1, int y1, int x2, int y2, t_data *data);
 // void			draw_fov(t_data *data);
 // void			draw_line(t_data *data, int x1, int y1, int color);
