@@ -77,3 +77,38 @@ long	ft_atoi(const char *str)
 	}
 	return (sign * result);
 }
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned char	*ptr;
+	size_t			i;
+
+	ptr = (unsigned char *)b;
+	i = 0;
+	while (i < len)
+	{
+		ptr[i] = (unsigned char)c;
+		i++;
+	}
+	return (b);
+}
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*dest;
+	unsigned char	*s;
+
+	if (dst == src)
+		return (dst);
+	if (dst == NULL && src == NULL)
+		return (NULL);
+	dest = (unsigned char *)dst;
+	i = 0;
+	s = (unsigned char *)src;
+	while (i < n)
+	{
+		dest[i] = s[i];
+		i++;
+	}
+	return (dst);
+}

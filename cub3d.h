@@ -115,9 +115,10 @@ void init_map(t_map *map);
 int check_file_extension(char *filename);
 int check_texture_extension(char *filename);
 void cleanup_up(int num);
-int parse_map(char *filename);
 int parse_texture(char *line, char *direction);
 int parse_color(char *line, char direction);
+int parse_map(char *filename);
+void check_position(int y, int x);
 // get_next_line
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 2
@@ -139,5 +140,7 @@ char *ft_strnstr(const char *haystack, const char *needle, size_t len);
 char *ft_strdup(const char *s1);
 char **ft_split(char const *s, char c);
 long ft_atoi(const char *str);
+void	*ft_memset(void *b, int c, size_t len);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif
