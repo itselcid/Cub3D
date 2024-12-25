@@ -1,22 +1,7 @@
 
 #include "cub3d.h"
 
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == (char)c)
-		{
-			return ((char *)s);
-		}
-		s++;
-	}
-	if ((char)c == '\0')
-	{
-		return ((char *)s);
-	}
-	return (NULL);
-}
+
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -65,4 +50,30 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		len--;
 	}
 	return (NULL);
+}
+long	ft_atoi(const char *str)
+{
+	int		i;
+	int		sign;
+	long	result;
+	int		digit_count;
+
+	digit_count = 0;
+	result = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '-')
+		sign = -1;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9' && result <= 2147483649)
+	{
+		result = (result * 10) + str[i++] - '0';
+		digit_count++;
+	}
+	if (str[i] != '\0' || digit_count == 0)
+	{
+		return (2147483649);
+	}
+	return (sign * result);
 }

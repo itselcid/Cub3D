@@ -1,16 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: oessaadi <oessaadi@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 21:53:35 by fadermou          #+#    #+#             */
-/*   Updated: 2023/11/24 16:00:55 by oessaadi         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
+
+static int is_separator(char ch, char c)
+{
+    if (c == ' ')
+    {
+        if (ch == ' ' || ch == '\t')
+            return (1);
+        else
+            return (0);
+    }
+    else
+    {
+        if (ch == c)
+            return (1);
+        else
+            return (0);
+    }
+}
 
 static int	count_words(const char *s, char c)
 {
@@ -21,13 +27,13 @@ static int	count_words(const char *s, char c)
 	i = 0;
 	while (s != NULL && s[i])
 	{
-		if (s[i] != c)
+		if (!is_separator(s[i], c))
 		{
 			words++;
-			while (s[i] && s[i] != c)
+			while (s[i] && !is_separator(s[i], c))
 				i++;
 		}
-		while (s[i] && s[i] == c)
+		while (s[i] && is_separator(s[i], c))
 			i++;
 	}
 	return (words);
@@ -38,7 +44,7 @@ static int	word_len(const char *s, char c)
 	int	len;
 
 	len = 0;
-	while (s[len] != c && s[len] != '\0')
+	while (!is_separator(s[len], c) && s[len] != '\0')
 	{
 		len++;
 	}
@@ -87,7 +93,7 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	while (s != NULL && *s)
 	{
-		if (*s != c)
+		if (!is_separator(*s, c))
 		{
 			result[i] = copy_word(s, c);
 			if (result[i] == NULL)
