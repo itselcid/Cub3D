@@ -21,10 +21,14 @@
 // Add these new definitions
 #define SQUARE_SIZE 32
 #define TILE_SIZE SQUARE_SIZE
-#define NUM_RAYS 1920
+#define NUM_RAYS 1490           // Match the window width
 #define PI 3.14159265
 #define FOV_ANGLE (60 * (PI / 180))
 #define PROJ_DISTANCE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
+#define WINDOW_WIDTH 1490      // Smaller window width
+#define WINDOW_HEIGHT 900      // Keep 16:9 aspect ratio
+#define MINIMAP_SCALE 0.3     
+#define MINIMAP_SIZE 300      
 
 typedef struct s_ray
 {
@@ -59,8 +63,9 @@ typedef struct s_player
 	float y;
 	float width;
 	float height;
-	int turn_direction;
-	int walk_direction;
+	int turn_direction;    // For left/right rotation with arrow keys
+	int walk_direction;    // For forward/backward with W/S
+	int strafe_direction;  // Add this for left/right movement with A/D
 	float rotation_angle;
 	float walk_speed;
 	float turn_speed;
@@ -85,6 +90,16 @@ typedef struct s_map
 	char player_dir;
 } t_map;
 
+typedef struct s_texture {
+    void    *img;
+    char    *addr;
+    int     width;
+    int     height;
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+} t_texture;
+
 typedef struct s_game
 {
 	void *mlx;
@@ -95,6 +110,7 @@ typedef struct s_game
 	t_img img;
 	t_player player;
 	t_ray rays[NUM_RAYS];
+	t_texture textures[4]; 
 } t_game;
 
 void ft_mlx_pixel_put(t_game *game, int x, int y, int color);
@@ -151,5 +167,14 @@ char **ft_split(char const *s, char c);
 long ft_atoi(const char *str);
 void *ft_memset(void *b, int c, size_t len);
 void *ft_memcpy(void *dst, const void *src, size_t n);
+
+void draw_ceiling(t_game *game, int x, int wall_top);
+void draw_floor(t_game *game, int x, int wall_bottom);
+void draw_wall_strip(t_game *game, int x, float wall_height, int ray_index);
+
+// Add these function prototypes
+int load_textures(t_game *game);
+void get_texture_pixel(t_texture *texture, int x, int y, unsigned int *color);
+void draw_textured_wall(t_game *game, int x, float wall_height, int ray_index);
 
 #endif

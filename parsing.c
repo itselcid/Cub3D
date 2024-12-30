@@ -225,6 +225,7 @@ int handle_map_line(t_game *game, char *line)
 }
 void check_position(t_game *game, int y, int x)
 {
+	
 	if (y == 0 || game->map.map_data[y - 1][x] == ' ' || game->map.map_data[y - 1][x] == '\t')
 	{
 		write(1, "Error\nMap is not valid\n", 24);
