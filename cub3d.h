@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/24 17:52:53 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:17:00 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 # define _USE_MATH_DEFINES
 # include <fcntl.h>
+# include <limits.h>
 # include <float.h>
 # include <math.h>
 # include <mlx.h>
@@ -44,6 +45,24 @@
 
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 700
+
+typedef struct s_map
+{
+	int fd;
+	char *line;
+	char **map_data;
+	int width;
+	int height;
+	char *no_texture;
+	char *so_texture;
+	char *we_texture;
+	char *ea_texture;
+	int floor_color[3];
+	int sky_color[3];
+	int player_x;
+	int player_y;
+	char player_dir;
+} t_map;
 
 typedef enum e_texture
 {
@@ -119,10 +138,10 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
-	char		**map;
 	int			h;
 	int			w;
 	int			size_line;
+	t_map		*map;
 	t_raycas	*raycas;
 	t_player	*player;
 	t_image		*img;
@@ -140,13 +159,13 @@ int				close_window(t_data *data);
 int				key_handler(int key_code, t_data *data);
 void			malloc_map_2D(char *filename, t_data *data);
 int				ft_strlen_not_newline(char *str);
-void			ft_memset(void *s, int c, size_t n);
+void	*ft_memset(void *b, int c, size_t len);
 void			init_image(t_data *data);
 int				put_color_with_pixels(t_data *data);
 void			draw_player(t_data *data);
 void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
 
-void			map(t_data *data, char *file);
+void	init_image_and_ray(t_data *data);
 void			draw_view_from_player(t_data *data);
 void			draw_line(int x1, int y1, int x2, int y2, t_data *data);
 void			normalize_angle(float *angle);
@@ -163,6 +182,17 @@ void			projection_wall(t_data *data);
 void			draw_textured_wall(t_data *data, int ray_id, int wall_start,
 					int wall_end);
 t_e_texture		determine_wall_side(t_data *data, int ray_id);
+int parse_map(t_data *game, char *filename);
+void init_map(t_map *map);
+char	*ft_strnstr(char *haystack, char *needle, size_t len);
+char	**ft_split(char  *s, char c);
+int	ft_strncmp(char *s1,  char *s2, size_t n);
+long	ft_atoi( char *str);
+void	*ft_memcpy(void *dst,  void *src, size_t n);
+char	*ft_strncpy(char *dest,  char *src, size_t n);
+char	*ft_strchr( char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
+int	ft_strlen(char *s);
 // void draw_line(int x1, int y1, int x2, int y2, t_data *data);
 // void			draw_fov(t_data *data);
 // void			draw_line(t_data *data, int x1, int y1, int color);

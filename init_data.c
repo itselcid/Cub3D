@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/24 17:27:51 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:34:06 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	init_data(t_data *data)
 		exit(1);
 	}
 	ft_memset(data->player, 0, sizeof(t_player));
-	data->player->player_y = 0;
-	data->map = NULL;
 	data->player->angle = 0.0;
 }
 
@@ -64,10 +62,10 @@ t_texture	init_for_image(t_data *data, char *path, t_e_texture side)
 
 void init_texture(t_data *data)
 {
-	data->texture[NORTH] = init_for_image(data, "texture/W1.xpm", NORTH);
-	data->texture[SOUTH] = init_for_image(data, "texture/W1.xpm", SOUTH);
-	data->texture[WEST] = init_for_image(data, "texture/W1.xpm", WEST);
-	data->texture[EAST] = init_for_image(data, "texture/W1.xpm", EAST);
+	data->texture[NORTH] = init_for_image(data, data->map->no_texture, NORTH);
+	data->texture[SOUTH] = init_for_image(data, data->map->so_texture, SOUTH);
+	data->texture[WEST] = init_for_image(data, data->map->we_texture, WEST);
+	data->texture[EAST] = init_for_image(data, data->map->ea_texture, EAST);
 }
 
 void	init_image(t_data *data)

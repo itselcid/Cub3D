@@ -5,68 +5,75 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/23 10:47:44 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/11/24 19:38:01 by oel-moue         ###   ########.fr       */
+/*   Created: 2023/12/06 15:12:53 by oessaadi          #+#    #+#             */
+/*   Updated: 2024/12/30 16:16:47 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*ft_strchr(char *str, int c)
-{
-	int		i;
-	char	*s;
-
-	if (!str)
-		return (NULL);
-	s = (char *)str;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return (s + i);
-		i++;
-	}
-	if (s[i] == (char)c)
-		return (s + i);
-	return (NULL);
-}
-
-int	ft_strlen(char *str)
-{
-	int	i;
-
-	if (str == NULL)
-		return (0);
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
-
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
-	char	*join;
+	char	*new_str;
 
-	join = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (join == NULL)
+	if (!s1 || !s2)
 		return (NULL);
 	i = 0;
-	while (s1 != NULL && s1[i])
+	new_str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!new_str)
+		return (NULL);
+	while (s1[i])
 	{
-		join[i] = s1[i];
+		new_str[i] = s1[i];
 		i++;
 	}
 	j = 0;
-	while (s2 != NULL && s2[j])
+	while (s2[j])
 	{
-		join[i++] = s2[j++];
+		new_str[i] = s2[j];
+		i++;
+		j++;
 	}
-	join[i] = '\0';
-	free(s1);
-	return (join);
+	new_str[i] = '\0';
+	return (new_str);
+}
+
+int	ft_strlen(char *s)
+{
+	int	len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
+}
+
+char	*ft_strncpy(char *dest,  char *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i] && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (i < n)
+		dest[i] = '\0';
+	return (dest);
+}
+
+char	*ft_strchr( char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
 }

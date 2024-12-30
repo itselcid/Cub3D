@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/21 16:17:42 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:42:17 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	put_color_with_pixels(t_data *data)
 		{
 			tile_x = colone * SQUAR_SIZE;
 			tile_y = line * SQUAR_SIZE;
-			if (data->map[line][colone] == '1')
+			if (data->map->map_data[line][colone] == '1')
 			{
 				color = 0x444444;
 			}

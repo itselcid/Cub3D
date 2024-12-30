@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/24 16:17:27 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:38:26 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int	main(int ac, char **av)
 		printf("Error: Invalid arguments\n");
 		return (1);
 	}
+	if (parse_map(&data, av[1]))
+		return 1;
 	init_data(&data);
-	map(&data, av[1]);
+	init_image_and_ray(&data);
 	mlx_hook(data.win, 17, 0, close_window, &data);
 	mlx_hook(data.win, 2, 1L << 0, key_handler, &data);
 	mlx_hook(data.win, 3, 1L << 1, relase_key, &data);

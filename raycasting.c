@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/24 16:18:08 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/30 20:36:42 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	is_wall(double x, double y, t_data *data)
 	map_y = floor(y) / SQUAR_SIZE;
 	if (map_x < 0 || map_x >= data->w || map_y < 0 || map_y >= data->h)
 		return (1);
-	if (data->map[map_y][map_x] == '1')
+	if (data->map->map_data[map_y][map_x] == '1')
 		return (1);
 	return (0);
 }
