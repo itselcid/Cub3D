@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:55:26 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/30 20:06:02 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:25:46 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,24 @@ void init_map(t_map *map)
 }
 void cleanup_up(t_data *game, int num)
 {
-	if (game->map->line)
-		free(game->map->line);
-	if (game->map->fd > 0)
-		close(game->map->fd);
-	if (game->map->no_texture)
-		free(game->map->no_texture);
-	if (game->map->so_texture)
-		free(game->map->so_texture);
-	if (game->map->we_texture)
-		free(game->map->we_texture);
-	if (game->map->ea_texture)
-		free(game->map->ea_texture);
-	if (game->map->map_data)
+	if (game->input->line)
+		free(game->input->line);
+	if (game->input->fd > 0)
+		close(game->input->fd);
+	if (game->input->no_texture)
+		free(game->input->no_texture);
+	if (game->input->so_texture)
+		free(game->input->so_texture);
+	if (game->input->we_texture)
+		free(game->input->we_texture);
+	if (game->input->ea_texture)
+		free(game->input->ea_texture);
+	if (game->input->map_data)
 	{
 		int i = 0;
-		while (game->map->map_data[i])
-			free(game->map->map_data[i++]);
-		free(game->map->map_data);
+		while (game->input->map_data[i])
+			free(game->input->map_data[i++]);
+		free(game->input->map_data);
 	}
 	if (num == 1)
 		exit(1);
@@ -97,14 +97,14 @@ int parse_texture(t_data *game, char *line, char *direction)
 		cleanup_up(game, 1);
 	}
 	close(fd);
-	if (ft_strncmp(direction, "NO", 2) == 0 && game->map->no_texture == NULL)
-		game->map->no_texture = ft_strdup(str[1]);
-	else if (ft_strncmp(direction, "SO", 2) == 0 && game->map->so_texture == NULL)
-		game->map->so_texture = ft_strdup(str[1]);
-	else if (ft_strncmp(direction, "WE", 2) == 0 && game->map->we_texture == NULL)
-		game->map->we_texture = ft_strdup(str[1]);
-	else if (ft_strncmp(direction, "EA", 2) == 0 && game->map->ea_texture == NULL)
-		game->map->ea_texture = ft_strdup(str[1]);
+	if (ft_strncmp(direction, "NO", 2) == 0 && game->input->no_texture == NULL)
+		game->input->no_texture = ft_strdup(str[1]);
+	else if (ft_strncmp(direction, "SO", 2) == 0 && game->input->so_texture == NULL)
+		game->input->so_texture = ft_strdup(str[1]);
+	else if (ft_strncmp(direction, "WE", 2) == 0 && game->input->we_texture == NULL)
+		game->input->we_texture = ft_strdup(str[1]);
+	else if (ft_strncmp(direction, "EA", 2) == 0 && game->input->ea_texture == NULL)
+		game->input->ea_texture = ft_strdup(str[1]);
 	else
 	{
 		write(1, "Error\nInvalid texture.\n", 24);
@@ -165,8 +165,8 @@ int parse_color(t_data *game, char *line, char direction)
 			write(1, "Error\nColor out of range\n", 26);
 			cleanup_up(game, 1);
 		}
-		if ((direction == 'F' && game->map->floor_color[i] != -1) ||
-			(direction == 'C' && game->map->sky_color[i] != -1))
+		if ((direction == 'F' && game->input->floor_color[i] != -1) ||
+			(direction == 'C' && game->input->sky_color[i] != -1))
 		{
 			write(1, "Error\nDuplicated color\n", 24);
 			cleanup_up(game, 1);
@@ -178,9 +178,9 @@ int parse_color(t_data *game, char *line, char direction)
 	while (i < 3)
 	{
 		if (direction == 'F')
-			game->map->floor_color[i] = ft_atoi(colors[i]);
+			game->input->floor_color[i] = ft_atoi(colors[i]);
 		else if (direction == 'C')
-			game->map->sky_color[i] = ft_atoi(colors[i]);
+			game->input->sky_color[i] = ft_atoi(colors[i]);
 		i++;
 	}
 	return 0;
@@ -197,9 +197,9 @@ int is_empty_line(char *line)
 }
 int check_parsed_elements(t_data *game)
 {
-	if (!game->map->no_texture || !game->map->so_texture ||
-		!game->map->we_texture || !game->map->ea_texture ||
-		game->map->floor_color[0] == -1 || game->map->sky_color[0] == -1)
+	if (!game->input->no_texture || !game->input->so_texture ||
+		!game->input->we_texture || !game->input->ea_texture ||
+		game->input->floor_color[0] == -1 || game->input->sky_color[0] == -1)
 		return 0;
 	return 1;
 }
@@ -208,87 +208,87 @@ int handle_map_line(t_data *game, char *line)
 	char **tmp;
 	int i;
 
-	if (game->map->map_data == NULL)
+	if (game->input->map_data == NULL)
 	{
-		game->map->map_data = malloc(sizeof(char *) * 2);
-		game->map->map_data[0] = ft_strdup(line);
-		game->map->map_data[1] = NULL;
-		game->map->height = 1;
-		game->map->width = ft_strlen(line);
+		game->input->map_data = malloc(sizeof(char *) * 2);
+		game->input->map_data[0] = ft_strdup(line);
+		game->input->map_data[1] = NULL;
+		game->input->height = 1;
+		game->input->width = ft_strlen(line);
 	}
 	else
 	{
-		int old_height = game->map->height;
+		int old_height = game->input->height;
 		tmp = malloc(sizeof(char *) * (old_height + 2));
 		i = 0;
 		while (i < old_height)
 		{
-			tmp[i] = game->map->map_data[i];
+			tmp[i] = game->input->map_data[i];
 			i++;
 		}
 		tmp[i] = ft_strdup(line);
 		tmp[i + 1] = NULL;
-		free(game->map->map_data);
-		game->map->map_data = tmp;
-		game->map->height++;
-		if (ft_strlen(line) > game->map->width)
-			game->map->width = ft_strlen(line);
+		free(game->input->map_data);
+		game->input->map_data = tmp;
+		game->input->height++;
+		if (ft_strlen(line) > game->input->width)
+			game->input->width = ft_strlen(line);
 	}
 	return 0;
 }
 void check_position(t_data *game, int y, int x)
 {
 	
-	if (y == 0 || game->map->map_data[y - 1][x] == ' ' || game->map->map_data[y - 1][x] == '\t')
+	if (y == 0 || game->input->map_data[y - 1][x] == ' ' || game->input->map_data[y - 1][x] == '\t')
 	{
 		write(1, "Error\nMap is not valid\n", 24);
 		cleanup_up(game, 1);
 	}
-	if (game->map->map_data[y + 1][x] == ' ' || game->map->map_data[y + 1][x] == '\t')
+	if (game->input->map_data[y + 1][x] == ' ' || game->input->map_data[y + 1][x] == '\t')
 	{
 		write(1, "Error\nMap is not valid\n", 24);
 		cleanup_up(game, 1);
 	}
 
-	if (x == 0 || game->map->map_data[y][x - 1] == ' ' || game->map->map_data[y][x - 1] == '\t')
+	if (x == 0 || game->input->map_data[y][x - 1] == ' ' || game->input->map_data[y][x - 1] == '\t')
 	{
 		write(1, "Error\nMap is not valid\n", 24);
 		cleanup_up(game, 1);
 	}
-	if (game->map->map_data[y][x + 1] == ' ')
+	if (game->input->map_data[y][x + 1] == ' ')
 	{
 		write(1, "Error\nMap is not valid\n", 24);
 		cleanup_up(game, 1);
 	}
-	if (game->map->map_data[y][x] == 'N' || game->map->map_data[y][x] == 'S' || game->map->map_data[y][x] == 'E' || game->map->map_data[y][x] == 'W')
+	if (game->input->map_data[y][x] == 'N' || game->input->map_data[y][x] == 'S' || game->input->map_data[y][x] == 'E' || game->input->map_data[y][x] == 'W')
 	{
-		if (game->map->player_x != -1 || game->map->player_y != -1)
+		if (game->input->player_x != -1 || game->input->player_y != -1)
 		{
 			write(1, "Error\nMultiple player positions\n", 33);
 			cleanup_up(game, 1);
 		}
-		game->map->player_x = x;
-		game->map->player_y = y;
-		game->map->player_dir = game->map->map_data[y][x];
+		game->input->player_x = x;
+		game->input->player_y = y;
+		game->input->player_dir = game->input->map_data[y][x];
 	}
 }
 void validate_map(t_data *game)
 {
 	int i = 0;
 
-	while (game->map->map_data[i])
+	while (game->input->map_data[i])
 	{
 		int j = 0;
-		while (game->map->map_data[i][j])
+		while (game->input->map_data[i][j])
 		{
-			if (game->map->map_data[i][j] != '1' && game->map->map_data[i][j] != '0' && game->map->map_data[i][j] != 'N' &&
-				game->map->map_data[i][j] != 'S' && game->map->map_data[i][j] != 'E' &&
-				game->map->map_data[i][j] != 'W' && game->map->map_data[i][j] != ' ' && game->map->map_data[i][j] != '\t')
+			if (game->input->map_data[i][j] != '1' && game->input->map_data[i][j] != '0' && game->input->map_data[i][j] != 'N' &&
+				game->input->map_data[i][j] != 'S' && game->input->map_data[i][j] != 'E' &&
+				game->input->map_data[i][j] != 'W' && game->input->map_data[i][j] != ' ' && game->input->map_data[i][j] != '\t')
 			{
 				write(1, "Error\nInvalid map character\n", 29);
 				cleanup_up(game, 1);
 			}
-			if (game->map->map_data[i][j] == 'N' || game->map->map_data[i][j] == 'S' || game->map->map_data[i][j] == 'E' || game->map->map_data[i][j] == 'W' || game->map->map_data[i][j] == '0')
+			if (game->input->map_data[i][j] == 'N' || game->input->map_data[i][j] == 'S' || game->input->map_data[i][j] == 'E' || game->input->map_data[i][j] == 'W' || game->input->map_data[i][j] == '0')
 			{
 				check_position(game, i, j);
 			}
@@ -301,17 +301,17 @@ void validate_map(t_data *game)
 void fill_map_spaces(t_data *game)
 {
 	int i = 0;
-	while (i < game->map->height)
+	while (i < game->input->height)
 	{
-		int line_len = ft_strlen(game->map->map_data[i]);
-		if (line_len < game->map->width)
+		int line_len = ft_strlen(game->input->map_data[i]);
+		if (line_len < game->input->width)
 		{
-			char *new_line = malloc(game->map->width + 1);
-			ft_memset(new_line, ' ', game->map->width);
-			new_line[game->map->width] = '\0';
-			ft_memcpy(new_line, game->map->map_data[i], line_len);
-			free(game->map->map_data[i]);
-			game->map->map_data[i] = new_line;
+			char *new_line = malloc(game->input->width + 1);
+			ft_memset(new_line, ' ', game->input->width);
+			new_line[game->input->width] = '\0';
+			ft_memcpy(new_line, game->input->map_data[i], line_len);
+			free(game->input->map_data[i]);
+			game->input->map_data[i] = new_line;
 		}
 		i++;
 	}
@@ -322,36 +322,36 @@ int parse_map(t_data *game, char *filename)
 	int elements_done = 0;
 	int map_begin = 0;
 
-	game->map = malloc(sizeof(t_map));
-	if (!game->map)
+	game->input = malloc(sizeof(t_map));
+	if (!game->input)
 	{
 		printf("Error: Failed to allocate map structure\n");
 		exit(1);
 	}
-	init_map(game->map);
-	game->map->fd = open(filename, O_RDONLY);
-	if (game->map->fd < 0 || check_file_extension(game, filename))
+	init_map(game->input);
+	game->input->fd = open(filename, O_RDONLY);
+	if (game->input->fd < 0 || check_file_extension(game, filename))
 		return 1;
 
-	game->map->line = get_next_line(game->map->fd);
-	while (game->map->line)
+	game->input->line = get_next_line(game->input->fd);
+	while (game->input->line)
 	{
 		if (!check_parsed_elements(game))
 		{
-			if (!is_empty_line(game->map->line))
+			if (!is_empty_line(game->input->line))
 			{
-				if (ft_strnstr(game->map->line, "NO ", 3) || ft_strnstr(game->map->line, "NO\t", 3))
-					parse_texture(game, game->map->line, "NO");
-				else if (ft_strnstr(game->map->line, "SO ", 3) || ft_strnstr(game->map->line, "SO\t", 3))
-					parse_texture(game, game->map->line, "SO");
-				else if (ft_strnstr(game->map->line, "WE ", 3) || ft_strnstr(game->map->line, "WE\t", 3))
-					parse_texture(game, game->map->line, "WE");
-				else if (ft_strnstr(game->map->line, "EA ", 3) || ft_strnstr(game->map->line, "EA\t", 3))
-					parse_texture(game, game->map->line, "EA");
-				else if (ft_strnstr(game->map->line, "F ", 2) || ft_strnstr(game->map->line, "F\t", 3))
-					parse_color(game, game->map->line, 'F');
-				else if (ft_strnstr(game->map->line, "C ", 2) || ft_strnstr(game->map->line, "C\t", 3))
-					parse_color(game, game->map->line, 'C');
+				if (ft_strnstr(game->input->line, "NO ", 3) || ft_strnstr(game->input->line, "NO\t", 3))
+					parse_texture(game, game->input->line, "NO");
+				else if (ft_strnstr(game->input->line, "SO ", 3) || ft_strnstr(game->input->line, "SO\t", 3))
+					parse_texture(game, game->input->line, "SO");
+				else if (ft_strnstr(game->input->line, "WE ", 3) || ft_strnstr(game->input->line, "WE\t", 3))
+					parse_texture(game, game->input->line, "WE");
+				else if (ft_strnstr(game->input->line, "EA ", 3) || ft_strnstr(game->input->line, "EA\t", 3))
+					parse_texture(game, game->input->line, "EA");
+				else if (ft_strnstr(game->input->line, "F ", 2) || ft_strnstr(game->input->line, "F\t", 3))
+					parse_color(game, game->input->line, 'F');
+				else if (ft_strnstr(game->input->line, "C ", 2) || ft_strnstr(game->input->line, "C\t", 3))
+					parse_color(game, game->input->line, 'C');
 				else
 				{
 					write(1, "Error\nInvalid element!\n", 24);
@@ -361,33 +361,33 @@ int parse_map(t_data *game, char *filename)
 		}
 		else
 		{
-			if (!is_empty_line(game->map->line))
+			if (!is_empty_line(game->input->line))
 			{
 				elements_done = 1;
 				map_begin = 1;
-				handle_map_line(game, game->map->line);
+				handle_map_line(game, game->input->line);
 			}
 			else if (map_begin)
-				handle_map_line(game, game->map->line);
+				handle_map_line(game, game->input->line);
 		}
-		free(game->map->line);
-		game->map->line = get_next_line(game->map->fd);
+		free(game->input->line);
+		game->input->line = get_next_line(game->input->fd);
 	}
-	close(game->map->fd);
+	close(game->input->fd);
 	if (!elements_done)
 	{
 		write(1, "Error\nMissing map data\n", 24);
 		cleanup_up(game, 1);
 	}
-	else if (game->map->map_data != NULL)
+	else if (game->input->map_data != NULL)
 	{
 		int i = 0;
 
 		fill_map_spaces(game);
 
-		while (game->map->map_data[i])
+		while (game->input->map_data[i])
 		{
-			printf("%s\n", game->map->map_data[i]);
+			printf("%s\n", game->input->map_data[i]);
 			i++;
 		}
 

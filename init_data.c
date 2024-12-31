@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/30 20:34:06 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:25:17 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ t_texture	init_for_image(t_data *data, char *path, t_e_texture side)
 
 void init_texture(t_data *data)
 {
-	data->texture[NORTH] = init_for_image(data, data->map->no_texture, NORTH);
-	data->texture[SOUTH] = init_for_image(data, data->map->so_texture, SOUTH);
-	data->texture[WEST] = init_for_image(data, data->map->we_texture, WEST);
-	data->texture[EAST] = init_for_image(data, data->map->ea_texture, EAST);
+	data->texture[NORTH] = init_for_image(data, data->input->no_texture, NORTH);
+	data->texture[SOUTH] = init_for_image(data, data->input->so_texture, SOUTH);
+	data->texture[WEST] = init_for_image(data, data->input->we_texture, WEST);
+	data->texture[EAST] = init_for_image(data, data->input->ea_texture, EAST);
 }
 
 void	init_image(t_data *data)
 {
-	if (!data->map)
+	if (!data->input)
 		return ;
 	data->img->img_map = mlx_new_image(data->mlx,WINDOW_WIDTH ,WINDOW_HEIGHT);
 	if (!data->img->img_map)

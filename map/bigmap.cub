@@ -1,8 +1,8 @@
 
 
 NO ./textures/NO.xpm
-SO ./textures/SO.xpm
-WE ./textures/SO.xpm
+SO ./textures/NO.xpm
+WE ./textures/NO.xpm
 EA ./textures/NO.xpm
 
 F 153,102,51
@@ -12,7 +12,5 @@ C 163,208,230
 
 
 1111111111111
-10000000000001
-1000000000001
-10000000N001
-1111111111111
+10000N00000001
+111111111111111111

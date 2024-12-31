@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/30 16:17:00 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:24:48 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ typedef struct s_data
 	int			h;
 	int			w;
 	int			size_line;
-	t_map		*map;
+	t_map		*input;
 	t_raycas	*raycas;
 	t_player	*player;
 	t_image		*img;

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/30 20:42:03 by oel-moue         ###   ########.fr       */
+/*   Updated: 2024/12/31 17:25:17 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	calcule_width(char *line)
 
 void check_direction(t_data *data, float x, float y)
 {
-	char c = data->map->map_data[(int)y][(int)x];
+	char c = data->input->map_data[(int)y][(int)x];
 	if (c == 'N')
 		data->player->angle = 3*M_PI / 2; // Facing up
 	else if (c == 'S')
@@ -74,11 +74,11 @@ int	close_window(t_data *data)
 
 void	init_image_and_ray(t_data *data)
 {
-	data->player->player_x = data->map->player_x;
-	data->player->player_y = data->map->player_y;
+	data->player->player_x = data->input->player_x;
+	data->player->player_y = data->input->player_y;
 	check_direction(data, data->player->player_x, data->player->player_y);
-	data->h = data->map->height;
-	data->w = data->map->width;
+	data->h = data->input->height;
+	data->w = data->input->width;
 	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH,WINDOW_HEIGHT,
 			"cub3D");
 	if (!data->win)
