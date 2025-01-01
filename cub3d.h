@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/31 17:24:48 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/01 18:48:24 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 700
 
+#define GREEN "\033[0;32m"
+#define RESET "\033[0m"
+#define RED "\033[0;31m"
 typedef struct s_map
 {
 	int fd;

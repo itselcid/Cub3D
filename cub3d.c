@@ -6,12 +6,42 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/01 14:45:14 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/01 19:09:12 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void print1()
+{
+
+printf("\t\t\t░█████╗░██╗░░░██╗██████╗░██████╗░██████╗░\n");
+printf("\t\t\t██╔══██╗██║░░░██║██╔══██╗╚════██╗██╔══██╗\n");
+printf("\t\t\t██║░░╚═╝██║░░░██║██████╦╝░█████╔╝██║░░██║\n");
+printf("\t\t\t██║░░██╗██║░░░██║██╔══██╗░╚═══██╗██║░░██║\n");
+printf("\t\t\t╚█████╔╝╚██████╔╝██████╦╝██████╔╝██████╔╝\n");
+printf("\t\t\t░╚════╝░░╚═════╝░╚═════╝░╚═════╝░╚═════╝░\n\n");
+}
+void print()
+{
+	print1();
+	printf( GREEN"YOU CAN MOVE WITH THE FOLLOWING KEYS\n\n\n" RESET);
+	printf(RED"MOUVEMENT \n"RESET);
+	printf("\t\t\t\tmove forward: ");
+	printf(GREEN "W\n" RESET);
+	printf("\tmove left: ");
+	printf(GREEN "A" RESET);
+	printf("\t\t\t\t\t\tmove right: ");
+	printf(GREEN "D\n" RESET);
+	printf("\t\t\t\tmove backward: ");
+	printf(GREEN "S\n" RESET);
+	printf("\n\n");
+	printf( RED"ROTATION \n" RESET);
+	printf("\trotate left: ");
+	printf(GREEN "left arrow" RESET);
+	printf("\t\t\t\t\t\trotate right: ");
+	printf(GREEN "right arrow\n" RESET);
+}
 int	game_loop(t_data *data)
 {
 	move_player(data);
@@ -36,6 +66,7 @@ int	main(int ac, char **av)
 		return 1;
 	init_data(&data);
 	init_image_and_ray(&data);
+	//print();
 	mlx_hook(data.win, 17, 0, close_window, &data);
 	mlx_hook(data.win, 2, 1L << 0, key_handler, &data);
 	mlx_hook(data.win, 3, 1L << 1, relase_key, &data);
