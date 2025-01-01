@@ -1,6 +1,6 @@
-NO ./textures/W1.xpm
+NO ./textures/E.xpm
 SO ./textures/W1.xpm
-WE ./textures/W1.xpm
+WE ./textures/S.xpm
 EA ./textures/W1.xpm
 
 F 153,102,51

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:55:26 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/01 14:45:56 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/01 16:00:40 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void init_map(t_map *map)
 	map->width = 0;
 	map->height = 0;
 }
+
 void cleanup_up(t_data *game, int num)
 {
 	if (game->input->line)
