@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:45:03 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/31 17:25:17 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/01 14:36:00 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	move_player(t_data *data)
 	double	new_x = 0;
 	double	new_y = 0;
 	double	move_step;
-	printf("player_x: %f, player_y: %f\n", data->player->player_x, data->player->player_y);
 	if (data->player->rotate != 0)
 	{
 		data->player->angle += data->player->rotate * ROTATE_SPEED;
@@ -37,13 +36,11 @@ void	move_player(t_data *data)
 		new_y = data->player->player_y + sin(data->player->angle + M_PI / 2)
 			* move_step;
 	}
-	// Check if the new position is valid
 	if (new_x >= 0 && new_x < data->img->width && new_y >= 0 && new_y < data->img->height
-		&& data->input->map_data[(int)(new_y / SQUAR_SIZE)][(int)(new_x / SQUAR_SIZE)] != '1')
+		&& data->input->map_data[(int)(new_y)][(int)(new_x)] != '1')
 	{
 		data->player->player_x = new_x;
 		data->player->player_y = new_y;
-		printf("player_x: %f, player_y: %f\n", data->player->player_x, data->player->player_y);
 	}
 }
 

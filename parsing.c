@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:55:26 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/31 17:25:46 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/01 14:45:56 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,9 +236,9 @@ int handle_map_line(t_data *game, char *line)
 	}
 	return 0;
 }
+
 void check_position(t_data *game, int y, int x)
 {
-	
 	if (y == 0 || game->input->map_data[y - 1][x] == ' ' || game->input->map_data[y - 1][x] == '\t')
 	{
 		write(1, "Error\nMap is not valid\n", 24);
@@ -249,7 +249,6 @@ void check_position(t_data *game, int y, int x)
 		write(1, "Error\nMap is not valid\n", 24);
 		cleanup_up(game, 1);
 	}
-
 	if (x == 0 || game->input->map_data[y][x - 1] == ' ' || game->input->map_data[y][x - 1] == '\t')
 	{
 		write(1, "Error\nMap is not valid\n", 24);
@@ -272,6 +271,7 @@ void check_position(t_data *game, int y, int x)
 		game->input->player_dir = game->input->map_data[y][x];
 	}
 }
+
 void validate_map(t_data *game)
 {
 	int i = 0;
@@ -294,7 +294,6 @@ void validate_map(t_data *game)
 			}
 			j++;
 		}
-
 		i++;
 	}
 }
@@ -387,7 +386,7 @@ int parse_map(t_data *game, char *filename)
 
 		while (game->input->map_data[i])
 		{
-			printf("%s\n", game->input->map_data[i]);
+			//printf("%s\n", game->input->map_data[i]);
 			i++;
 		}
 
