@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/01 18:48:24 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:50:25 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 # define ROTATE_SPEED 0.02
 # define NUM_WALL_TEXTURES 4
 
-# define TEXTURE_WIDTH 64 
-#define  TEXTURE_HEIGHT 64
+# define TEXTURE_WIDTH 50 
+#define  TEXTURE_HEIGHT 50
 
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 700
@@ -196,7 +196,7 @@ char	*ft_strncpy(char *dest,  char *src, size_t n);
 char	*ft_strchr( char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 int	ft_strlen(char *s);
-// void draw_line(int x1, int y1, int x2, int y2, t_data *data);
+void draw_textured_wall1(t_data *data, double projectedWallHeight, int ray_id);// void draw_textured_wall1(t_data *data,double wall_height, double wall_hit, int ray_id);// void draw_line(int x1, int y1, int x2, int y2, t_data *data);
 // void			draw_fov(t_data *data);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 // void			draw_line(t_data *data, int x1, int y1, int color);
