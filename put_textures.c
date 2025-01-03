@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 17:58:04 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 21:24:26 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,35 +45,47 @@ unsigned int	get_texture_color(t_texture *texture, int tex_x, int tex_y)
 	return (color);
 }
 
-void	draw_textured_wall(t_data *data, int ray_id, double top, double bottom,
-		int wall_height)
+void draw_textured_wall(t_data *data, int ray_id, double wall_top, double wall_bottom, double wall_height)
 {
-	int				x;
-	int				y;
-	unsigned int	color;
-	t_e_texture		side;
-	t_texture		*texture;
+    int x;
+    int y;
+    unsigned int color;
+    t_e_texture side;
+    t_texture *texture;
 
-	side = determine_wall_side(data, ray_id);
-	texture = &data->texture[side];
-	// Get x coordinate based on wall hit point
-	if (data->raycas->ray[ray_id].horizontal_distance < data->raycas->ray[ray_id].vertical_distance)
-		x = (int)data->raycas->ray[ray_id].wall_hit_x % TEXTURE_WIDTH;
-	else
-		x = (int)data->raycas->ray[ray_id].wall_hit_y % TEXTURE_WIDTH;
-	while (top < bottom)
-	{
-		// Calculate y coordinate with proper scaling
-		y = (int)((top - (data->img->height - wall_height) / 2.0)
-				* ((double)TEXTURE_HEIGHT / wall_height));
-		if (y < 0)
-			y = 0;
-		else
-			y = y % TEXTURE_HEIGHT;
-		color = get_texture_color(texture, x, y);
-		my_mlx_pixel_put(data->img, ray_id, top, color);
-		top++;
-	}
+    side = determine_wall_side(data, ray_id);
+    texture = &data->texture[side];
+
+    if (data->raycas->ray[ray_id].horizontal_distance < data->raycas->ray[ray_id].vertical_distance)
+        x = (int)(data->raycas->ray[ray_id].wall_hit_x) % TEXTURE_WIDTH;
+    else
+        x = (int)(data->raycas->ray[ray_id].wall_hit_y) % TEXTURE_WIDTH;
+
+    if (x < 0)
+        x = 0;
+    else if (x >= TEXTURE_WIDTH)
+        x = TEXTURE_WIDTH - 1;
+
+    for (int current_y = (int)wall_top; current_y < (int)wall_bottom; current_y++)
+    {
+        double relative_pos = ((double)(current_y) - (data->img->height / 2.0) + (wall_height / 2.0)) / wall_height;
+
+        if (relative_pos < 0.0)
+            relative_pos = 0.0;
+        else if (relative_pos > 1.0)
+            relative_pos = 1.0;
+
+        y = (int)(relative_pos * (double)TEXTURE_HEIGHT);
+
+        if (y < 0)
+            y = 0;
+        else if (y >= TEXTURE_HEIGHT)
+            y = TEXTURE_HEIGHT - 1;
+
+        color = get_texture_color(texture, x, y);
+
+        my_mlx_pixel_put(data->img, ray_id, current_y, color);
+    }
 }
 
 // void	draw_wall(t_win *win, double t_pix, double b_pix, double wall_h)

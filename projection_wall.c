@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 16:21:15 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 21:23:10 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,30 +95,50 @@ void draw_vertical_line(t_data *data, int x, int start, int end, int color)
 //     draw_floor(game, x, wall_bottom);
 // }
 
+#include "cub3d.h"
+
 void projection_wall(t_data *data)
 {
     double wall_height;
     double distance_to_plane;
-    //double corrected_distance;
     int ray_id;
 
     ray_id = 0;
     // Calculate the distance to the projection plane once
-    distance_to_plane = (data->img->width / 2) / tan(FOV_ANGLE / 2);
-    
+    distance_to_plane = (data->img->width / 2.0) / tan(FOV_ANGLE / 2.0);
+
     while (ray_id < data->raycas->nbr_ray)
     {
-        double corrected_distance = data->raycas->ray[ray_id].ray_distance * cos(data->raycas->ray[ray_id].ray_angle - data->player->angle);
-        wall_height = (SQUAR_SIZE / corrected_distance) * distance_to_plane;
+        double angle_diff = data->raycas->ray[ray_id].ray_angle - data->player->angle;
+        double corrected_distance = data->raycas->ray[ray_id].ray_distance * cos(angle_diff);
+
+        if (corrected_distance <= 0.0)
+            corrected_distance = 0.3;
+
+        wall_height = (TEXTURE_WIDTH / corrected_distance) * distance_to_plane;
+
         int wall_top = (data->img->height / 2) - ((int)wall_height / 2);
         int wall_bottom = (data->img->height / 2) + ((int)wall_height / 2);
-        
-        int color_sky = data->input->sky_color[0] << 16 | data->input->sky_color[1] << 8 | data->input->sky_color[2];
-        int color_floor = data->input->floor_color[0] << 16 | data->input->floor_color[1] << 8 | data->input->floor_color[2];
+
+        if (wall_top < 0)
+            wall_top = 0;
+        if (wall_bottom >= data->img->height)
+            wall_bottom = data->img->height - 1;
+
+        int color_sky = (data->input->sky_color[0] << 16) |
+                        (data->input->sky_color[1] << 8) |
+                        data->input->sky_color[2];
+        int color_floor = (data->input->floor_color[0] << 16) |
+                          (data->input->floor_color[1] << 8) |
+                          data->input->floor_color[2];
+
         draw_vertical_line(data, ray_id, 0, wall_top - 1, color_sky);
-        // draw texturized wall
+
+        // Draw textured wall
         draw_textured_wall(data, ray_id, wall_top, wall_bottom, wall_height);
+
         draw_vertical_line(data, ray_id, wall_bottom + 1, data->img->height - 1, color_floor);
+
         ray_id++;
     }
 }

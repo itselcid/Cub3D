@@ -6,12 +6,21 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:45:03 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/01 14:36:00 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 21:54:39 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void validate_move(t_data *data, double new_x, double new_y)
+{
+	if (new_x >= 0 && new_x < data->img->width && new_y >= 0 && new_y < data->img->height
+		&& data->input->map_data[(int)(new_y)][(int)(new_x)] != '1')
+	{
+		data->player->player_x = new_x;
+		data->player->player_y = new_y;
+	}
+}
 void	move_player(t_data *data)
 {
 	double	new_x = 0;
@@ -36,12 +45,7 @@ void	move_player(t_data *data)
 		new_y = data->player->player_y + sin(data->player->angle + M_PI / 2)
 			* move_step;
 	}
-	if (new_x >= 0 && new_x < data->img->width && new_y >= 0 && new_y < data->img->height
-		&& data->input->map_data[(int)(new_y)][(int)(new_x)] != '1')
-	{
-		data->player->player_x = new_x;
-		data->player->player_y = new_y;
-	}
+	validate_move(data, new_x, new_y);
 }
 
 int	key_handler(int key_code, t_data *data)

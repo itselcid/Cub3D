@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 17:43:24 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 21:30:56 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #  define BUFFER_SIZE 10
 # endif
 
-# define SQUAR_SIZE 50
+# define SQUAR_SIZE 64
 # define MOVE_SPEED 0.015
 # define ESC 65307
 # define UP 119
@@ -40,8 +40,8 @@
 # define ROTATE_SPEED 0.02
 # define NUM_WALL_TEXTURES 4
 
-# define TEXTURE_WIDTH 50
-#define  TEXTURE_HEIGHT 50
+# define TEXTURE_WIDTH SQUAR_SIZE
+#define  TEXTURE_HEIGHT SQUAR_SIZE
 
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 700
@@ -196,7 +196,7 @@ char	*ft_strncpy(char *dest,  char *src, size_t n);
 char	*ft_strchr( char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 int	ft_strlen(char *s);
-void draw_textured_wall(t_data *data, int ray_id, double top , double bottom , int wall_height);
+void draw_textured_wall(t_data *data, int ray_id, double wall_top, double wall_bottom, double wall_height);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 
