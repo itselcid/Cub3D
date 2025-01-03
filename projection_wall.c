@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/02 15:52:10 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:21:15 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,8 @@ void projection_wall(t_data *data)
         int color_sky = data->input->sky_color[0] << 16 | data->input->sky_color[1] << 8 | data->input->sky_color[2];
         int color_floor = data->input->floor_color[0] << 16 | data->input->floor_color[1] << 8 | data->input->floor_color[2];
         draw_vertical_line(data, ray_id, 0, wall_top - 1, color_sky);
-        // draw the wall for the N / S / E / W
-        //draw_colored_wall(data, ray_id, wall_top, wall_bottom);
-        //draw_textured_wall(data, ray_id, wall_top, wall_bottom);
-        draw_textured_wall1(data, wall_height,ray_id);
-        // if (ray_index < WINDOW_WIDTH)
-        //     draw_textured_wall(game, ray_index, wall_height, ray_index);if (ray_index < WINDOW_WIDTH)
-        //     draw_textured_wall(game, ray_index, wall_height, ray_index);
-        //draw_textured_wall1(data, wall_height, corrected_distance, ray_id);
+        // draw texturized wall
+        draw_textured_wall(data, ray_id, wall_top, wall_bottom, wall_height);
         draw_vertical_line(data, ray_id, wall_bottom + 1, data->img->height - 1, color_floor);
         ray_id++;
     }

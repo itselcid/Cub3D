@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/02 15:52:49 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:20:46 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,33 +116,44 @@ unsigned int get_texture_color(t_texture *texture, int tex_x, int tex_y)
 //     }
 // }
 
-void draw_textured_wall1(t_data *data, double projectedWallHeight, int ray_id)
+
+void draw_textured_wall(t_data *data, int ray_id, double top , double bottom , int wall_height)
 {
-    int wallStripHeight = (int)projectedWallHeight;
-    
-    int wallTopPixel = (WINDOW_HEIGHT / 2) - (wallStripHeight / 2);
-    wallTopPixel = wallTopPixel < 0 ? 0 : wallTopPixel;
-    
-    int wallBottomPixel = (WINDOW_HEIGHT / 2) + (wallStripHeight / 2);
-    wallBottomPixel = wallBottomPixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : wallBottomPixel;
-    
-    t_e_texture wall_side = determine_wall_side(data, ray_id);
-    int textureOffsetX;
-    
-    if (data->raycas->ray[ray_id].vertical_distance < data->raycas->ray[ray_id].horizontal_distance)
-        textureOffsetX = (int)(data->raycas->ray[ray_id].wall_hit_y * TEXTURE_WIDTH) % TEXTURE_WIDTH;
-    else
-        textureOffsetX = (int)(data->raycas->ray[ray_id].wall_hit_x * TEXTURE_WIDTH) % TEXTURE_WIDTH;
-    
-    for (int y = wallTopPixel; y < wallBottomPixel; y++)
+    int		x;
+    int		y;
+    double	color;
+
+    t_e_texture side = determine_wall_side(data, ray_id);
+    t_texture *texture = &data->texture[side];
+    if(data->raycas->ray[ray_id].horizontal_distance < data->raycas->ray[ray_id].vertical_distance)
+        x = (int)data->raycas->ray[ray_id].wall_hit_x % TEXTURE_HEIGHT;
+    else 
+        x = (int)data->raycas->ray[ray_id].wall_hit_y % TEXTURE_HEIGHT;
+    while (top < bottom)
     {
-        int distanceFromTop = y + (wallStripHeight / 2) - (WINDOW_HEIGHT / 2);
-        int textureOffsetY = distanceFromTop * ((float)TEXTURE_HEIGHT / wallStripHeight);
-        
-        if (textureOffsetY >= TEXTURE_HEIGHT)
-            textureOffsetY = TEXTURE_HEIGHT - 1;
-        
-        unsigned int texelColor = get_texture_color(&data->texture[wall_side], textureOffsetX, textureOffsetY);
-        my_mlx_pixel_put(data->img, ray_id, y, texelColor);
+        y = (int)((top - (data->img->height - wall_height / 2) * (texture->height / wall_height)));
+        color = get_texture_color(texture, x, y);
+        my_mlx_pixel_put(data->img, ray_id, top, color);
+        top++;
     }
 }
+
+// void	draw_wall(t_win *win, double t_pix, double b_pix, double wall_h)
+// {
+// 	int		x;
+// 	int		y;
+// 	double	color;
+
+// 	if (win->ray.flag)
+// 		x = (int)win->hit_x % TEXTURE_H;
+// 	else
+// 		x = (int)win->hit_y % TEXTURE_H;
+// 	while (t_pix < b_pix)
+// 	{
+// 		y = (t_pix - ((HEIGHT - wall_h) / 2)) * (TEXTURE_H
+// 				/ wall_h);
+// 		color = get_pixel_img(win->texture[direction(win)], x, y);
+// 		my_mlx_pixel_put1(win->frame, win->ray.ray, t_pix, color);
+// 		t_pix++;
+// 	}
+// }

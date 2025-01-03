@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/02 15:50:25 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:20:53 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,8 +182,8 @@ void			draw_line1(t_data *data, int x1, int y1, int color);
 void			ft_draw_line(t_data *data, int start_x, int start_y, int end_x,
 					int end_y);
 void			projection_wall(t_data *data);
-void			draw_textured_wall(t_data *data, int ray_id, int wall_start,
-					int wall_end);
+// void			draw_textured_wall(t_data *data, int ray_id, int wall_start,
+// 					int wall_end);
 t_e_texture		determine_wall_side(t_data *data, int ray_id);
 int parse_map(t_data *game, char *filename);
 void init_map(t_map *map);
@@ -196,8 +196,7 @@ char	*ft_strncpy(char *dest,  char *src, size_t n);
 char	*ft_strchr( char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 int	ft_strlen(char *s);
-void draw_textured_wall1(t_data *data, double projectedWallHeight, int ray_id);// void draw_textured_wall1(t_data *data,double wall_height, double wall_hit, int ray_id);// void draw_line(int x1, int y1, int x2, int y2, t_data *data);
-// void			draw_fov(t_data *data);
+void draw_textured_wall(t_data *data, int ray_id, double top , double bottom , int wall_height);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 
