@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 16:20:53 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:10:11 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void	*ft_memset(void *b, int c, size_t len);
 void			init_image(t_data *data);
 int				put_color_with_pixels(t_data *data);
 void			draw_player(t_data *data);
-void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void			my_mlx_pixel_put(t_image *img, int x, int y, unsigned int color);
 
 void	init_image_and_ray(t_data *data);
 void			draw_view_from_player(t_data *data);

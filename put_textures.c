@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 16:20:46 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:30:58 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ t_e_texture determine_wall_side(t_data *data, int ray_id)
         return WEST;      // Hit west-facing wall
     }
 }
-#include <math.h>  // Ensure math functions are available
 
-// Fix texture coordinate wrapping
-unsigned int get_texture_color(t_texture *texture, int tex_x, int tex_y)
+unsigned int  get_texture_color(t_texture *texture, int tex_x, int tex_y)
 {
     char *pixel;
     unsigned int color;
@@ -48,90 +46,33 @@ unsigned int get_texture_color(t_texture *texture, int tex_x, int tex_y)
     return color;
 }
 
-// Fix in the texture drawing logic
-// void draw_textured_wall(t_data *data, int ray_id, int wall_start, int wall_end)
-// {
-//     t_texture *texture;
-//     int tex_x, tex_y;
-//     double step;
-//     double tex_pos;
-
-//     // Get wall side and corresponding texture
-//     t_e_texture side = determine_wall_side(data, ray_id);
-//     if (side < 0) {
-//         fprintf(stderr, "Invalid wall side: %d\n", side);
-//         return;
-//     }
-//     texture = &data->texture[side];
-
-//     // Calculate texture X coordinate based on wall hit point
-//     double wall_x;
-//     if (side == NORTH || side == SOUTH) {
-//         wall_x = data->raycas->ray[ray_id].wall_hit_x - floor(data->raycas->ray[ray_id].wall_hit_x);
-//     } else {
-//         wall_x = data->raycas->ray[ray_id].wall_hit_y - floor(data->raycas->ray[ray_id].wall_hit_y);
-//     }
-
-//     // Ensure wall_x is always between 0 and 1
-//     wall_x = fmod(wall_x, 1.0);
-
-//     tex_x = (int)(wall_x * TEXTURE_WIDTH);
-//     if (side == SOUTH || side == WEST) {
-//         tex_x = TEXTURE_WIDTH - tex_x - 1;  // Flip texture for certain sides
-//     }
-
-//     // Validate tex_x range
-//     if (tex_x < 0 || tex_x >= TEXTURE_WIDTH) {
-//         fprintf(stderr, "Invalid tex_x value: %d\n", tex_x);
-//         return;
-//     }
-
-//     // Clamp wall_start and wall_end to screen bounds
-//     if (wall_start < 0) wall_start = 0;
-//     if (wall_end >= WINDOW_HEIGHT) wall_end = WINDOW_HEIGHT - 1;
-
-//     // Calculate vertical texture step and initial texture position
-//     step = (double)TEXTURE_HEIGHT / (wall_end - wall_start);
-//     tex_pos = 0;  // Start from the top of the texture for the first pixel
-
-//     // Draw vertical textured line
-//     for (int y = wall_start; y < wall_end; y++) {
-//         if (y >= 0 && y < WINDOW_HEIGHT) {
-//             tex_y = (int)tex_pos % TEXTURE_HEIGHT;  // Ensure tex_y is within texture bounds
-//             tex_pos += step;
-
-//             if (tex_y < 0 || tex_y >= TEXTURE_HEIGHT) {
-//                 fprintf(stderr, "Invalid tex_y value: %d\n", tex_y);
-//                 return;
-//             }
-
-//             unsigned int color = get_texture_color(texture, tex_x, tex_y);
-//             if (color == 0xFFFFFFFF) {  // Assuming white indicates invalid texture color
-//                 fprintf(stderr, "Invalid texture color at tex_x=%d, tex_y=%d\n", tex_x, tex_y);
-//                 return;
-//             }
-
-//             my_mlx_pixel_put(data->img, ray_id, y, color);
-//         }
-//     }
-// }
-
-
-void draw_textured_wall(t_data *data, int ray_id, double top , double bottom , int wall_height)
+void draw_textured_wall(t_data *data, int ray_id, double top, double bottom, int wall_height)
 {
-    int		x;
-    int		y;
-    double	color;
-
+    int x;
+    int y;
+    unsigned int color;
+    
     t_e_texture side = determine_wall_side(data, ray_id);
     t_texture *texture = &data->texture[side];
+    
+    // Get x coordinate based on wall hit point
     if(data->raycas->ray[ray_id].horizontal_distance < data->raycas->ray[ray_id].vertical_distance)
-        x = (int)data->raycas->ray[ray_id].wall_hit_x % TEXTURE_HEIGHT;
+        x = (int)data->raycas->ray[ray_id].wall_hit_x % TEXTURE_WIDTH;
     else 
-        x = (int)data->raycas->ray[ray_id].wall_hit_y % TEXTURE_HEIGHT;
+        x = (int)data->raycas->ray[ray_id].wall_hit_y % TEXTURE_WIDTH;
+    
     while (top < bottom)
     {
-        y = (int)((top - (data->img->height - wall_height / 2) * (texture->height / wall_height)));
+        // Calculate y coordinate with proper scaling
+        y = (int)((top - (data->img->height - wall_height) / 2.0) * 
+            ((double)TEXTURE_HEIGHT / wall_height));
+        
+        // Replace ternary operator with if-else
+        if (y < 0)
+            y = 0;
+        else
+            y = y % TEXTURE_HEIGHT;
+        
         color = get_texture_color(texture, x, y);
         my_mlx_pixel_put(data->img, ray_id, top, color);
         top++;
