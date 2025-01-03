@@ -1,8 +1,8 @@
 
-EA ./textures/W1.xpm
-NO ./textures/W1.xpm
-SO ./textures/W1.xpm
-WE ./textures/W1.xpm
+EA ./textures/S0.xpm
+NO ./textures/S0.xpm
+SO ./textures/S0.xpm
+WE ./textures/S0.xpm
 
 F 100,149,237
 C 255,228,181

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 21:30:56 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:07:09 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #  define BUFFER_SIZE 10
 # endif
 
-# define SQUAR_SIZE 64
+# define SQUAR_SIZE 50
 # define MOVE_SPEED 0.015
 # define ESC 65307
 # define UP 119
