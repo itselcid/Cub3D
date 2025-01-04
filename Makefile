@@ -6,7 +6,7 @@ MLXFLAGS = -lmlx -lXext -lX11 -lm
 SRC = libft.c parsing.c ft_split.c put_textures.c projection_wall.c raycasting.c movement.c put_pixels_in_image.c cub3d.c calcule_data_map.c  get_next_line.c get_next_line_utils.c init_data.c
 OBJ = $(SRC:.c=.o)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) 
 	$(CC) $(OBJ)  $(CFLAGS) $(MLXFLAGS) -o $(NAME)
 
 all: $(NAME)

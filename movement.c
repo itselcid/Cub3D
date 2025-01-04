@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:45:03 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 22:06:35 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:48:11 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void check_collision(t_data *data, float new_x, float new_y)
 {
     // Get the map grid coordinates
-    int map_grid_x = (int)(new_x / SQUAR_SIZE);
-    int map_grid_y = (int)(new_y / SQUAR_SIZE);
+    int map_grid_x = (int)(new_x / data->size_textures);
+    int map_grid_y = (int)(new_y / data->size_textures);
     
     // Check if the new position would be inside a wall
     if (data->input->map_data[map_grid_y][map_grid_x] == '1')

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/02 13:47:32 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:48:11 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ double	calcule_first_intersection_with_x(t_data *data, int ray_id)
 	double	player_x;
 	double	player_y;
 
-	player_x = data->player->player_x * SQUAR_SIZE;
-	player_y = data->player->player_y * SQUAR_SIZE;
+	player_x = data->player->player_x * data->size_textures;
+	player_y = data->player->player_y * data->size_textures;
 	if (data->raycas->ray[ray_id].is_ray_facing_up)
 	{
 		data->raycas->ray[ray_id].y_first_point_with_x_intersection = floor(player_y
-				/ SQUAR_SIZE) * SQUAR_SIZE - 0.0001;
-		data->raycas->ray[ray_id].y_step = -SQUAR_SIZE;
+				/ data->size_textures) * data->size_textures - 0.0001;
+		data->raycas->ray[ray_id].y_step = -data->size_textures;
 	}
 	else
 	{
 		data->raycas->ray[ray_id].y_first_point_with_x_intersection = floor(player_y
-				/ SQUAR_SIZE) * SQUAR_SIZE + SQUAR_SIZE;
-		data->raycas->ray[ray_id].y_step = SQUAR_SIZE;
+				/ data->size_textures) * data->size_textures + data->size_textures;
+		data->raycas->ray[ray_id].y_step = data->size_textures;
 	}
 	first_intersection_by_x = player_x
 		+ (data->raycas->ray[ray_id].y_first_point_with_x_intersection - player_y)
@@ -50,19 +50,19 @@ double	calcule_first_intersection_with_y(t_data *data , int ray_id)
 	double	player_x;
 	double	player_y;
 
-	player_x = data->player->player_x * SQUAR_SIZE;
-	player_y = data->player->player_y * SQUAR_SIZE;
+	player_x = data->player->player_x * data->size_textures;
+	player_y = data->player->player_y * data->size_textures;
 	if (data->raycas->ray[ray_id].is_ray_facing_left)
 	{
 		data->raycas->ray[ray_id].x_first_point_with_y_intersection = floor(player_x
-				/ SQUAR_SIZE) * SQUAR_SIZE - 0.0001;
-		data->raycas->ray[ray_id].x_step = -SQUAR_SIZE;
+				/ data->size_textures) * data->size_textures - 0.0001;
+		data->raycas->ray[ray_id].x_step = -data->size_textures;
 	}
 	else
 	{
 		data->raycas->ray[ray_id].x_first_point_with_y_intersection = floor(player_x
-				/ SQUAR_SIZE) * SQUAR_SIZE + SQUAR_SIZE;
-		data->raycas->ray[ray_id].x_step = SQUAR_SIZE;
+				/ data->size_textures) * data->size_textures + data->size_textures;
+		data->raycas->ray[ray_id].x_step = data->size_textures;
 	}
 	first_intersection_by_y = player_y
 		+ (data->raycas->ray[ray_id].x_first_point_with_y_intersection - player_x)
@@ -81,8 +81,8 @@ int	is_wall(double x, double y, t_data *data)
 	int	map_x;
 	int	map_y;
 	// We're already working with pixel coordinates, so adjust the division
-	map_x = floor(x) / SQUAR_SIZE;
-	map_y = floor(y) / SQUAR_SIZE;
+	map_x = floor(x) / data->size_textures;
+	map_y = floor(y) / data->size_textures;
 	if (map_x < 0 || map_x >= data->w || map_y < 0 || map_y >= data->h)
 		return (1);
 	if (data->input->map_data[map_y][map_x] == '1')
@@ -96,8 +96,8 @@ double	distance_horizontal(t_data *data , int ray_id)
 	double	player_y;
 
 	double x, y;
-	player_x = data->player->player_x * SQUAR_SIZE;
-	player_y = data->player->player_y * SQUAR_SIZE;
+	player_x = data->player->player_x * data->size_textures;
+	player_y = data->player->player_y * data->size_textures;
 	x = calcule_first_intersection_with_x(data, ray_id);
 	y = data->raycas->ray[ray_id].y_first_point_with_x_intersection;
 	while (x >= 0 && x < data->img->width && y >= 0 && y < data->img->height)
@@ -122,8 +122,8 @@ double	distance_vertical(t_data *data , int ray_id)
 	double	player_y;
 
 	double x, y;
-	player_x = data->player->player_x * SQUAR_SIZE;
-	player_y = data->player->player_y * SQUAR_SIZE;
+	player_x = data->player->player_x * data->size_textures;
+	player_y = data->player->player_y * data->size_textures;
 	y = calcule_first_intersection_with_y(data, ray_id);
 	x = data->raycas->ray[ray_id].x_first_point_with_y_intersection;
 	while (x >= 0 && x < data->img->width && y >= 0 && y < data->img->height)
@@ -159,8 +159,8 @@ void	draw_ray(t_data *data, int ray_id)
 	double	x0;
 	double	y0;
 
-	x0 = data->player->player_x * SQUAR_SIZE;
-	y0 = data->player->player_y * SQUAR_SIZE;
+	x0 = data->player->player_x * data->size_textures;
+	y0 = data->player->player_y * data->size_textures;
 	x_end = data->raycas->ray[ray_id].wall_hit_x;
 	y_end = data->raycas->ray[ray_id].wall_hit_y;
 	ft_draw_line(data, x0, y0, x_end, y_end);

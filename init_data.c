@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/31 17:25:17 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:46:34 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_texture	init_for_image(t_data *data, char *path, t_e_texture side)
 
     texture.img = mlx_xpm_file_to_image(data->mlx, path, &texture.width,
 										&texture.height);
+	printf("width = %d, height = %d\n", texture.width, texture.height);
     if (!texture.img)
     {
         printf("Error: Failed texture %s\n", path);
@@ -66,6 +67,7 @@ void init_texture(t_data *data)
 	data->texture[SOUTH] = init_for_image(data, data->input->so_texture, SOUTH);
 	data->texture[WEST] = init_for_image(data, data->input->we_texture, WEST);
 	data->texture[EAST] = init_for_image(data, data->input->ea_texture, EAST);
+	data->size_textures = data->texture[NORTH].width;
 }
 
 void	init_image(t_data *data)

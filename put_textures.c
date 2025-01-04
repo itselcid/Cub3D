@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 21:24:26 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:50:07 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ t_e_texture	determine_wall_side(t_data *data, int ray_id)
 	}
 }
 
-unsigned int	get_texture_color(t_texture *texture, int tex_x, int tex_y)
+unsigned int	get_texture_color(t_texture *texture, int tex_x, int tex_y, t_data *data)
 {
 	char			*pixel;
 	unsigned int	color;
 
 	// Ensure texture coordinates are within bounds using modulus for more flexibility
-	tex_x = tex_x % TEXTURE_WIDTH;
-	tex_y = tex_y % TEXTURE_HEIGHT;
+	tex_x = tex_x % data->size_textures;
+	tex_y = tex_y % data->size_textures;
 	// Calculate pixel address in the texture array
 	pixel = texture->addr + (tex_y * texture->line_length + tex_x
 			* (texture->bits_per_pixel / 8));
@@ -57,14 +57,14 @@ void draw_textured_wall(t_data *data, int ray_id, double wall_top, double wall_b
     texture = &data->texture[side];
 
     if (data->raycas->ray[ray_id].horizontal_distance < data->raycas->ray[ray_id].vertical_distance)
-        x = (int)(data->raycas->ray[ray_id].wall_hit_x) % TEXTURE_WIDTH;
+        x = (int)(data->raycas->ray[ray_id].wall_hit_x) % data->size_textures;
     else
-        x = (int)(data->raycas->ray[ray_id].wall_hit_y) % TEXTURE_WIDTH;
+        x = (int)(data->raycas->ray[ray_id].wall_hit_y) % data->size_textures;
 
     if (x < 0)
         x = 0;
-    else if (x >= TEXTURE_WIDTH)
-        x = TEXTURE_WIDTH - 1;
+    else if (x >= data->size_textures)
+        x = data->size_textures - 1;
 
     for (int current_y = (int)wall_top; current_y < (int)wall_bottom; current_y++)
     {
@@ -75,14 +75,14 @@ void draw_textured_wall(t_data *data, int ray_id, double wall_top, double wall_b
         else if (relative_pos > 1.0)
             relative_pos = 1.0;
 
-        y = (int)(relative_pos * (double)TEXTURE_HEIGHT);
+        y = (int)(relative_pos * (double)data->size_textures);
 
         if (y < 0)
             y = 0;
-        else if (y >= TEXTURE_HEIGHT)
-            y = TEXTURE_HEIGHT - 1;
+        else if (y >= data->size_textures)
+            y = data->size_textures - 1;
 
-        color = get_texture_color(texture, x, y);
+        color = get_texture_color(texture, x, y, data);
 
         my_mlx_pixel_put(data->img, ray_id, current_y, color);
     }

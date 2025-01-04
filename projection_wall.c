@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 21:23:10 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:49:09 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void projection_wall(t_data *data)
         if (corrected_distance <= 0.0)
             corrected_distance = 0.3;
 
-        wall_height = (TEXTURE_WIDTH / corrected_distance) * distance_to_plane;
+        wall_height = (data->size_textures / corrected_distance) * distance_to_plane;
 
         int wall_top = (data->img->height / 2) - ((int)wall_height / 2);
         int wall_bottom = (data->img->height / 2) + ((int)wall_height / 2);

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/03 17:10:00 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/04 12:48:11 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void	draw_player(t_data *data)
 	int	y;
 	int	x;
 
-	player_size = SQUAR_SIZE / 7;
-	player_x = data->player->player_x * SQUAR_SIZE;
-	player_y = data->player->player_y * SQUAR_SIZE;
+	player_size = data->size_textures / 7;
+	player_x = data->player->player_x * data->size_textures;
+	player_y = data->player->player_y * data->size_textures;
 	int player_color = 0xFF0000; // Red color for player
 	y = 0;
 	while (y < player_size)
@@ -93,8 +93,8 @@ int	put_color_with_pixels(t_data *data)
 		colone = 0;
 		while (colone < data->w)
 		{
-			tile_x = colone * SQUAR_SIZE;
-			tile_y = line * SQUAR_SIZE;
+			tile_x = colone * data->size_textures;
+			tile_y = line * data->size_textures;
 			if (data->input->map_data[line][colone] == '1')
 			{
 				color = 0x444444;
@@ -102,13 +102,13 @@ int	put_color_with_pixels(t_data *data)
 			else
 				color = 0xFFFFFF;
 			y = tile_y;
-			while (y < tile_y + SQUAR_SIZE)
+			while (y < tile_y + data->size_textures)
 			{
 				x = tile_x;
-				while (x < tile_x + SQUAR_SIZE)
+				while (x < tile_x + data->size_textures)
 				{
-					if (y == tile_y || y == tile_y + SQUAR_SIZE - 1
-						|| x == tile_x || x == tile_x + SQUAR_SIZE - 1)
+					if (y == tile_y || y == tile_y + data->size_textures - 1
+						|| x == tile_x || x == tile_x + data->size_textures - 1)
 						my_mlx_pixel_put(data->img, x, y, 0x000000);
 					else
 						my_mlx_pixel_put(data->img, x, y, color);
