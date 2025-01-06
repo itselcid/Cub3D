@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/06 20:16:07 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:52:48 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void projection_wall(t_data *data)
         draw_vertical_line(data, ray_id, 0, wall_top - 1, color_sky);
 
         // Draw textured wall
-        //draw_textured_wall(data, ray_id, wall_height, ray_id);
-        draw_colored_wall(data, ray_id, wall_top, wall_bottom);
+        draw_textured_wall(data, ray_id, wall_height, ray_id);
+        //draw_colored_wall(data, ray_id, wall_top, wall_bottom);
 
         draw_vertical_line(data, ray_id, wall_bottom + 1, data->img->height - 1, color_floor);
 

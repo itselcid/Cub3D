@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/06 19:41:55 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 21:08:47 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,17 @@ void draw_textured_wall(t_data *game, int x, float wall_height, int ray_index)
     // Determine which texture to use and calculate the wall hit position
     t_e_texture side = determine_wall_side(game, ray_index);
     // Normalize wall_x to the texture's range
-    double wall_x = game->raycas->ray[ray_index].wall_hit_x;
+    double wall_x;
+if (side == NORTH || side == SOUTH) {
+    wall_x = game->raycas->ray[ray_index].wall_hit_x;
+} else {
+    wall_x = game->raycas->ray[ray_index].wall_hit_y;
+}
     wall_x = fmod(wall_x, game->size_textures);
     if (wall_x < 0)
         wall_x += game->size_textures;
 
     int tex_x = (int)(wall_x * game->texture[side].width / game->size_textures);
-
     // Clamp tex_x to avoid accessing out-of-bounds pixels
     if (tex_x >= game->texture[side].width)
         tex_x = game->texture[side].width - 1;
@@ -77,10 +81,7 @@ void draw_textured_wall(t_data *game, int x, float wall_height, int ray_index)
     for (int y = wall_top; y < wall_bottom; y++)
     {
         int tex_y = (int)tex_pos & (game->texture[side].height - 1);
-        char *pixel = game->texture[side].addr +
-                      (tex_y * game->texture[side].line_length) +
-                      (tex_x * (game->texture[side].bits_per_pixel / 8));
-        unsigned int color = *(unsigned int *)pixel;
+        unsigned int color  = get_texture_color(&game->texture[side],tex_x,tex_y, game );
 
         my_mlx_pixel_put(game->img, x, y, color);
         tex_pos += step;

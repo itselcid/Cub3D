@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/04 16:30:21 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 21:02:24 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void print()
 	printf("\t\t\t\t\t\trotate right: ");
 	printf(GREEN "right arrow\n" RESET);
 }
+
 int	game_loop(t_data *data)
 {
 	move_player(data);
