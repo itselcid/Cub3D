@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:00:28 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/04 12:48:11 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 18:46:43 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void ft_draw_line(t_data *data, int start_x, int start_y, int end_x, int end_y)
 	}
 }
 
-void	normalize_angle(float *angle)
+void	normalize_angle(double *angle)
 {
 	while (*angle >= 2 * M_PI)
 		*angle -= 2 * M_PI;
@@ -59,7 +59,7 @@ void	draw_player(t_data *data)
 	int	y;
 	int	x;
 
-	player_size = data->size_textures / 7;
+	player_size = data->size_textures / 8;
 	player_x = data->player->player_x * data->size_textures;
 	player_y = data->player->player_y * data->size_textures;
 	int player_color = 0xFF0000; // Red color for player

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/04 12:46:15 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:02:06 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 #define GREEN "\033[0;32m"
 #define RESET "\033[0m"
 #define RED "\033[0;31m"
+
+#define PROJECTION_PLANE_DISTANCE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
 typedef struct s_map
 {
 	int fd;
@@ -123,7 +125,7 @@ typedef struct s_palyer
 	int			Movement_walk;
 	int			Movement_sideways;
 	int			rotate;
-	float		angle;
+	double		angle;
 }				t_player;
 
 typedef struct s_image
@@ -172,7 +174,7 @@ void			my_mlx_pixel_put(t_image *img, int x, int y, unsigned int color);
 void	init_image_and_ray(t_data *data);
 void			draw_view_from_player(t_data *data);
 void			draw_line(int x1, int y1, int x2, int y2, t_data *data);
-void			normalize_angle(float *angle);
+void			normalize_angle(double *angle);
 float			calculate_player_angle(float player_dir_x, float player_dir_y);
 void			draw_view_from_player(t_data *data);
 int				key_handler(int key_code, t_data *data);
@@ -197,7 +199,7 @@ char	*ft_strncpy(char *dest,  char *src, size_t n);
 char	*ft_strchr( char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 int	ft_strlen(char *s);
-void draw_textured_wall(t_data *data, int ray_id, double wall_top, double wall_bottom, double wall_height);
+void draw_textured_wall(t_data *game, int x, float wall_height, int ray_index);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 // void			draw_line(t_data *data, int x1, int y1, int color);
 

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/04 12:48:11 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:38:20 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,7 @@ void	draw_ray(t_data *data, int ray_id)
 
 void	cast_ray(t_data *data , int ray_id)
 {
-	double h_distance, v_distance;
-	float ray_angle = (float)data->raycas->ray[ray_id].ray_angle; 
-	normalize_angle(&ray_angle);                                                                                                                            
+	double h_distance, v_distance;                                                                                                                         
 	player_facing(data, ray_id);
 	h_distance = distance_horizontal(data, ray_id);
 	v_distance = distance_vertical(data , ray_id);
@@ -192,10 +190,10 @@ void	cast_ray(t_data *data , int ray_id)
 
 void	cast_rays(t_data *data)
 {
-	float	ray_angle;
+	double	ray_angle;
 	int		ray_id;
-	float	angle_step;
-	float	start_angle;
+	double	angle_step;
+	double	start_angle;
 
 	//data->raycas->nbr_ray = data->img->width;
 	angle_step = FOV_ANGLE / data->raycas->nbr_ray;

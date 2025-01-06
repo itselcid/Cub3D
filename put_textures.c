@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/04 12:50:07 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:41:55 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,48 +45,49 @@ unsigned int	get_texture_color(t_texture *texture, int tex_x, int tex_y, t_data 
 	return (color);
 }
 
-void draw_textured_wall(t_data *data, int ray_id, double wall_top, double wall_bottom, double wall_height)
+void draw_textured_wall(t_data *game, int x, float wall_height, int ray_index)
 {
-    int x;
-    int y;
-    unsigned int color;
-    t_e_texture side;
-    t_texture *texture;
+    int wall_top = (WINDOW_HEIGHT - (int)wall_height) / 2;
+    if (wall_top < 0)
+        wall_top = 0;
 
-    side = determine_wall_side(data, ray_id);
-    texture = &data->texture[side];
+    int wall_bottom = (WINDOW_HEIGHT + (int)wall_height) / 2;
+    if (wall_bottom >= WINDOW_HEIGHT)
+        wall_bottom = WINDOW_HEIGHT - 1;
 
-    if (data->raycas->ray[ray_id].horizontal_distance < data->raycas->ray[ray_id].vertical_distance)
-        x = (int)(data->raycas->ray[ray_id].wall_hit_x) % data->size_textures;
-    else
-        x = (int)(data->raycas->ray[ray_id].wall_hit_y) % data->size_textures;
+    // Determine which texture to use and calculate the wall hit position
+    t_e_texture side = determine_wall_side(game, ray_index);
+    // Normalize wall_x to the texture's range
+    double wall_x = game->raycas->ray[ray_index].wall_hit_x;
+    wall_x = fmod(wall_x, game->size_textures);
+    if (wall_x < 0)
+        wall_x += game->size_textures;
 
-    if (x < 0)
-        x = 0;
-    else if (x >= data->size_textures)
-        x = data->size_textures - 1;
+    int tex_x = (int)(wall_x * game->texture[side].width / game->size_textures);
 
-    for (int current_y = (int)wall_top; current_y < (int)wall_bottom; current_y++)
+    // Clamp tex_x to avoid accessing out-of-bounds pixels
+    if (tex_x >= game->texture[side].width)
+        tex_x = game->texture[side].width - 1;
+
+    // Calculate texture mapping parameters
+    double step = (double)game->texture[side].height / wall_height;
+    double tex_pos = (wall_top - WINDOW_HEIGHT / 2.0 + wall_height / 2.0) * step;
+
+    // Draw the wall slice
+    for (int y = wall_top; y < wall_bottom; y++)
     {
-        double relative_pos = ((double)(current_y) - (data->img->height / 2.0) + (wall_height / 2.0)) / wall_height;
+        int tex_y = (int)tex_pos & (game->texture[side].height - 1);
+        char *pixel = game->texture[side].addr +
+                      (tex_y * game->texture[side].line_length) +
+                      (tex_x * (game->texture[side].bits_per_pixel / 8));
+        unsigned int color = *(unsigned int *)pixel;
 
-        if (relative_pos < 0.0)
-            relative_pos = 0.0;
-        else if (relative_pos > 1.0)
-            relative_pos = 1.0;
-
-        y = (int)(relative_pos * (double)data->size_textures);
-
-        if (y < 0)
-            y = 0;
-        else if (y >= data->size_textures)
-            y = data->size_textures - 1;
-
-        color = get_texture_color(texture, x, y, data);
-
-        my_mlx_pixel_put(data->img, ray_id, current_y, color);
+        my_mlx_pixel_put(game->img, x, y, color);
+        tex_pos += step;
     }
 }
+
+
 
 // void	draw_wall(t_win *win, double t_pix, double b_pix, double wall_h)
 // {
