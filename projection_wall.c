@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/06 19:27:00 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:16:07 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void projection_wall(t_data *data)
         normalize_angle(&angle_diff);
         double corrected_distance = data->raycas->ray[ray_id].ray_distance * cos(angle_diff);
         if (corrected_distance <= 0.0)
-            corrected_distance = 0.3;
+            corrected_distance = 0.1;
 
         wall_height = (data->size_textures / corrected_distance) * PROJECTION_PLANE_DISTANCE;
 

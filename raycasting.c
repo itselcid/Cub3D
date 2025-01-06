@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/06 19:38:20 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:11:49 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ double	distance_horizontal(t_data *data , int ray_id)
 	player_y = data->player->player_y * data->size_textures;
 	x = calcule_first_intersection_with_x(data, ray_id);
 	y = data->raycas->ray[ray_id].y_first_point_with_x_intersection;
-	while (x >= 0 && x < data->img->width && y >= 0 && y < data->img->height)
+	while (x >= 0 && x < (data->input->width * data->size_textures ) && y >= 0 && y < (data->input->height * data->size_textures))
 	{
 		if (is_wall(x, y, data))
 		{
@@ -126,7 +126,7 @@ double	distance_vertical(t_data *data , int ray_id)
 	player_y = data->player->player_y * data->size_textures;
 	y = calcule_first_intersection_with_y(data, ray_id);
 	x = data->raycas->ray[ray_id].x_first_point_with_y_intersection;
-	while (x >= 0 && x < data->img->width && y >= 0 && y < data->img->height)
+	while (x >= 0 && x < (data->input->width * data->size_textures ) && y >= 0 && y < (data->input->height * data->size_textures))
 	{
 		if (is_wall(x, y, data))
 		{

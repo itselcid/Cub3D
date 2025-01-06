@@ -1,15 +1,16 @@
 
-EA ./textures/E0.xpm
-NO ./textures/E0.xpm
-SO ./textures/E0.xpm
-WE ./textures/E0.xpm
+EA ./textures/E.xpm
+NO ./textures/E.xpm
+SO ./textures/E.xpm
+WE ./textures/E.xpm
+
 F 100,149,237
 C 255,228,181
 
 1111111111111
 11111111111111
 1111100000001
-11111000N00001
+11111000W00001
 11111000001001
 11110000000001
 11110000000001
