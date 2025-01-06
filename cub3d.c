@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/06 21:02:24 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/06 21:55:41 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	main(int ac, char **av)
 	mlx_hook(data.win, 2, 1L << 0, key_handler, &data);
 	mlx_hook(data.win, 3, 1L << 1, relase_key, &data);
 	mlx_loop_hook(data.mlx, game_loop, &data);
-	// game_loop(&data);
 	mlx_loop(data.mlx);
 	return (0);
 }
