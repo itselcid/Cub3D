@@ -6,11 +6,11 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 15:12:53 by oessaadi          #+#    #+#             */
-/*   Updated: 2024/12/30 16:16:47 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:01:55 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -50,7 +50,7 @@ int	ft_strlen(char *s)
 	return (len);
 }
 
-char	*ft_strncpy(char *dest,  char *src, size_t n)
+char	*ft_strncpy(char *dest, char *src, size_t n)
 {
 	size_t	i;
 
@@ -65,7 +65,7 @@ char	*ft_strncpy(char *dest,  char *src, size_t n)
 	return (dest);
 }
 
-char	*ft_strchr( char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	while (*s)
 	{

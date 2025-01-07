@@ -6,31 +6,33 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:45:03 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/04 13:17:31 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:17:38 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
-void validate_move(t_data *data, double new_x, double new_y)
+void	validate_move(t_data *data, double new_x, double new_y)
 {
-	if (new_x >= 0 && new_x < data->img->width && new_y >= 0 && new_y < data->img->height
+	if (new_x >= 0 && new_x < data->img->width && new_y >= 0
+		&& new_y < data->img->height
 		&& data->input->map_data[(int)(new_y)][(int)(new_x)] != '1')
 	{
 		data->player->player_x = new_x;
 		data->player->player_y = new_y;
 	}
 }
+
 void	move_player(t_data *data)
 {
-	double	new_x = 0;
-	double	new_y = 0;
+	double	new_x;
+	double	new_y;
 	double	move_step;
+
+	new_x = 0;
+	new_y = 0;
 	if (data->player->rotate != 0)
-	{
 		data->player->angle += data->player->rotate * ROTATE_SPEED;
-		normalize_angle(&data->player->angle);
-	}
 	if (data->player->Movement_walk != 0)
 	{
 		move_step = data->player->Movement_walk * MOVE_SPEED;
@@ -52,17 +54,17 @@ int	key_handler(int key_code, t_data *data)
 {
 	if (key_code == ESC)
 		close_window(data);
-	if (key_code == UP) // W
+	if (key_code == UP)
 		data->player->Movement_walk = 1;
-	if (key_code == DOWN) // S
+	if (key_code == DOWN)
 		data->player->Movement_walk = -1;
-	if (key_code == RIGHT) // D
+	if (key_code == RIGHT)
 		data->player->Movement_sideways = 1;
-	if (key_code == LEFT) // A
+	if (key_code == LEFT)
 		data->player->Movement_sideways = -1;
-	if (key_code == ROTATE_RIGHT) // -->
+	if (key_code == ROTATE_RIGHT)
 		data->player->rotate = 1;
-	if (key_code == ROTATE_LEFT) // <--
+	if (key_code == ROTATE_LEFT)
 		data->player->rotate = -1;
 	return (0);
 }

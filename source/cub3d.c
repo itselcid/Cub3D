@@ -6,26 +6,27 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/06 21:55:41 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:15:16 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
-void print1()
+void	print1(void)
 {
-printf("\t\t\t░█████╗░██╗░░░██╗██████╗░██████╗░██████╗░\n");
-printf("\t\t\t██╔══██╗██║░░░██║██╔══██╗╚════██╗██╔══██╗\n");
-printf("\t\t\t██║░░╚═╝██║░░░██║██████╦╝░█████╔╝██║░░██║\n");
-printf("\t\t\t██║░░██╗██║░░░██║██╔══██╗░╚═══██╗██║░░██║\n");
-printf("\t\t\t╚█████╔╝╚██████╔╝██████╦╝██████╔╝██████╔╝\n");
-printf("\t\t\t░╚════╝░░╚═════╝░╚═════╝░╚═════╝░╚═════╝░\n\n");
+	printf("\t\t\t░█████╗░██╗░░░██╗██████╗░██████╗░██████╗░\n");
+	printf("\t\t\t██╔══██╗██║░░░██║██╔══██╗╚════██╗██╔══██╗\n");
+	printf("\t\t\t██║░░╚═╝██║░░░██║██████╦╝░█████╔╝██║░░██║\n");
+	printf("\t\t\t██║░░██╗██║░░░██║██╔══██╗░╚═══██╗██║░░██║\n");
+	printf("\t\t\t╚█████╔╝╚██████╔╝██████╦╝██████╔╝██████╔╝\n");
+	printf("\t\t\t░╚════╝░░╚═════╝░╚═════╝░╚═════╝░╚═════╝░\n\n");
 }
-void print()
+
+void	print(void)
 {
 	print1();
-	printf( GREEN"YOU CAN MOVE WITH THE FOLLOWING KEYS\n\n\n" RESET);
-	printf(RED"MOUVEMENT \n"RESET);
+	printf(GREEN "YOU CAN MOVE WITH THE FOLLOWING KEYS\n\n\n" RESET);
+	printf(RED "MOUVEMENT \n" RESET);
 	printf("\t\t\t\tmove forward: ");
 	printf(GREEN "W\n" RESET);
 	printf("\tmove left: ");
@@ -35,7 +36,7 @@ void print()
 	printf("\t\t\t\tmove backward: ");
 	printf(GREEN "S\n" RESET);
 	printf("\n\n");
-	printf( RED"ROTATION \n" RESET);
+	printf(RED "ROTATION \n" RESET);
 	printf("\trotate left: ");
 	printf(GREEN "left arrow" RESET);
 	printf("\t\t\t\t\t\trotate right: ");
@@ -45,8 +46,6 @@ void print()
 int	game_loop(t_data *data)
 {
 	move_player(data);
-	//put_color_with_pixels(data);
-	//draw_player(data);
 	cast_rays(data);
 	projection_wall(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_map, 0, 0);
@@ -63,7 +62,7 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	if (parse_map(&data, av[1]))
-		return 1;
+		return (1);
 	init_data(&data);
 	init_image_and_ray(&data);
 	//print();

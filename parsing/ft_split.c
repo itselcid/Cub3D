@@ -6,31 +6,31 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 16:06:57 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/30 16:07:10 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:01:55 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
-static int is_separator(char ch, char c)
+static int	is_separator(char ch, char c)
 {
-    if (c == ' ')
-    {
-        if (ch == ' ' || ch == '\t')
-            return (1);
-        else
-            return (0);
-    }
-    else
-    {
-        if (ch == c)
-            return (1);
-        else
-            return (0);
-    }
+	if (c == ' ')
+	{
+		if (ch == ' ' || ch == '\t')
+			return (1);
+		else
+			return (0);
+	}
+	else
+	{
+		if (ch == c)
+			return (1);
+		else
+			return (0);
+	}
 }
 
-static int	count_words( char *s, char c)
+static int	count_words(char *s, char c)
 {
 	int	words;
 	int	i;
@@ -51,7 +51,7 @@ static int	count_words( char *s, char c)
 	return (words);
 }
 
-static int	word_len( char *s, char c)
+static int	word_len(char *s, char c)
 {
 	int	len;
 
@@ -63,18 +63,7 @@ static int	word_len( char *s, char c)
 	return (len);
 }
 
-static char	**freemem(int i, char **result)
-{
-	while (i >= 0)
-	{
-		free(result[i]);
-		i--;
-	}
-	free(result);
-	return (NULL);
-}
-
-static char	*copy_word( char *s, char c)
+static char	*copy_word(char *s, char c)
 {
 	int		len;
 	char	*word;
@@ -94,7 +83,7 @@ static char	*copy_word( char *s, char c)
 	return (word);
 }
 
-char	**ft_split(char  *s, char c)
+char	**ft_split(char *s, char c)
 {
 	int		i;
 	char	**result;

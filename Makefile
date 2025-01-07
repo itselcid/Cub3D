@@ -3,9 +3,11 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g# -fsanitize=address
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 
-SRC = libft.c parsing.c ft_split.c put_textures.c projection_wall.c raycasting.c movement.c put_pixels_in_image.c cub3d.c calcule_data_map.c  get_next_line.c get_next_line_utils.c init_data.c
+SRC = parsing/helpers.c parsing/ft_split.c source/put_textures.c source/projection_wall.c source/raycasting_util.c source/raycasting.c source/util.c source/movement.c source/put_pixels_in_image.c \
+	source/cub3d.c source/calcule_data_map.c parsing/get_next_line.c parsing/get_next_line_utils.c source/init_data.c \
+	parsing/texture_parsing.c parsing/color_parsing.c parsing/map_utils.c parsing/cleanup.c \
+	parsing/map_parsing.c parsing/input_parsing.c parsing/extention_validation.c parsing/ft_atoi.c
 OBJ = $(SRC:.c=.o)
-
 $(NAME): $(OBJ) 
 	$(CC) $(OBJ)  $(CFLAGS) $(MLXFLAGS) -o $(NAME)
 

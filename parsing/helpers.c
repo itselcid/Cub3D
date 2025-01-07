@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.c                                            :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 15:39:06 by oel-moue          #+#    #+#             */
-/*   Updated: 2024/12/30 15:52:03 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:01:15 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/cub3d.h"
 
-#include "cub3d.h"
-
-int	ft_strncmp(char *s1,  char *s2, size_t n)
+int	ft_strncmp(char *s1, char *s2, size_t n)
 {
 	size_t	i;
 
@@ -21,13 +20,13 @@ int	ft_strncmp(char *s1,  char *s2, size_t n)
 	while (i < n && (s1[i] || s2[i]))
 	{
 		if (s1[i] != s2[i])
-			return ((unsigned char )s1[i] - (unsigned char)s2[i]);
-	i++;
-	}	
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
 	return (0);
 }
 
-char	*ft_strdup( char *s1)
+char	*ft_strdup(char *s1)
 {
 	int		len;
 	char	*p;
@@ -46,12 +45,12 @@ char	*ft_strdup( char *s1)
 	p[i] = '\0';
 	return (p);
 }
+
 char	*ft_strnstr(char *haystack, char *needle, size_t len)
 {
 	size_t	needle_len;
 
 	needle_len = ft_strlen(needle);
-
 	while (*haystack && needle_len <= len)
 	{
 		if (ft_strncmp(haystack, needle, needle_len) == 0)
@@ -60,32 +59,6 @@ char	*ft_strnstr(char *haystack, char *needle, size_t len)
 		len--;
 	}
 	return (NULL);
-}
-long	ft_atoi( char *str)
-{
-	int		i;
-	int		sign;
-	long	result;
-	int		digit_count;
-
-	digit_count = 0;
-	result = 0;
-	sign = 1;
-	i = 0;
-	if (str[i] == '-')
-		sign = -1;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9' && result <= 2147483649)
-	{
-		result = (result * 10) + str[i++] - '0';
-		digit_count++;
-	}
-	if (str[i] != '\0' || digit_count == 0)
-	{
-		return (2147483649);
-	}
-	return (sign * result);
 }
 
 void	*ft_memset(void *b, int c, size_t len)
@@ -102,7 +75,8 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return (b);
 }
-void	*ft_memcpy(void *dst,  void *src, size_t n)
+
+void	*ft_memcpy(void *dst, void *src, size_t n)
 {
 	size_t			i;
 	unsigned char	*dest;

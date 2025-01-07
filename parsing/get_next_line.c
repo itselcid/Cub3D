@@ -6,11 +6,11 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 15:12:38 by oessaadi          #+#    #+#             */
-/*   Updated: 2024/12/30 15:38:56 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:01:55 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 char	*ft_line(char *str)
 {

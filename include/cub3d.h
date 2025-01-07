@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/06 22:12:44 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:35:36 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,31 @@ char			*ft_strjoin(char *s1, char *s2);
 int				ft_strlen(char *s);
 void			draw_textured_wall(t_data *game, int x, float wall_height,
 					int ray_index);
+double	distance_horizontal(t_data *data, int ray_id);
+double	distance_vertical(t_data *data, int ray_id);
+int	is_wall(double x, double y, t_data *data);
+// parsing
+ 
+int parse_texture(t_data *game, char *line, char *direction);
+int parse_color(t_data *game, char *line, char direction);
+
+void cleanup_up(t_data *game, int num);
+void	free_split(char **split);
+char	**freemem(int i, char **result);
+
+void	initialize_map_data(t_data *game, char *line);
+int	is_valid_char(char c);
+void fill_map_spaces(t_data *game);
+int is_empty_line(char *line);
+int check_parsed_elements(t_data *game);
+
+int handle_map_line(t_data *game, char *line);
+void check_position(t_data *game, int y, int x);
+void validate_map(t_data *game);
+int parse_map(t_data *game, char *filename);
+
+
+int check_file_extension(t_data *game, char *filename);
+int check_texture_extension(t_data *game, char *filename);
 
 #endif
