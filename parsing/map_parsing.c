@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 22:39:58 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/07 14:01:55 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:07:44 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ void	validate_map(t_data *game)
 	int	i;
 	int	j;
 
-	i = -1;
-	while (game->input->map_data[++i])
+	i = 0;
+	while (game->input->map_data[i])
 	{
-		j = -1;
-		while (game->input->map_data[i][++j])
+		j = 0;
+		while (game->input->map_data[i][j])
 		{
 			if (!is_valid_char(game->input->map_data[i][j]))
 			{

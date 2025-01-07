@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 14:31:59 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:03:16 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ t_e_texture	determine_wall_side(t_data *data, int ray_id)
 	d_vertical = data->raycas->ray[ray_id].vertical_distance;
 	if (d_horizantal < d_vertical)
 	{
-		if (data->raycas->ray[ray_id].is_ray_facing_up)
+		if (data->raycas->ray[ray_id].up)
 			return (NORTH);
 		return (SOUTH);
 	}
 	else
 	{
-		if (data->raycas->ray[ray_id].is_ray_facing_right)
+		if (data->raycas->ray[ray_id].right)
 			return (EAST);
 		return (WEST);
 	}
@@ -58,9 +58,9 @@ void	var_use_in_image(t_var_for_textures *var, float wall_height,
 		var->wall_bottom = WINDOW_HEIGHT - 1;
 	var->side = determine_wall_side(game, ray_index);
 	if (var->side == NORTH || var->side == SOUTH)
-		var->wall_x = game->raycas->ray[ray_index].wall_hit_x;
+		var->wall_x = game->raycas->ray[ray_index].wall_x;
 	else
-		var->wall_x = game->raycas->ray[ray_index].wall_hit_y;
+		var->wall_x = game->raycas->ray[ray_index].wall_y;
 	var->wall_x = fmod(var->wall_x, game->size_textures);
 	if (var->wall_x < 0)
 		var->wall_x += game->size_textures;
