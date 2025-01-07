@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 14:15:38 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:38:06 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,14 @@ t_texture	init_for_image(t_data *data, char *path, t_e_texture side)
 
 	texture.img = mlx_xpm_file_to_image(data->mlx, path, &texture.width,
 			&texture.height);
-	printf("width = %d, height = %d\n", texture.width, texture.height);
 	if (!texture.img)
 	{
 		printf("Error: Failed texture %s\n", path);
+		exit(0);
+	}
+	if (texture.width != 64 || texture.height != 64)
+	{
+		printf("Error : size is not 64\n");
 		exit(0);
 	}
 	texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel,
