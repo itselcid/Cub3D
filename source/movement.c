@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:45:03 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 14:17:38 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:23:13 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	move_player(t_data *data)
 	new_y = 0;
 	if (data->player->rotate != 0)
 		data->player->angle += data->player->rotate * ROTATE_SPEED;
-	if (data->player->Movement_walk != 0)
+	if (data->player->movement_walk != 0)
 	{
-		move_step = data->player->Movement_walk * MOVE_SPEED;
+		move_step = data->player->movement_walk * MOVE_SPEED;
 		new_x = data->player->player_x + cos(data->player->angle) * move_step;
 		new_y = data->player->player_y + sin(data->player->angle) * move_step;
 	}
-	if (data->player->Movement_sideways != 0)
+	if (data->player->movement_sideways != 0)
 	{
-		move_step = data->player->Movement_sideways * MOVE_SPEED;
+		move_step = data->player->movement_sideways * MOVE_SPEED;
 		new_x = data->player->player_x + cos(data->player->angle + M_PI / 2)
 			* move_step;
 		new_y = data->player->player_y + sin(data->player->angle + M_PI / 2)
@@ -55,13 +55,13 @@ int	key_handler(int key_code, t_data *data)
 	if (key_code == ESC)
 		close_window(data);
 	if (key_code == UP)
-		data->player->Movement_walk = 1;
+		data->player->movement_walk = 1;
 	if (key_code == DOWN)
-		data->player->Movement_walk = -1;
+		data->player->movement_walk = -1;
 	if (key_code == RIGHT)
-		data->player->Movement_sideways = 1;
+		data->player->movement_sideways = 1;
 	if (key_code == LEFT)
-		data->player->Movement_sideways = -1;
+		data->player->movement_sideways = -1;
 	if (key_code == ROTATE_RIGHT)
 		data->player->rotate = 1;
 	if (key_code == ROTATE_LEFT)
@@ -72,9 +72,9 @@ int	key_handler(int key_code, t_data *data)
 int	relase_key(int key_code, t_data *data)
 {
 	if (key_code == UP || key_code == DOWN)
-		data->player->Movement_walk = 0;
+		data->player->movement_walk = 0;
 	if (key_code == RIGHT || key_code == LEFT)
-		data->player->Movement_sideways = 0;
+		data->player->movement_sideways = 0;
 	if (key_code == ROTATE_RIGHT || key_code == ROTATE_LEFT)
 		data->player->rotate = 0;
 	return (0);

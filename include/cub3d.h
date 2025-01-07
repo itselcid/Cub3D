@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 17:02:30 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/07 19:52:27 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 # define _USE_MATH_DEFINES
 # include <fcntl.h>
-# include <float.h>
 # include <limits.h>
 # include <math.h>
 # include <mlx.h>
@@ -32,11 +31,13 @@
 # define DOWN 115
 # define LEFT 97
 # define RIGHT 100
-# define ANGLE_TO_ROTATE (M_PI / 6)
+# define ANGLE_TO_ROTATE 0.523599
+
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
 # define NUM_RAYS 120
-# define FOV_ANGLE 60 * (M_PI / 180)
+# define FOV_ANGLE 1.0472 
+
 # define ROTATE_SPEED 0.01
 # define NUM_WALL_TEXTURES 4
 
@@ -50,7 +51,8 @@
 # define RESET "\033[0m"
 # define RED "\033[0;31m"
 
-# define PROJECTION_PLANE_DISTANCE ((WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2))
+# define PROJECTION_PLANE_DISTANCE 866 
+
 typedef struct s_map
 {
 	int					fd;
@@ -122,8 +124,8 @@ typedef struct s_palyer
 {
 	float				player_x;
 	float				player_y;
-	int					Movement_walk;
-	int					Movement_sideways;
+	int					movement_walk;
+	int					movement_sideways;
 	int					rotate;
 	double				angle;
 }						t_player;
@@ -187,7 +189,6 @@ void					my_mlx_pixel_put(t_image *img, int x, int y,
 
 void					init_image_and_ray(t_data *data);
 void					draw_view_from_player(t_data *data);
-void					draw_line(int x1, int y1, int x2, int y2, t_data *data);
 void					normalize_angle(double *angle);
 float					calculate_player_angle(float player_dir_x,
 							float player_dir_y);
@@ -196,9 +197,6 @@ int						key_handler(int key_code, t_data *data);
 void					move_player(t_data *data);
 int						relase_key(int key_code, t_data *data);
 void					cast_rays(t_data *data);
-void					draw_line1(t_data *data, int x1, int y1, int color);
-void					ft_draw_line(t_data *data, int start_x, int start_y,
-							int end_x, int end_y);
 void					projection_wall(t_data *data);
 
 t_e_texture				determine_wall_side(t_data *data, int ray_id);
@@ -239,7 +237,7 @@ void					check_position(t_data *game, int y, int x);
 void					validate_map(t_data *game);
 int						parse_map(t_data *game, char *filename);
 
-int						check_file(t_data *game, char *filename);
+void					check_file(t_data *game, char *filename);
 int						check_texture_extension(t_data *game, char *filename);
 
 #endif

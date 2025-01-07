@@ -6,21 +6,20 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:57:01 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/07 17:01:14 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/07 18:33:47 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	check_file(t_data *game, char *filename)
+void	check_file(t_data *game, char *filename)
 {
 	int	name_len;
-	int	fd;
 
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
+	game->input->fd = open(filename, O_RDONLY);
+	if (game->input->fd < 0)
 	{
-		write(1, "Error\nFailed to open file\n", 27);
+		write(1, "Error\nInvalid file\n", 20);
 		cleanup_up(game, 1);
 	}
 	name_len = ft_strlen(filename);
@@ -31,7 +30,6 @@ int	check_file(t_data *game, char *filename)
 		write(1, "Error\nInvalid file extension.\n", 31);
 		cleanup_up(game, 1);
 	}
-	return (0);
 }
 
 int	check_texture_extension(t_data *game, char *filename)
