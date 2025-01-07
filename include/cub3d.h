@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 16:14:42 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:02:30 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,7 @@ void					check_position(t_data *game, int y, int x);
 void					validate_map(t_data *game);
 int						parse_map(t_data *game, char *filename);
 
-int						check_file_extension(t_data *game, char *filename);
+int						check_file(t_data *game, char *filename);
 int						check_texture_extension(t_data *game, char *filename);
 
 #endif

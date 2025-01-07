@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 18:28:59 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/07 16:13:09 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:00:20 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	initialize_parsing(t_data *game, char *filename)
 		printf("Error: Failed to allocate map structure\n");
 		exit(1);
 	}
-	game->input->fd = open(filename, O_RDONLY);
-	if (game->input->fd < 0 || check_file_extension(game, filename))
-		exit(1);
+	check_file(game, filename);
 	game->input->no_texture = NULL;
 	game->input->so_texture = NULL;
 	game->input->we_texture = NULL;
