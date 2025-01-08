@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 16:39:17 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:05:53 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	init_raycas(t_data *data)
 
 int	close_window(t_data *data)
 {
+	cleanup_up(data, 0);
 	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_image(data->mlx, data->img);
+	free(data->mlx);
 	exit(0);
 	return (0);
 }

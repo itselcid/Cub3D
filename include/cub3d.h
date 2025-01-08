@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 19:52:27 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/08 22:14:11 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 #  define BUFFER_SIZE 10
 # endif
 
-# define SQUAR_SIZE 50
 # define MOVE_SPEED 0.015
 # define ESC 65307
 # define UP 119
@@ -36,13 +35,10 @@
 # define ROTATE_RIGHT 65363
 # define ROTATE_LEFT 65361
 # define NUM_RAYS 120
-# define FOV_ANGLE 1.0472 
+# define FOV_ANGLE 1.0472
 
 # define ROTATE_SPEED 0.01
 # define NUM_WALL_TEXTURES 4
-
-# define TEXTURE_WIDTH SQUAR_SIZE
-# define TEXTURE_HEIGHT SQUAR_SIZE
 
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 700
@@ -51,7 +47,7 @@
 # define RESET "\033[0m"
 # define RED "\033[0;31m"
 
-# define PROJECTION_PLANE_DISTANCE 866 
+# define PROJECTION_PLANE_DISTANCE 866
 
 typedef struct s_map
 {
