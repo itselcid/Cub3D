@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 15:12:38 by oessaadi          #+#    #+#             */
-/*   Updated: 2025/01/08 22:47:29 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/08 23:28:20 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*get_next_line(int fd)
 	char		*tmp;
 	ssize_t		chars_readed;
 
-	if (fd == -2 && rest) 
+	if (fd == -2 && rest)
 	{
 		free(rest);
 		rest = NULL;

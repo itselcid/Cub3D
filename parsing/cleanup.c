@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 18:10:46 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/08 22:58:22 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/08 23:25:01 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	cleanup_up(t_data *game, int num)
 {
 	int	i;
-	if(game->input->fd > 0)
+
+	if (game->input->fd > 0)
 		close(game->input->fd);
 	if (game->input->line)
 		free(game->input->line);

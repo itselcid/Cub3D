@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/08 22:59:41 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/08 23:45:32 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,6 @@ int						parse_color(t_data *game, char *line, char direction);
 void					cleanup_up(t_data *game, int num);
 void					free_split(char **split);
 char					**freemem(int i, char **result);
-void	free_str(char *str);
 
 void					initialize_map_data(t_data *game, char *line);
 int						is_valid_char(char c);
@@ -235,6 +234,6 @@ void					validate_map(t_data *game);
 int						parse_map(t_data *game, char *filename);
 
 void					check_file(t_data *game, char *filename);
-int						check_texture_extension(char *filename);
+int						check_texture_extension( char *filename);
 
 #endif
