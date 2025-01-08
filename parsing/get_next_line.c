@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 15:12:38 by oessaadi          #+#    #+#             */
-/*   Updated: 2025/01/07 19:51:55 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/08 22:47:29 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ char	*ft_rest(char *str)
 
 char	*handle_errors(int chars_readed, char *rest)
 {
-	if (chars_readed == -1 || (chars_readed == 0
-			&& (rest == NULL || *rest == '\0')))
+	if (chars_readed == -1 || (chars_readed == 0 && (rest == NULL
+				|| *rest == '\0')))
 	{
 		free(rest);
 		rest = NULL;
@@ -78,6 +78,12 @@ char	*get_next_line(int fd)
 	char		*tmp;
 	ssize_t		chars_readed;
 
+	if (fd == -2 && rest) 
+	{
+		free(rest);
+		rest = NULL;
+		return (NULL);
+	}
 	if (BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || fd < 0)
 		return (NULL);
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));

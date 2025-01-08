@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:54:03 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/07 19:51:59 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/08 22:58:59 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,23 @@ int	validate_and_open_texture(t_data *game, char **str, char *direction)
 {
 	int	fd;
 
-	if (ft_strncmp(str[0], direction, 2) || str[2] != NULL
-		|| check_texture_extension(game, str[1]))
+	if (ft_strncmp(str[0], direction, 2) || str[2] != NULL)
 	{
 		write(1, "Error\nInvalid texture format.\n", 30);
+		free_split(str);
+		cleanup_up(game, 1);
+	}
+	if (check_texture_extension(str[1]))
+	{
+		write(1, "Error\nInvalid texture extension.\n", 33);
+		free_split(str);
 		cleanup_up(game, 1);
 	}
 	fd = open(str[1], O_RDONLY);
 	if (fd < 0)
 	{
 		write(1, "Error\nCant access texture file.\n", 33);
+		free_split(str);
 		cleanup_up(game, 1);
 	}
 	close(fd);
@@ -48,6 +55,7 @@ int	put_texture(t_data *game, char **str, char *direction)
 	else
 	{
 		write(1, "Error\nInvalid texture.\n", 24);
+		free_split(str);
 		cleanup_up(game, 1);
 	}
 	return (0);

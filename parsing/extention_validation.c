@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 16:57:01 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/07 18:33:47 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/08 22:59:22 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	check_file(t_data *game, char *filename)
 	}
 }
 
-int	check_texture_extension(t_data *game, char *filename)
+int	check_texture_extension(char *filename)
 {
 	int	name_len;
 
@@ -42,8 +42,7 @@ int	check_texture_extension(t_data *game, char *filename)
 		|| filename[name_len - 2] != 'p'
 		|| filename[name_len - 1] != 'm')
 	{
-		write(1, "Error\nInvalid texture extension.\n", 34);
-		cleanup_up(game, 1);
+		return (1);
 	}
 	return (0);
 }

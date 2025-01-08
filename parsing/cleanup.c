@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 18:10:46 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/07 19:52:11 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/08 22:58:22 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 void	cleanup_up(t_data *game, int num)
 {
 	int	i;
-
+	if(game->input->fd > 0)
+		close(game->input->fd);
 	if (game->input->line)
 		free(game->input->line);
-	if (game->input->fd > 0)
-		close(game->input->fd);
 	if (game->input->no_texture)
 		free(game->input->no_texture);
 	if (game->input->so_texture)
@@ -37,6 +36,7 @@ void	cleanup_up(t_data *game, int num)
 	}
 	if (game->input)
 		free(game->input);
+	get_next_line(-2);
 	if (num == 1)
 		exit(1);
 }
@@ -62,4 +62,10 @@ char	**freemem(int i, char **result)
 	}
 	free(result);
 	return (NULL);
+}
+
+void	free_str(char *str)
+{
+	if (str)
+		free(str);
 }
