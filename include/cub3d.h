@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/08 23:45:32 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/09 16:54:43 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,11 +229,12 @@ int						is_empty_line(char *line);
 int						check_parsed_elements(t_data *game);
 
 int						handle_map_line(t_data *game, char *line);
+char					*handle_errors(int chars_readed, char *rest);
 void					check_position(t_data *game, int y, int x);
 void					validate_map(t_data *game);
 int						parse_map(t_data *game, char *filename);
 
 void					check_file(t_data *game, char *filename);
-int						check_texture_extension( char *filename);
+int						check_texture_extension(char *filename);
 
 #endif

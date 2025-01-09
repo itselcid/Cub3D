@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 15:12:53 by oessaadi          #+#    #+#             */
-/*   Updated: 2025/01/07 14:01:55 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:54:07 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,15 @@ char	*ft_strchr(char *s, int c)
 	if ((char)c == '\0')
 		return ((char *)s);
 	return (NULL);
+}
+
+char	*handle_errors(int chars_readed, char *rest)
+{
+	if (chars_readed == -1 || (chars_readed == 0 && (rest == NULL
+				|| *rest == '\0')))
+	{
+		free(rest);
+		rest = NULL;
+	}
+	return (rest);
 }

@@ -1,7 +1,7 @@
-EA ./textures/E3.xpmw
+EA ./textures/E3.xpm
 NO ./textures/E.xpm
 SO ./textures/E.xpm
-WE ./textures/E3.xpm
+WE ./textures/E3.xpmw
 
 F 100,149,237
 C 255,228,181

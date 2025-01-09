@@ -6,20 +6,14 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 18:10:46 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/08 23:25:01 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:03:05 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	cleanup_up(t_data *game, int num)
+void	cleanup_textures(t_data *game)
 {
-	int	i;
-
-	if (game->input->fd > 0)
-		close(game->input->fd);
-	if (game->input->line)
-		free(game->input->line);
 	if (game->input->no_texture)
 		free(game->input->no_texture);
 	if (game->input->so_texture)
@@ -28,6 +22,12 @@ void	cleanup_up(t_data *game, int num)
 		free(game->input->we_texture);
 	if (game->input->ea_texture)
 		free(game->input->ea_texture);
+}
+
+void	cleanup_map_data(t_data *game)
+{
+	int	i;
+
 	if (game->input->map_data)
 	{
 		i = 0;
@@ -35,6 +35,16 @@ void	cleanup_up(t_data *game, int num)
 			free(game->input->map_data[i++]);
 		free(game->input->map_data);
 	}
+}
+
+void	cleanup_up(t_data *game, int num)
+{
+	if (game->input->fd > 0)
+		close(game->input->fd);
+	if (game->input->line)
+		free(game->input->line);
+	cleanup_textures(game);
+	cleanup_map_data(game);
 	if (game->input)
 		free(game->input);
 	get_next_line(-2);
@@ -63,10 +73,4 @@ char	**freemem(int i, char **result)
 	}
 	free(result);
 	return (NULL);
-}
-
-void	free_str(char *str)
-{
-	if (str)
-		free(str);
 }

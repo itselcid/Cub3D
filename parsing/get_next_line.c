@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 15:12:38 by oessaadi          #+#    #+#             */
-/*   Updated: 2025/01/08 23:28:20 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/09 16:54:48 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,6 @@ char	*ft_rest(char *str)
 	return (rest);
 }
 
-char	*handle_errors(int chars_readed, char *rest)
-{
-	if (chars_readed == -1 || (chars_readed == 0 && (rest == NULL
-				|| *rest == '\0')))
-	{
-		free(rest);
-		rest = NULL;
-	}
-	return (rest);
-}
-
 char	*read_from_file(int fd, char *rest, char *buff, ssize_t *chars_readed)
 {
 	char	*tmp;
@@ -70,6 +59,24 @@ char	*read_from_file(int fd, char *rest, char *buff, ssize_t *chars_readed)
 	return (rest);
 }
 
+char	*init(int fd, char **buff, char **rest)
+{
+	if (fd == -2 && *rest)
+	{
+		free(*rest);
+		*rest = NULL;
+		return (NULL);
+	}
+	if (BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || fd < 0)
+		return (NULL);
+	*buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!*buff)
+		return (NULL);
+	if (*rest == NULL)
+		*rest = ft_strjoin("", "");
+	return (*rest);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*rest;
@@ -78,19 +85,8 @@ char	*get_next_line(int fd)
 	char		*tmp;
 	ssize_t		chars_readed;
 
-	if (fd == -2 && rest)
-	{
-		free(rest);
-		rest = NULL;
+	if (!init(fd, &buff, &rest))
 		return (NULL);
-	}
-	if (BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || fd < 0)
-		return (NULL);
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buff)
-		return (NULL);
-	if (rest == NULL)
-		rest = ft_strjoin("", "");
 	rest = read_from_file(fd, rest, buff, &chars_readed);
 	free(buff);
 	rest = handle_errors(chars_readed, rest);
