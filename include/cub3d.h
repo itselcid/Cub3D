@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/09 11:12:38 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:48:44 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct s_data
 }						t_data;
 
 char					*get_next_line(int fd);
+char					*handle_errors(int chars_readed, char *rest);
 char					*ft_strdup(char *src);
 
 int						ft_strlen(char *str);
@@ -236,6 +237,6 @@ void					validate_map(t_data *game);
 int						parse_map(t_data *game, char *filename);
 
 void					check_file(t_data *game, char *filename);
-int						check_texture_extension(t_data *game, char *filename);
+int						check_texture_extension(char *filename);
 
 #endif
