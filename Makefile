@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g# -fsanitize=address
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 
-SRC = parsing/helpers.c parsing/ft_split.c source/put_textures.c source/projection_wall.c source/raycasting_util.c source/raycasting.c source/movement.c source/put_pixels_in_image.c \
+SRC = source/utils.c parsing/helpers.c parsing/ft_split.c source/put_textures.c source/projection_wall.c source/raycasting_util.c source/raycasting.c source/movement.c source/put_pixels_in_image.c \
 	source/cub3d.c source/calcule_data_map.c parsing/get_next_line.c parsing/get_next_line_utils.c source/init_data.c \
 	parsing/texture_parsing.c parsing/color_parsing.c parsing/map_utils.c parsing/cleanup.c \
 	parsing/map_parsing.c parsing/input_parsing.c parsing/extention_validation.c parsing/ft_atoi.c

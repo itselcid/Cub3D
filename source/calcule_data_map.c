@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/08 22:29:07 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:12:21 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@ void	init_raycas(t_data *data)
 	data->raycas->nbr_ray = data->img->width;
 	data->raycas->ray = malloc(data->raycas->nbr_ray * sizeof(t_rays));
 	if (data->raycas->ray == NULL)
+	{
 		exit(1);
+	}
 }
 
 int	close_window(t_data *data)
 {
 	cleanup_up(data, 0);
-	mlx_destroy_window(data->mlx, data->win);
+	free_raycas(data);
+	destroy(data);
 	exit(0);
 	return (0);
 }
