@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/09 11:12:21 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:16:11 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	close_window(t_data *data)
 {
 	cleanup_up(data, 0);
 	free_raycas(data);
+	free(data->player);
 	destroy(data);
 	exit(0);
 	return (0);
