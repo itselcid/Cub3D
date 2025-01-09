@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 14:27:29 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/09 14:22:44 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	draw_texture_sky_floor(t_data *data, int ray_id,
 		wall_bottom = data->img->height - 1;
 	draw_vertical_line(data, ray_id, 0, wall_top - 1);
 	draw_textured_wall(data, ray_id, wall_height, ray_id);
-	draw_vertical_line(data, ray_id, wall_bottom + 1, data->img->height - 1);
+	draw_vertical_line(data, ray_id, wall_bottom + 1, data->img->height - 1.3);
 }
 
 void	projection_wall(t_data *data)
