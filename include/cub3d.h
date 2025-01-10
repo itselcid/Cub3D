@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/10 16:38:39 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:42:55 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ double					distance_vertical(t_data *data, int ray_id);
 int						is_wall(double x, double y, t_data *data);
 void					destroy(t_data *data);
 void					free_raycas(t_data *data);
+void					clean_all(t_data *data);
 // parsing
 
 int						parse_texture(t_data *game, char *line,

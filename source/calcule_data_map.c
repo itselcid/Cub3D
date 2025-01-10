@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/09 17:16:11 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:44:40 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,15 @@ void	init_raycas(t_data *data)
 
 int	close_window(t_data *data)
 {
-	cleanup_up(data, 0);
-	free_raycas(data);
-	free(data->player);
-	destroy(data);
-	exit(0);
+	clean_all(data);
 	return (0);
 }
 
 void	init_image_and_ray(t_data *data)
 {
+	data->player->player_x = 0;
 	data->player->player_x = data->input->player_x;
+	data->player->player_y = 0;
 	data->player->player_y = data->input->player_y;
 	check_direction(data, data->player->player_x, data->player->player_y);
 	data->h = data->input->height;

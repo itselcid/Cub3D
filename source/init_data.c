@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/09 10:48:51 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:36:41 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	for_free(t_data *data)
 {
-	printf("Error: Failed to allocate player structure\n");
+	printf("Error: Failed to allocate player structure1\n");
 	free(data->img);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
