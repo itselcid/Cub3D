@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:34:03 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 15:56:03 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:33:08 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ double	calcule_first_intersection_with_x(t_data *data, int ray_id,
 			+ data->size_textures;
 		data->raycas->ray[ray_id].y_step = data->size_textures;
 	}
-	x = player_x + (data->raycas->ray[ray_id].y_first_point
-			- player_y) / tan(data->raycas->ray[ray_id].ray_angle);
+	x = player_x + (data->raycas->ray[ray_id].y_first_point - player_y)
+		/ tan(data->raycas->ray[ray_id].ray_angle);
 	data->raycas->ray[ray_id].x_step = data->raycas->ray[ray_id].y_step
 		/ tan(data->raycas->ray[ray_id].ray_angle);
-	if ((data->raycas->ray[ray_id].left
-			&& data->raycas->ray[ray_id].x_step > 0)
+	if ((data->raycas->ray[ray_id].left && data->raycas->ray[ray_id].x_step > 0)
 		|| (data->raycas->ray[ray_id].right
 			&& data->raycas->ray[ray_id].x_step < 0))
 		data->raycas->ray[ray_id].x_step = -data->raycas->ray[ray_id].x_step;
@@ -60,12 +59,11 @@ double	calcule_first_intersection_with_y(t_data *data, int ray_id,
 			+ data->size_textures;
 		data->raycas->ray[ray_id].x_step = data->size_textures;
 	}
-	y = player_y + (data->raycas->ray[ray_id].x_first_point
-			- player_x) * tan(data->raycas->ray[ray_id].ray_angle);
+	y = player_y + (data->raycas->ray[ray_id].x_first_point - player_x)
+		* tan(data->raycas->ray[ray_id].ray_angle);
 	data->raycas->ray[ray_id].y_step = data->raycas->ray[ray_id].x_step
 		* tan(data->raycas->ray[ray_id].ray_angle);
-	if ((data->raycas->ray[ray_id].up
-			&& data->raycas->ray[ray_id].y_step > 0)
+	if ((data->raycas->ray[ray_id].up && data->raycas->ray[ray_id].y_step > 0)
 		|| (data->raycas->ray[ray_id].down
 			&& data->raycas->ray[ray_id].y_step < 0))
 		data->raycas->ray[ray_id].y_step = -data->raycas->ray[ray_id].y_step;
@@ -77,8 +75,8 @@ int	is_wall(double x, double y, t_data *data)
 	int	map_x;
 	int	map_y;
 
-	map_x = floor(x) / data->size_textures;
-	map_y = floor(y) / data->size_textures;
+	map_x = (int)(x / data->size_textures);
+	map_y = (int)(y / data->size_textures);
 	if (map_x < 0 || map_x >= data->w || map_y < 0 || map_y >= data->h)
 		return (1);
 	if (data->input->map_data[map_y][map_x] == '1')
