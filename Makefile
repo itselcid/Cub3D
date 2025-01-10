@@ -1,7 +1,7 @@
 NAME = cub3D
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g# -fsanitize=address
-MLXFLAGS = -lmlx -lXext -lX11 -lm
+CFLAGS = -Wall -Wextra -Werror -g3 # -fsanitize=address
+MLXFLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 
 SRC = source/utils.c parsing/helpers.c parsing/ft_split.c source/put_textures.c source/projection_wall.c source/raycasting_util.c source/raycasting.c source/movement.c source/put_pixels_in_image.c \
 	source/cub3d.c source/calcule_data_map.c parsing/get_next_line.c parsing/get_next_line_utils.c source/init_data.c \
