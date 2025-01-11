@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/10 20:44:40 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:55:28 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	init_image_and_ray(t_data *data)
 	data->player->player_y = 0;
 	data->player->player_y = data->input->player_y;
 	check_direction(data, data->player->player_x, data->player->player_y);
+	init_image(data);
 	data->h = data->input->height;
 	data->w = data->input->width;
-	init_image(data);
 	data->win = mlx_new_window(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D");
 	if (!data->win)
 	{
