@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/07 16:12:36 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:07:25 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	cast_rays(t_data *data)
 		normalize_angle(&ray_angle);
 		data->raycas->ray[ray_id].ray_angle = ray_angle;
 		cast_ray(data, ray_id);
+		projection_wall(data, ray_id);
 		ray_id++;
 	}
 }

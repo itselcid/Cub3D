@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/09 14:22:44 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:05:48 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,14 @@ void	draw_texture_sky_floor(t_data *data, int ray_id,
 	draw_vertical_line(data, ray_id, wall_bottom + 1, data->img->height - 1.3);
 }
 
-void	projection_wall(t_data *data)
+void	projection_wall(t_data *data, int ray_id)
 {
-	int		ray_id;
 	double	angle_diff;
 	double	corrected_distance;
 
-	ray_id = 0;
-	while (ray_id < data->raycas->nbr_ray)
-	{
-		angle_diff = data->raycas->ray[ray_id].ray_angle - data->player->angle;
-		normalize_angle(&angle_diff);
-		corrected_distance = data->raycas->ray[ray_id].ray_distance
-			* cos(angle_diff);
-		if (corrected_distance <= 0.0)
-			corrected_distance = 0.1;
-		draw_texture_sky_floor(data, ray_id, corrected_distance);
-		ray_id++;
-	}
+	angle_diff = data->raycas->ray[ray_id].ray_angle - data->player->angle;
+	normalize_angle(&angle_diff);
+	corrected_distance = data->raycas->ray[ray_id].ray_distance
+		* cos(angle_diff);
+	draw_texture_sky_floor(data, ray_id, corrected_distance);
 }

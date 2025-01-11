@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/10 20:42:55 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:06:39 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int						key_handler(int key_code, t_data *data);
 void					move_player(t_data *data);
 int						relase_key(int key_code, t_data *data);
 void					cast_rays(t_data *data);
-void					projection_wall(t_data *data);
+void					projection_wall(t_data *data, int ray_id);
 
 t_e_texture				determine_wall_side(t_data *data, int ray_id);
 int						parse_map(t_data *game, char *filename);
