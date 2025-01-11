@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 16:38:07 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 15:39:57 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 16:19:47 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,7 @@ t_texture	init_for_image(t_data *data, char *path, t_e_texture side)
 		cleanup_up(data, 1);
 		destroy(data);
 	}
-	if (texture.width != 64 || texture.height != 64)
-	{
-		printf("Error : size is not 64\n");
-		cleanup_up(data, 1);
-		destroy(data);
-	}
+
 	texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel,
 			&texture.line_length, &texture.endian);
 	texture.texture_side = side;

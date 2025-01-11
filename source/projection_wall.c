@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   projection_wall.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 13:49:36 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 15:05:48 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 16:10:59 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,25 @@ void	draw_texture_sky_floor(t_data *data, int ray_id,
 	draw_vertical_line(data, ray_id, wall_bottom + 1, data->img->height - 1.3);
 }
 
-void	projection_wall(t_data *data, int ray_id)
+void projection_wall(t_data *data, int ray_id)
 {
-	double	angle_diff;
-	double	corrected_distance;
+    double angle_diff;
+    double corrected_distance;
+    double wall_height;
 
-	angle_diff = data->raycas->ray[ray_id].ray_angle - data->player->angle;
-	normalize_angle(&angle_diff);
-	corrected_distance = data->raycas->ray[ray_id].ray_distance
-		* cos(angle_diff);
-	draw_texture_sky_floor(data, ray_id, corrected_distance);
+    // Calculate precise angle difference
+    angle_diff = data->raycas->ray[ray_id].ray_angle - data->player->angle;
+    normalize_angle(&angle_diff);
+    
+    // Remove fisheye effect with cosine correction
+    corrected_distance = data->raycas->ray[ray_id].ray_distance * cos(angle_diff);
+    
+    // Calculate wall height with improved precision
+    wall_height = (data->size_textures / corrected_distance) * PROJECTION_PLANE_DISTANCE;
+    
+    // Prevent excessive wall heights
+    if (wall_height > WINDOW_HEIGHT * 3)
+        wall_height = WINDOW_HEIGHT * 3;
+        
+    draw_texture_sky_floor(data, ray_id, corrected_distance);
 }
