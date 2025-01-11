@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/10 22:53:32 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:27:21 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,9 @@ void	var_use_in_image(t_var_for_textures *var, float wall_height,
 	var->wall_x = fmod(var->wall_x, game->size_textures);
 	if (var->wall_x < 0)
 		var->wall_x += game->size_textures;
-	var->tex_x = (int)(var->wall_x * game->texture[var->side].width
-			/ game->size_textures);
-	if (var->tex_x >= game->texture[var->side].width)
-		var->tex_x = game->texture[var->side].width - 1;
+	var->tex_offset_x = (int)var->wall_x % game->size_textures;
+	if (var->tex_offset_x >= game->texture[var->side].width)
+		var->tex_offset_x = game->texture[var->side].width - 1;
 	var->step = (double)game->texture[var->side].height / wall_height;
 	var->tex_pos = (var->wall_top - WINDOW_HEIGHT / 2.0 + wall_height / 2.0)
 		* var->step;
@@ -84,9 +83,10 @@ void	draw_textured_wall(t_data *game, int x, float wall_height,
 	y = var.wall_top;
 	while (y < var.wall_bottom)
 	{
-		var.tex_y = (int)var.tex_pos & (game->texture[var.side].height - 1);
-		color = get_texture_color(&game->texture[var.side], var.tex_x,
-				var.tex_y, game);
+		var.tex_offset_y = (int)var.tex_pos & (game->texture[var.side].height
+				- 1);
+		color = get_texture_color(&game->texture[var.side], var.tex_offset_x,
+				var.tex_offset_y, game);
 		my_mlx_pixel_put(game->img, x, y, color);
 		var.tex_pos += var.step;
 		y++;

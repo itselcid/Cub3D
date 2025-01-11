@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 15:50:06 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:21:51 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,10 +143,10 @@ typedef struct s_var_for_textures
 	int					wall_bottom;
 	t_e_texture			side;
 	double				wall_x;
-	int					tex_x;
+	int					tex_offset_x;
 	double				tex_pos;
 	double				step;
-	int					tex_y;
+	int					tex_offset_y;
 }						t_var_for_textures;
 
 typedef struct s_data
