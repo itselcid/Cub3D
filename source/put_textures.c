@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/12 00:07:11 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/12 00:13:11 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ void	draw_textured_wall(t_data *game, int x, float wall_height,
 	y = var.wall_top;
 	while (y < var.wall_bottom)
 	{
-		var.tex_offset_y = (int)var.tex_pos + (game->texture[var.side].height
-				- 1);
+		var.tex_offset_y = (int)var.tex_pos & 63;
 		color = get_texture_color(&game->texture[var.side], var.tex_offset_x,
 				var.tex_offset_y, game);
 		my_mlx_pixel_put(game->img, x, y, color);
