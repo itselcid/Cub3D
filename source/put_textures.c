@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 10:29:48 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 23:27:21 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/11 23:36:10 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,7 @@ void	var_use_in_image(t_var_for_textures *var, float wall_height,
 		var->wall_x = game->raycas->ray[ray_index].wall_x;
 	else
 		var->wall_x = game->raycas->ray[ray_index].wall_y;
-	var->wall_x = fmod(var->wall_x, game->size_textures);
-	if (var->wall_x < 0)
-		var->wall_x += game->size_textures;
 	var->tex_offset_x = (int)var->wall_x % game->size_textures;
-	if (var->tex_offset_x >= game->texture[var->side].width)
-		var->tex_offset_x = game->texture[var->side].width - 1;
 	var->step = (double)game->texture[var->side].height / wall_height;
 	var->tex_pos = (var->wall_top - WINDOW_HEIGHT / 2.0 + wall_height / 2.0)
 		* var->step;
