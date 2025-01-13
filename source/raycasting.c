@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 17:24:52 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 15:07:25 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:00:50 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	cast_ray(t_data *data, int ray_id)
 	player_facing(data, ray_id);
 	h_distance = distance_horizontal(data, ray_id);
 	v_distance = distance_vertical(data, ray_id);
-	if (h_distance < v_distance)
+	if (h_distance <= v_distance)
 	{
 		data->raycas->ray[ray_id].wall_x = data->raycas->ray[ray_id].end_x_h;
 		data->raycas->ray[ray_id].wall_y = data->raycas->ray[ray_id].end_y_h;
