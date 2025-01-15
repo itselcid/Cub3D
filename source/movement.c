@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:45:03 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/13 16:55:16 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/15 21:20:40 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ void	validate_move(t_data *data, double new_x, double new_y)
 	new_map_y = (int)new_y;
 	old_map_x = (int)data->player->player_x;
 	old_map_y = (int)data->player->player_y;
-	// Check X collision separately
-	if (new_map_x >= 0 && new_map_x < data->input->width
-		&& data->input->map_data[old_map_y][new_map_x] != '1')
-		data->player->player_x = new_x;
-	// Check Y collision separately
-	if (new_map_y >= 0 && new_map_y < data->input->height
-		&& data->input->map_data[new_map_y][old_map_x] != '1')
-		data->player->player_y = new_y;
+	if (new_map_x >= 0 && new_map_x < data->input->width && new_map_y >= 0
+		&& new_map_y < data->input->height
+		&& data->input->map_data[new_map_y][new_map_x] != '1')
+	{
+		if (data->input->map_data[old_map_y][new_map_x] != '1'
+			&& data->input->map_data[new_map_y][old_map_x] != '1')
+		{
+			data->player->player_x = new_x;
+			data->player->player_y = new_y;
+		}
+	}
 }
 
 void	move_player(t_data *data)
