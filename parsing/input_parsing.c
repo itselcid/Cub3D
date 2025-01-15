@@ -6,7 +6,7 @@
 /*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 18:28:59 by el_cid            #+#    #+#             */
-/*   Updated: 2025/01/09 16:33:52 by el_cid           ###   ########.fr       */
+/*   Updated: 2025/01/15 21:58:53 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,26 @@ int	process_line(t_data *game, int *elements_done, int *map_begin)
 
 void	validate_map_data(t_data *game)
 {
+	int	i;
+	int	j;
+
 	fill_map_spaces(game);
 	validate_map(game);
+	i = 0;
+	while (game->input->map_data[i])
+	{
+		j = 0;
+		while (game->input->map_data[i][j])
+		{
+			if (game->input->map_data[i][j] == ' '
+				|| game->input->map_data[i][j] == '\t')
+			{
+				game->input->map_data[i][j] = '1';
+			}
+			j++;
+		}
+		i++;
+	}
 	if (game->input->player_x == -1)
 	{
 		write(1, "Error\nPlayer position not found\n", 33);
