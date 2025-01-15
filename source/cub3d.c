@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:31:25 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 15:50:54 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:21:19 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	main(int ac, char **av)
 	init_data(&data);
 	init_image_and_ray(&data);
 	print();
+	change_map(&data);
 	mlx_hook(data.win, 17, 0, close_window, &data);
 	mlx_hook(data.win, 2, 1L << 0, key_handler, &data);
 	mlx_hook(data.win, 3, 1L << 1, relase_key, &data);

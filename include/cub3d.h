@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 23:21:51 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:21:42 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ typedef struct s_data
 	t_var_for_textures	*var_texture;
 }						t_data;
 
+void					change_map(t_data *data);
 char					*get_next_line(int fd);
 char					*handle_errors(int chars_readed, char *rest);
 char					*ft_strdup(char *src);

@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:11:59 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 15:53:01 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:21:35 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,25 @@ void	clean_all(t_data *data)
 	free(data->player);
 	free_raycas(data);
 	exit(0);
+}
+
+void	change_map(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < data->input->height)
+	{
+		j = 0;
+		while (j < data->input->width)
+		{
+			if (data->input->map_data[i][j] == ' ')
+			{
+				data->input->map_data[i][j] = '1';
+			}
+			j++;
+		}
+		i++;
+	}
 }
