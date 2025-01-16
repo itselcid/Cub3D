@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/11 15:55:28 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/16 21:04:14 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	check_direction(t_data *data, float x, float y)
 		data->player->angle = 3 * M_PI / 2;
 	else if (c == 'S')
 		data->player->angle = M_PI / 2;
-	else if (c == 'S')
+	else if (c == 'E')
 		data->player->angle = 0;
 	else if (c == 'W')
 		data->player->angle = M_PI;
