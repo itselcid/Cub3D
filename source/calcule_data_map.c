@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calcule_data_map.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
+/*   By: el_cid <el_cid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 10:53:58 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/16 21:04:14 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/16 23:02:30 by el_cid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	close_window(t_data *data)
 void	init_image_and_ray(t_data *data)
 {
 	data->player->player_x = 0;
-	data->player->player_x = data->input->player_x;
+	data->player->player_x = data->input->player_x + 0.5;
 	data->player->player_y = 0;
-	data->player->player_y = data->input->player_y;
+	data->player->player_y = data->input->player_y + 0.5;
 	check_direction(data, data->player->player_x, data->player->player_y);
 	init_image(data);
 	data->h = data->input->height;
