@@ -6,7 +6,7 @@
 /*   By: oel-moue <oel-moue@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 19:51:24 by oel-moue          #+#    #+#             */
-/*   Updated: 2025/01/15 21:21:42 by oel-moue         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:50:35 by oel-moue         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 # define ROTATE_SPEED 0.006
 # define NUM_WALL_TEXTURES 4
-
+# define PADDING 0.11
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 700
 
